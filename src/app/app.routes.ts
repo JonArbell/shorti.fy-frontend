@@ -1,0 +1,33 @@
+import { Routes } from '@angular/router';
+import { AuthenticatedBasePageComponent } from './authenticated/authenticated-base-page/authenticated-base-page.component';
+import { DashboardComponent } from './authenticated/dashboard/dashboard.component';
+import { HomeComponent } from './authenticated/home/home.component';
+import { MyUrlsComponent } from './authenticated/my-urls/my-urls.component';
+import { QrCodesComponent } from './authenticated/qr-codes/qr-codes.component';
+
+export const routes: Routes = [
+
+    {
+        path : '',
+        component : AuthenticatedBasePageComponent,
+        children : [
+            {
+                path : 'home',
+                component : HomeComponent
+            },
+            {
+                path : 'dashboard',
+                component : DashboardComponent
+            },
+            {
+                path : 'my-urls',
+                component : MyUrlsComponent
+            },
+            {
+                path : 'qr-code',
+                component : QrCodesComponent
+            }
+        ]
+    }
+
+];

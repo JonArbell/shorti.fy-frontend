@@ -1,0 +1,57 @@
+<section class="p-7 bg-gray-100 h-full flex flex-col gap-7">
+
+    <h1 class="font-extrabold text-4xl text-gray-800">My URLs</h1>
+
+    <section class="bg-white shadow-lg rounded-xl overflow-hidden">
+        <table class="w-full border-collapse">
+            <thead>
+                <tr class="bg-gradient-to-r from-blue-500 to-blue-700 text-white text-left">
+                    <th class="p-4">Shortened URL</th>
+                    <th class="p-4">Original URL</th>
+                    <th class="p-4">Expiration</th>
+                    <th class="p-4">Max Clicks</th>
+                    <th class="p-4">Current Clicks</th>
+                    <th class="p-4 text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+                <tr class="hover:bg-gray-100 transition">
+                    <td class="p-4 text-blue-600"><a href="#">shortify.com/abc123</a></td>
+                    <td class="p-4 max-w-xs truncate overflow-hidden text-ellipsis whitespace-nowrap">https://example.com/very-long-url-example</td>
+                    <td class="p-4">12 hrs</td>
+                    <td class="p-4">100</td>
+                    <td class="p-4">45</td>
+                    <td class="p-4 text-center space-x-2">
+                        <button class="bg-blue-600 text-white px-3 py-1 rounded-md hover:bg-blue-700">Edit</button>
+                        <button class="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700">Delete</button>
+                    </td>
+                </tr>
+                <tr class="hover:bg-gray-100 transition">
+                    <td class="p-4 text-blue-600"><a href="#">shortify.com/xyz789</a></td>
+                    <td class="p-4 max-w-xs truncate overflow-hidden text-ellipsis whitespace-nowrap" title="https://example.com/very-long-url-example">
+                        https://example.com/very-long-url-example
+                    </td>                    
+                    <td class="p-4">30 min</td>
+                    <td class="p-4">50</td>
+                    <td class="p-4">23</td>
+                    <td class="p-4 text-center space-x-2">
+                        <button class="bg-blue-600 text-white px-3 py-1 rounded-md hover:bg-blue-700">Edit</button>
+                        <button class="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700">Delete</button>
+                    </td>
+                </tr>
+                <tr class="hover:bg-gray-100 transition">
+                    <td class="p-4 text-blue-600"><a href="#">shortify.com/qwe456</a></td>
+                    <td class="p-4 max-w-xs truncate overflow-hidden text-ellipsis whitespace-nowrap">https://test.com/random-url-here</td>
+                    <td class="p-4">5 min</td>
+                    <td class="p-4">10</td>
+                    <td class="p-4">7</td>
+                    <td class="p-4 text-center space-x-2">
+                        <button class="bg-blue-600 text-white px-3 py-1 rounded-md hover:bg-blue-700">Edit</button>
+                        <button class="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</section>
+
