@@ -18,12 +18,24 @@
             </form>
         </section>
     
-        <section class="flex flex-col justify-center items-center gap-4 w-full">
-            <h3 class="text-xl font-semibold text-gray-800">Result</h3>
-            <p class="bg-gray-100 px-4 py-2 rounded-lg shadow-sm text-gray-700">
+        <section  
+        class="flex flex-col justify-center items-center gap-4 w-full"
+        >
+            <h3 
+            class="text-xl font-semibold text-gray-800"
+            >Result</h3>
+
+            <button 
+            [ngClass]="{
+                'bg-gray-300' : isClicked,
+                'bg-gray-100' : !isClicked
+            }"
+            (click)="changeStyle()" 
+            class="cursor-pointer px-4 py-2 rounded-lg shadow-sm text-gray-700"
+            >
                 Shortened URL: <a href="https://shortify.com/shortened-url" target="_blank"
                     class="text-blue-600 font-medium hover:underline">https://shortify.com/shortened-url</a>
-            </p>
+            </button>
         </section>
     </section>
     
