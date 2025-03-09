@@ -3,7 +3,6 @@ import { AuthenticatedBasePageComponent } from './authenticated/authenticated-ba
 import { DashboardComponent } from './authenticated/dashboard/dashboard.component';
 import { HomeComponent } from './authenticated/home/home.component';
 import { MyUrlsComponent } from './authenticated/my-urls/my-urls.component';
-import { QrCodesComponent } from './authenticated/qr-codes/qr-codes.component';
 
 export const routes: Routes = [
 
@@ -22,10 +21,6 @@ export const routes: Routes = [
             {
                 path : 'my-urls',
                 component : MyUrlsComponent
-            },
-            {
-                path : 'qr-code',
-                component : QrCodesComponent
             }
         ]
     }
