@@ -1,3 +1,13 @@
 <section>
-  <router-outlet></router-outlet>
+
+  <section class="border-b-2 shadow-md relative z-50 border-gray-300">
+    <app-header></app-header>
+  </section>
+
+  @if (isLoggedIn()) {
+    <app-authenticated-base-page></app-authenticated-base-page>
+  }@else{
+    <app-authentication-base-page></app-authentication-base-page>
+  }
+
 </section>
