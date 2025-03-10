@@ -1,1 +1,27 @@
-<p>signin works!</p>
+<section 
+class="flex border-2 rounded-lg border-gray-300 shadow-md w-[20vw]"
+>
+    
+    <form class="w-full p-5 flex flex-col items-center gap-4">
+
+        <input class="p-2 w-full border-2 border-gray-400 rounded-md" type="email" placeholder="Email address">
+
+        <input class="p-2 w-full border-2 border-gray-400 rounded-md" type="password" placeholder="Password">
+
+        <button class="p-4 py-3 rounded-lg outline-0 bg-blue-500 font-semibold text-lg w-full text-gray-50">Log In</button>
+
+        <a
+        class="text-blue-600 cursor-pointer" 
+        routerLink="/forgot-password"
+        >Forgot password?</a>
+
+        <hr class="w-full ">
+
+        <a 
+        class="cursor-pointer p-4 text-center py-3 rounded-lg outline-0 bg-green-600 font-semibold text-lg w-[70%] text-gray-50"
+        routerLink="/sign-up"
+        >Create new account</a>
+
+    </form>
+
+</section>
