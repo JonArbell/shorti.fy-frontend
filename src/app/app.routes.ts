@@ -7,6 +7,11 @@ import { MyUrlsComponent } from './authenticated/my-urls/my-urls.component';
 export const routes: Routes = [
 
     {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full',  
+    },
+    {
         path : '',
         component : AuthenticatedBasePageComponent,
         children : [
