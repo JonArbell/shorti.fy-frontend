@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { SigninSignupComponent } from '../signin-signup/signin-signup.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-authentication-base-page',
-  imports: [SigninSignupComponent],
+  imports: [RouterOutlet],
   templateUrl: './authentication-base-page.component.html'
 })
 export class AuthenticationBasePageComponent {

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, signal } from '@angular/core';
-import { AuthenticationService } from '../../services/auth/authentication.service';
+import { AuthenticationService } from '../../../security/services/authentication.service';
 import { Router } from '@angular/router';
 
 @Component({
