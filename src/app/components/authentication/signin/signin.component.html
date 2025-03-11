@@ -2,7 +2,9 @@
 class="flex rounded-lg bg-white shadow-xl w-[20vw]"
 >
     
-    <form class="w-full p-5 flex flex-col items-center gap-4">
+    <form 
+    (formdata)="signinForm"
+    class="w-full p-5 flex flex-col items-center gap-4">
 
         <input class="outline-0 p-2 w-full border-2 border-gray-400 rounded-md" type="email" placeholder="Email address">
 
