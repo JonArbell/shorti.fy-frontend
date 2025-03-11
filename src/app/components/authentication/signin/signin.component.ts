@@ -14,32 +14,29 @@ export class SigninComponent {
   private authService = inject(AuthenticationService);
 
   signinForm = new FormGroup({
-    username: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(8)]),
   });
   
   public login() : void{
 
-    if(!this.signinForm.valid){
-      console.warn('Not valid');
-      return;
-    }
-
     const loginDTO = this.signinForm.getRawValue() as LoginDTO;
 
-    this.authService
-      .logIn(loginDTO)
-      .pipe(first())
-      .subscribe({
-        next : (response : any) =>{
+    // this.authService
+    //   .logIn(loginDTO)
+    //   .pipe(first())
+    //   .subscribe({
+    //     next : (response : any) =>{
 
-          console.log(response);
+    //       console.log(response);
 
-        },
-        error : (error : any) =>{
-          console.error(error);
-        }
-      });
+    //     },
+    //     error : (error : any) =>{
+    //       console.error(error);
+    //     }
+    //   });
+
+    console.log(loginDTO);
 
   }
 

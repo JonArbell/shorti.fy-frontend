@@ -3,21 +3,63 @@ class="flex rounded-lg bg-white shadow-xl w-[20vw]"
 >
     
     <form 
-    (formdata)="signinForm"
+    (ngSubmit)="login()"
+    [formGroup] = "signinForm"
     class="w-full p-5 flex flex-col items-center gap-4">
 
-        <input class="outline-0 p-2 w-full border-2 border-gray-400 rounded-md" type="email" placeholder="Email address">
+        @if(signinForm.invalid && signinForm.touched){
 
-        <input class="outline-0 p-2 w-full border-2 border-gray-400 rounded-md" type="password" placeholder="Password">
+            @if(signinForm.controls['email'].errors?.['required'] && 
+                signinForm.controls['password'].errors?.['required']){
+                <div class="text-red-500 text-sm">
+                    <small>Please enter all fields</small>
+                </div>
+            }
+            @else if(signinForm.controls['email'].errors){
+                <div class="text-red-500 text-sm">
+                    <small>Please enter valid email</small>
+                </div>
+            }
+            @else if(signinForm.controls['password'].errors){
+                <div class="text-red-500 text-sm">
+                    <small>Password must be at least 8 characters long and include at least one uppercase letter, one number, and one special character.</small>
+                </div>
 
-        <button class="p-4 py-3 rounded-lg outline-0 bg-blue-500 font-semibold text-lg w-full text-gray-50">Log In</button>
+            }
+        }
+        
+        <input 
+        formControlName="email" 
+        name="email" 
+        class="outline-0 p-2 w-full border-2 border-gray-400 rounded-md" 
+        type="email" 
+        aria-label="Email address"
+        autocomplete="email"
+        placeholder="Email address">
+        
+        
+
+        <input 
+        formControlName="password" 
+        name="password"
+        class="outline-0 p-2 w-full border-2 border-gray-400 rounded-md" 
+        type="password" 
+        aria-label="Password"
+        autocomplete="current-password"
+        placeholder="Password">
+
+        <button 
+        [disabled]="signinForm.invalid"
+        type="submit" 
+        class="p-4 py-3 rounded-lg outline-0 bg-blue-500 font-semibold text-lg w-full text-gray-50">Log In</button>
 
         <a
         class="text-blue-600 cursor-pointer" 
         routerLink="/forgot-password"
         >Forgot password?</a>
 
-        <hr class="w-full border-0 bg-gray-400 h-px">
+        <hr 
+        class="w-full border-0 bg-gray-400 h-px">
 
         <a 
         class="cursor-pointer p-4 text-center py-3 rounded-lg outline-0 bg-green-600 font-semibold text-lg w-[70%] text-gray-50"
