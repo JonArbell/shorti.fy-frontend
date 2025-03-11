@@ -6,7 +6,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 @Injectable({
   providedIn: 'root'
 })
-export class CanActivateGuard implements CanActivate {
+export class CanActivateAuthenticatedGuard implements CanActivate {
 
   constructor(
     private authService: AuthenticationService,
@@ -18,7 +18,7 @@ export class CanActivateGuard implements CanActivate {
       return true; // If the user is logged in, allow access
     } else {
       // If not logged in, redirect to login page
-      this.router.navigate(['/login']);  // Change '/login' to your login route
+      this.router.navigate(['/']);  // Change '/login' to your login route
       return false;
     }
   }
