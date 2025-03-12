@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
-import { Observable } from 'rxjs';
-import { LoginDTO } from '../../models/login.dto';
+import { Observable, shareReplay } from 'rxjs';
+import { LoginRequestDTO } from '../../dtos/loginRequest.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -17,11 +17,22 @@ export class AuthenticationService {
   ) { }
 
   public getIsLoggedIn() : boolean{
-    return this.isLoggedIn();
+    return !this.isLoggedIn();
   }
 
-  public logIn(body : LoginDTO) : Observable<any>{
-    return this.httpClient.post<any>(`${this.localHost}/api/authentication/login`,body);
+  public logout() : void{
+    localStorage.removeItem('jwtToken');
+  }
+
+  public setToken(token : string) : void{
+    localStorage.setItem('jwtToken',token);
+  }
+
+
+  public logIn(body : LoginRequestDTO) : Observable<any>{
+    return this.httpClient
+    .post<any>(`${this.localHost}/api/authentication/login`,body)
+    .pipe(shareReplay(1));
   }
 
 }

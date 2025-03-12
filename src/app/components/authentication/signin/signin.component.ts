@@ -2,8 +2,9 @@ import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthenticationService } from '../../../security/services/authentication.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { LoginDTO } from '../../../models/login.dto';
 import { first } from 'rxjs';
+import {  LoginRequestDTO } from '../../../dtos/loginRequest.dto';
+import { LogInResponse } from '../../../dtos/loginResponse.dto';
 
 @Component({
   selector: 'app-signin',
@@ -20,23 +21,21 @@ export class SigninComponent {
   
   public login() : void{
 
-    const loginDTO = this.signinForm.getRawValue() as LoginDTO;
+    const loginDTO = this.signinForm.getRawValue() as LoginRequestDTO;
 
-    // this.authService
-    //   .logIn(loginDTO)
-    //   .pipe(first())
-    //   .subscribe({
-    //     next : (response : any) =>{
+    this.authService
+      .logIn(loginDTO)
+      .pipe(first())
+      .subscribe({
+        next : (response : LogInResponse) =>{
 
-    //       console.log(response);
+          this.authService.setToken(response.jwtToken);
 
-    //     },
-    //     error : (error : any) =>{
-    //       console.error(error);
-    //     }
-    //   });
-
-    console.log(loginDTO);
+        },
+        error : (error : any) =>{
+          console.error(error);
+        }
+      });
 
   }
 
