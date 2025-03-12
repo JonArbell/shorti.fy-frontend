@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { Observable, shareReplay } from 'rxjs';
-import { LoginRequestDTO } from '../../dtos/loginRequest.dto';
+import { LoginRequestDTO } from '../../dtos/login.dto';
 
 @Injectable({
   providedIn: 'root'
