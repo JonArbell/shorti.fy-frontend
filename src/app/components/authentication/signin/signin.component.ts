@@ -3,8 +3,7 @@ import { RouterLink } from '@angular/router';
 import { AuthenticationService } from '../../../security/services/authentication.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { first } from 'rxjs';
-import {  LoginRequestDTO } from '../../../dtos/login.dto';
-import { LogInResponse } from '../../../dtos/loginResponse.dto';
+import { LoginRequestDTO, LogInResponse } from '../../../dtos/login.dto';
 
 @Component({
   selector: 'app-signin',
