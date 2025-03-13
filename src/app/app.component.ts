@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { AuthenticatedBasePageComponent } from './components/authenticated/authenticated-base-page/authenticated-base-page.component';
 import { AuthenticationBasePageComponent } from './components/authentication/authentication-base-page/authentication-base-page.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -11,18 +11,20 @@ import { FooterComponent } from './components/footer/footer.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent implements OnInit{
+export class AppComponent {
 
   isLoggedIn = signal(false);
 
-  constructor(
-    private authService : AuthenticationService
-  ){}
+  authService = inject(AuthenticationService)
 
-  ngOnInit(): void {
-
+  constructor() {
+    // Initialize the signal with the current authentication state
     this.isLoggedIn.set(this.authService.getIsLoggedIn());
 
+    // Automatically update the UI when the login state changes
+    effect(() => {
+      this.isLoggedIn.set(this.authService.getIsLoggedIn());
+    });
   }
 
 }

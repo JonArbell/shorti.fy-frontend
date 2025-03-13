@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthenticationService } from '../../../security/services/authentication.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { first } from 'rxjs';
@@ -14,8 +14,8 @@ export class SigninComponent {
   private authService = inject(AuthenticationService);
 
   signinForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    email: new FormControl('arbell@gmail.com', [Validators.required, Validators.email]),
+    password: new FormControl('asdsdfsdf', [Validators.required, Validators.minLength(8)]),
   });
   
   public login() : void{
@@ -28,8 +28,8 @@ export class SigninComponent {
       .subscribe({
         next : (response : LogInResponse) =>{
 
-          this.authService.setToken(response.jwtToken);
-
+          this.authService.setLogIn(response.jwtToken);
+          
         },
         error : (error : any) =>{
           console.error(error);

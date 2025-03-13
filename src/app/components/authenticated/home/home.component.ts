@@ -1,14 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, signal } from '@angular/core';
-import { AuthenticationService } from '../../../security/services/authentication.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   imports: [CommonModule],
   templateUrl: './home.component.html'
 })
-export class HomeComponent{
+export class HomeComponent implements OnInit{
+  ngOnInit(): void {
+    // localStorage.removeItem('jwtToken');
+  }
 
   public isClicked = false;
 
