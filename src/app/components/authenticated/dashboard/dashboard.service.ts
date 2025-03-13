@@ -7,7 +7,11 @@ import { Observable, shareReplay } from 'rxjs';
 })
 export class DashboardService {
 
-  http = inject(HttpClient);
+  constructor(
+    private http : HttpClient
+  ){
+
+  }
 
   private localHost : string = 'http://localhost:8080';
 
