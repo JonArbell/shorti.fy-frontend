@@ -11,7 +11,7 @@ export class AuthenticationService {
 
   private localHost : string = 'http://localhost:8080';
 
-  private isLoggedIn = signal(false);
+  private isLoggedIn = signal(!!localStorage.getItem('jwtToken'));
 
   constructor(
     private httpClient : HttpClient,

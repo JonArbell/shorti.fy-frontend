@@ -17,29 +17,34 @@ export const routes: Routes = [
     {
         path : 'forgot-password',
         component : ForgotPasswordComponent,
-        canActivate : [CanActivateAuthenticationGuard]
+        canActivate : [CanActivateAuthenticationGuard],
+        data: { title: 'Forgot password?' }
     },
     {
         path : 'sign-up',
         component : SignupComponent,
-        canActivate : [CanActivateAuthenticationGuard]
+        canActivate : [CanActivateAuthenticationGuard],
+        data: { title: 'Sign Up for Shorty.fy' }
     },
 
     
     {
         path : 'home',
         component : HomeComponent,
-        canActivate : [CanActivateAuthenticatedGuard]
+        canActivate : [CanActivateAuthenticatedGuard],
+        data: { title: 'Home' }
     },
     {
         path : 'dashboard',
         component : DashboardComponent,
-        canActivate : [CanActivateAuthenticatedGuard]
+        canActivate : [CanActivateAuthenticatedGuard],
+        data: { title: 'Dashboard' }
     },
     {
         path : 'my-urls',
         component : MyUrlsComponent,
-        canActivate : [CanActivateAuthenticatedGuard]
+        canActivate : [CanActivateAuthenticatedGuard],
+        data: { title: 'My URLs' }
     }
 
 ];

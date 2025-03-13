@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthenticationService } from '../../../security/services/authentication.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -10,7 +10,12 @@ import { LoginRequestDTO, LogInResponse } from '../../../dtos/login.dto';
   imports: [RouterLink, ReactiveFormsModule],
   templateUrl: './signin.component.html'
 })
-export class SigninComponent {
+export class SigninComponent implements OnInit{
+  
+  ngOnInit(): void {
+    // localStorage.removeItem('jwtToken');
+  }
+
   private authService = inject(AuthenticationService);
 
   signinForm = new FormGroup({
