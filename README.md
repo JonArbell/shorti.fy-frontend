@@ -13,8 +13,7 @@ Shorti.fy is a web application that allows users to convert long URLs into short
 - **Convert Long URLs to Short URLs:**
   - Enter a long URL (e.g., https://www.verylongwebsite.com/articles/how-to-build-a-url-shortener-in-java).
   - The system generates a short link (e.g., shorti-fy.netlify.app/Xyz123).
-- **Custom Short Links:**
-  - Users can define custom short links (e.g., myshort.netlify.app/mycustomlink instead of myshort.ly/abc123).
+  
 - **Expiration Dates:**
   - Users can set expiration dates for short links.
   - Expired links become inactive.
