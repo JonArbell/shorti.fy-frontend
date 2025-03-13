@@ -1,59 +1,56 @@
-# Shortify
+# Shorti.fy - URL Shortener with Custom Links & Expiration
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.5.
+Shorti.fy is a web application that allows users to convert long URLs into short, shareable links. It offers additional features like custom short URLs, expiration dates, click tracking, and QR code generation.
 
-## Development server
 
-To start a local development server, run:
+## 🚀 Features
+## 🔑 Authentication
+- **Sign In & Sign Up:** Secure authentication for users.
+- **Forgot Password:** Reset password functionality for account recovery.
 
-```bash
-ng serve
-```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## 🔗 URL Shortening
+- **Convert Long URLs to Short URLs:**
+  - Enter a long URL (e.g., https://www.verylongwebsite.com/articles/how-to-build-a-url-shortener-in-java).
+  - The system generates a short link (e.g., shorti-fy.netlify.app/Xyz123).
+- **Custom Short Links:**
+  - Users can define custom short links (e.g., myshort.netlify.app/mycustomlink instead of myshort.ly/abc123).
+- **Expiration Dates:**
+  - Users can set expiration dates for short links.
+  - Expired links become inactive.
 
-## Code scaffolding
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 📊 Click Tracking & Analytics
+- **Track link clicks:** View how many times a short link has been accessed.
+- **Optional tracking:** Capture details like IP, device, and location.
 
-```bash
-ng generate component component-name
-```
+## 🖥️ Pages
+###🔓 Public Pages
+- Sign In
+- Sign Up
+- Forgot Password
+###🔒 Authenticated Pages
+- Home: Overview of the application.
+- Dashboard: Manage and analyze shortened URLs.
+- My URLs: View all created short links and their details.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
 
-```bash
-ng generate --help
-```
+## 🛠 Tech Stack
+###✅ Frontend: Angular + Tailwind CSS
 
-## Building
+- Interactive UI for managing URLs and user accounts.
 
-To build the project run:
 
-```bash
-ng build
-```
+### ✅ Backend: Spring Boot
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+- Handles URL shortening, user authentication, and analytics.
 
-## Running unit tests
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+### ✅ Database: PostgreSQL
 
-```bash
-ng test
-```
+- Stores URL mappings, expiration times, and user data.
 
-## Running end-to-end tests
 
-For end-to-end (e2e) testing, run:
+###✅ Caching: Redis
 
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- Speeds up URL retrieval for fast redirections.
