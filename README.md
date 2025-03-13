@@ -25,18 +25,18 @@ Shorti.fy is a web application that allows users to convert long URLs into short
 - **Optional tracking:** Capture details like IP, device, and location.
 
 ## 🖥️ Pages
-###🔓 Public Pages
+### 🔓 Public Pages
 - Sign In
 - Sign Up
 - Forgot Password
-###🔒 Authenticated Pages
+### 🔒 Authenticated Pages
 - Home: Overview of the application.
 - Dashboard: Manage and analyze shortened URLs.
 - My URLs: View all created short links and their details.
 
 
 ## 🛠 Tech Stack
-###✅ Frontend: Angular + Tailwind CSS
+### ✅ Frontend: Angular + Tailwind CSS
 
 - Interactive UI for managing URLs and user accounts.
 
@@ -51,6 +51,6 @@ Shorti.fy is a web application that allows users to convert long URLs into short
 - Stores URL mappings, expiration times, and user data.
 
 
-###✅ Caching: Redis
+### ✅ Caching: Redis
 
 - Speeds up URL retrieval for fast redirections.
