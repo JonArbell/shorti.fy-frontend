@@ -21,18 +21,10 @@ export class MyUrlsComponent {
         this.urls.set(response);
 
       },
-      error : (err) => {
+      error : (err : any) => {
         console.warn(err);
       },
     });
   }
-
-  id = signal(0);
-  originalUrl = signal("");
-  shortUrl = signal("");
-  currentClicked = signal(0);
-  maxClicked = signal(0);
-  expiryDate = signal("");
-  isExpired = signal(false);
 
 }

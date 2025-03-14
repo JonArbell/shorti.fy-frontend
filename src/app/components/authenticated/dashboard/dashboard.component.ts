@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit{
         this.mostClickedUrl.set(response.mostClickedUrl);
 
       },
-      error : (err) => {
+      error : (err : any) => {
         console.warn(err);
       },
     });
