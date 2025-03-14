@@ -16,7 +16,7 @@ export class MyUrlsComponent {
   ngOnInit(): void {
     this.myUrlService.getMyUrls()
     .subscribe({
-      next : (response : MyUrlsResponse[]) =>{
+      next : (response) =>{
 
         this.urls.set(response);
 

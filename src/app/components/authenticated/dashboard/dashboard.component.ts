@@ -16,7 +16,7 @@ export class DashboardComponent implements OnInit{
   ngOnInit(): void {
     this.dashboardService.getDashBoard()
     .subscribe({
-      next : (response : DashboardResponse) =>{
+      next : (response) =>{
         this.dashboard.set(response);
       },
       error : (err : any) => {

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, shareReplay } from 'rxjs';
+import { MyUrlsResponse } from '../../../models/my-urls.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +14,8 @@ export class MyUrlsService {
 
   private localHost : string = 'http://localhost:8080';
 
-  getMyUrls() : Observable<any>{
-    return this.http.get<any>(`${this.localHost}/api/authenticated/my-urls`);
+  public getMyUrls() : Observable<MyUrlsResponse[]>{
+    return this.http.get<MyUrlsResponse[]>(`${this.localHost}/api/authenticated/my-urls`);
   }
-
   
 }

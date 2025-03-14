@@ -29,9 +29,8 @@ export class SigninComponent implements OnInit{
 
     this.authService
       .logIn(loginDTO)
-      .pipe(first())
       .subscribe({
-        next : (response : LogInResponse) =>{
+        next : (response) =>{
 
           this.authService.setLogIn(response.jwtToken);
           

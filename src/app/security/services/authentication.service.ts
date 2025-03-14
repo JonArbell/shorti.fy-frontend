@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
-import { Observable, shareReplay } from 'rxjs';
-import { LoginRequestDTO } from '../../models/login.dto';
+import { first, Observable, shareReplay } from 'rxjs';
+import { LoginRequestDTO, LogInResponse } from '../../models/login.dto';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -42,14 +42,15 @@ export class AuthenticationService {
 
     console.log(`Panis : ${panis}`);
 
-    return this.httpClient.post<any>(`${this.localHost}/api/authenticated/logout`,panis);
+    return this.httpClient.post<any>(`${this.localHost}/api/authenticated/logout`,panis)
+    .pipe(first());
 
   }
  
-  public logIn(body : LoginRequestDTO) : Observable<any>{
+  public logIn(body : LoginRequestDTO) : Observable<LogInResponse>{
     return this.httpClient
-    .post<any>(`${this.localHost}/api/authentication/login`,body)
-    .pipe(shareReplay(1));
+    .post<LogInResponse>(`${this.localHost}/api/authentication/login`,body)
+    .pipe(first());
   }
 
 }
