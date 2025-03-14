@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { Observable, shareReplay } from 'rxjs';
-import { LoginRequestDTO } from '../../dtos/login.dto';
+import { LoginRequestDTO } from '../../models/login.dto';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -28,10 +28,22 @@ export class AuthenticationService {
     this.router.navigate(['/home']);
   }
 
-  public logout() : void{
+  public setLogOut() : void{
     localStorage.removeItem('jwtToken');
     this.isLoggedIn.set(false);
     this.router.navigate(['/']);
+  }
+
+  public logout() : any{
+
+    const token = localStorage.getItem('jwtToken');
+
+    const panis = {token : token};
+
+    console.log(`Panis : ${panis}`);
+
+    return this.httpClient.post<any>(`${this.localHost}/api/authenticated/logout`,panis);
+
   }
  
   public logIn(body : LoginRequestDTO) : Observable<any>{

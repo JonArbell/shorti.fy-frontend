@@ -5,3 +5,6 @@ export interface DashboardResponse{
     mostClickedUrl : string
 }
 
+export interface Dashboard extends DashboardResponse{
+
+}

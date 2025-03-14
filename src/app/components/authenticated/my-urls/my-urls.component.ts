@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { MyUrlsService } from './my-urls.service';
-import { MyUrlsResponse } from '../../../dtos/my-urls.dto';
+import { MyUrls, MyUrlsResponse } from '../../../models/my-urls.dto';
 
 @Component({
   selector: 'app-my-urls',
@@ -11,7 +11,7 @@ export class MyUrlsComponent {
 
   myUrlService = inject(MyUrlsService);
 
-  urls = signal<MyUrlsResponse[]>([]);
+  urls = signal<MyUrls[]>([]);
 
   ngOnInit(): void {
     this.myUrlService.getMyUrls()

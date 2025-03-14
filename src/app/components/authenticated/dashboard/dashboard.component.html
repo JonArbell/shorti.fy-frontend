@@ -5,22 +5,22 @@
     <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 w-full py-7">
         <div class="rounded-xl p-5 shadow-lg bg-white border border-gray-200">
             <h3 class="font-semibold text-gray-700 text-lg">Total URL Links</h3>
-            <p class="text-2xl font-bold text-blue-600">{{totalUrlLinks()}}</p>
+            <p class="text-2xl font-bold text-blue-600">{{dashboard().overallTotalUrlLinks}}</p>
         </div>
     
         <div class="rounded-xl p-5 shadow-lg bg-white border border-gray-200">
             <h3 class="font-semibold text-gray-700 text-lg">Active URLs</h3>
-            <p class="text-2xl font-bold text-green-600">{{totalActiveUrlLinks()}}</p>
+            <p class="text-2xl font-bold text-green-600">{{dashboard().totalActiveUrlLinks}}</p>
         </div>
     
         <div class="rounded-xl p-5 shadow-lg bg-white border border-gray-200">
             <h3 class="font-semibold text-gray-700 text-lg">Most Clicked URL</h3>
-            <p class="text-blue-500 truncate">{{mostClickedUrl()}}</p>
+            <p class="text-blue-500 truncate">{{dashboard().mostClickedUrl}}</p>
         </div>
     
         <div class="rounded-xl p-5 shadow-lg bg-white border border-gray-200">
             <h3 class="font-semibold text-gray-700 text-lg">Expired URLs</h3>
-            <p class="text-2xl font-bold text-red-600">{{totalExpiredUrlLinks()}}</p>
+            <p class="text-2xl font-bold text-red-600">{{dashboard().totalExpiredUrlLinks}}</p>
         </div>
     </section>
 

@@ -1,6 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { DashboardService } from './dashboard.service';
-import { DashboardResponse } from '../../../dtos/dashboard.dto';
+import { Dashboard, DashboardResponse } from '../../../models/dashboard.dto';
+import { AuthenticationService } from '../../../security/services/authentication.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,17 +11,13 @@ import { DashboardResponse } from '../../../dtos/dashboard.dto';
 export class DashboardComponent implements OnInit{
   
   dashboardService = inject(DashboardService);
+  authService = inject(AuthenticationService);
 
   ngOnInit(): void {
     this.dashboardService.getDashBoard()
     .subscribe({
       next : (response : DashboardResponse) =>{
-
-        this.totalUrlLinks.set(response.overallTotalUrlLinks);
-        this.totalActiveUrlLinks.set(response.totalActiveUrlLinks);
-        this.totalExpiredUrlLinks.set(response.totalExpiredUrlLinks);
-        this.mostClickedUrl.set(response.mostClickedUrl);
-
+        this.dashboard.set(response);
       },
       error : (err : any) => {
         console.warn(err);
@@ -28,9 +25,6 @@ export class DashboardComponent implements OnInit{
     });
   }
 
-  totalUrlLinks = signal(0)
-  totalActiveUrlLinks = signal(0)
-  totalExpiredUrlLinks = signal(0)
-  mostClickedUrl = signal("None")
+  dashboard = signal<Dashboard>({overallTotalUrlLinks : 0, totalActiveUrlLinks : 0, totalExpiredUrlLinks: 0, mostClickedUrl : "None"});
 
 } 

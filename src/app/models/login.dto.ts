@@ -1,4 +1,4 @@
-import { Url } from "../models/url.model";
+import { Url } from "./my-urls.dto";
 
 export interface LoginRequestDTO {
     email: string;
