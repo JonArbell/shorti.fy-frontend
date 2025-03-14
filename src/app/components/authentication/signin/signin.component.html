@@ -1,5 +1,5 @@
 <section 
-class="flex rounded-lg bg-white shadow-xl w-[20vw]"
+class="flex rounded-lg bg-white shadow-xl 3xl:w-[20vw] xxs:w-[90vw] xxs:text-xs"
 >
     
     <form 
@@ -49,10 +49,10 @@ class="flex rounded-lg bg-white shadow-xl w-[20vw]"
         <button 
         [disabled]="signinForm.invalid"
         type="submit" 
-        class="p-4 py-3 rounded-lg outline-0 bg-blue-500 font-semibold text-lg w-full text-gray-50">Log In</button>
+        class="p-4 py-3 rounded-lg outline-0 bg-blue-500 font-semibold xxs:text-xs 3xl:text-lg w-full text-gray-50">Log In</button>
 
         <a
-        class="text-blue-600 cursor-pointer" 
+        class="text-blue-600 cursor-pointer xxs:text-xs 3xl:text-sm" 
         routerLink="/forgot-password"
         >Forgot password?</a>
 
@@ -60,7 +60,7 @@ class="flex rounded-lg bg-white shadow-xl w-[20vw]"
         class="w-full border-0 bg-gray-400 h-px">
 
         <a 
-        class="cursor-pointer p-4 text-center py-3 rounded-lg outline-0 bg-green-600 font-semibold text-lg w-[70%] text-gray-50"
+        class="cursor-pointer p-4 text-center py-3 rounded-lg outline-0 bg-green-600 font-semibold 3xl:text-lg xxs:text-xs w-[70%] text-gray-50"
         routerLink="/sign-up"
         >Create new account</a>
 
