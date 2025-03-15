@@ -22,7 +22,8 @@ export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: 
             console.error(`Response : ${JSON.stringify(err)}`);
           }
         });
-      } else if (error.status === 0){
+      } 
+      else if (error.status === 0){
         authService.setLogOut();
       }
         
