@@ -1,37 +1,36 @@
 # Shorti.fy - URL Shortener with Custom Links & Expiration
 
-
-**👨‍💻 Creator & Developer:** Jon Arbell De Ocampo
-
 Shorti.fy is a web application that allows users to convert long URLs into short, shareable links. It offers additional features like custom short URLs, expiration dates, click tracking, and QR code generation.
 
 <br><br>
 
-## 🚀 Features
-### 🔑 Authentication
-- **Sign In & Sign Up:** Secure authentication for users.
-- **Forgot Password:** Reset password functionality for account recovery.
+## 🚀 Features  
 
+### 🔑 Authentication  
+- **Sign In & Sign Up:** Secure authentication for users.  
+- **Forgot Password:** Reset password functionality for account recovery.  
 
-### 🔗 URL Shortening
-- **Convert Long URLs to Short URLs:**
-  - Enter a long URL (e.g., https://www.verylongwebsite.com/articles/how-to-build-a-url-shortener-in-java).
-  - The system generates a short link (e.g., s-fy.onrender.com/Xz4).
+### 🔗 URL Shortening  
+- **Convert Long URLs to Short URLs:**  
+  - Enter a long URL (e.g., https://www.verylongwebsite.com/articles/how-to-build-a-url-shortener-in-java).  
+  - The system generates a short link (e.g., s-fy.onrender.com/Xz4).  
 
-- **Expiration Dates:**
-  - Users can set expiration dates for short links.
-  - Expired links become inactive.
+- **Expiration Dates:**  
+  - Users can set expiration dates for short links.  
+  - Expired links become inactive.  
 
+### ✏️ URL Management  
+- **Edit Shortened URLs:** Users can update the original long URL.  
+- **Delete URLs:** Users can remove their shortened links from the system.  
 
+### 📊 Click Tracking & Analytics  
+- **Track link clicks:** View how many times a short link has been accessed.  
+- **Other tracking:** Capture details like partially masked IP, device, and location.  
 
-### ✏️ URL Management
-- Edit Shortened URLs: Users can update the original long URL.
-- Delete URLs: Users can remove their shortened links from the system.
+### 📌 QR Code Generation  
+- **Generate QR Codes:** Each shortened URL can have a QR code for easy sharing.  
+- **Downloadable QR Codes:** Users can download QR codes as images for offline use.  
 
-
-### 📊 Click Tracking & Analytics
-- **Track link clicks:** View how many times a short link has been accessed.
-- **Other tracking:** Capture details like partially masked IP, device, and location.
 
 
 <br><br>
@@ -78,3 +77,9 @@ Shorti.fy is a web application that allows users to convert long URLs into short
 ### ✅ **Caching:** Redis
 
 - Speeds up URL retrieval for fast redirections.
+
+<br><br>
+
+---
+
+👨‍💻 Developed & maintained by *Jon Arbell De Ocampo*
