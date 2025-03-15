@@ -14,6 +14,9 @@ export class DashboardComponent implements OnInit{
   authService = inject(AuthenticationService);
 
   ngOnInit(): void {
+
+    // localStorage.removeItem('jwtToken');
+
     this.dashboardService.getDashBoard()
     .subscribe({
       next : (response) =>{
