@@ -34,9 +34,7 @@ Shorti.fy is a web application that allows users to convert long URLs into short
 - **Downloadable QR Codes:** Users can download QR codes as images for offline use.  
 
 
-
-<br><br>
-
+---
 
 
 ## 🖥️ Pages
@@ -52,8 +50,7 @@ Shorti.fy is a web application that allows users to convert long URLs into short
 - **My URLs:** Manage all created short links—view full details, edit, or delete URLs.
 
 
-<br><br>
-
+---
 
 
 ## 🛠 Tech Stack
