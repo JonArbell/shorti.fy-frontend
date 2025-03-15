@@ -18,18 +18,35 @@
 
                 @for(url of urls(); track url){
                     <tr 
-                    class="hover:bg-gray-100 transition">
-                        <td class="p-4 text-blue-600"><a href="#">{{url.shortUrl}}</a></td>
-                        <td class="p-4 max-w-xs truncate overflow-hidden text-ellipsis whitespace-nowrap">{{url.originalUrl}}</td>
-                        <td class="p-4">{{url.expiryDate}}</td>
-                        <td class="p-4">{{url.isExpired}}</td>
-                        <td class="p-4">{{url.numberOfClicked}}</td>
-                        <td class="p-4 text-center space-x-2">
+                    class="hover:bg-gray-100 transition cursor-pointer">
+                        <td 
+                        class="p-4 text-blue-600">
+                            <a 
+                                target="_blank"
+                                [attr.href]="url.shortUrl">{{url.shortUrl}}
+                            </a>
+                        </td>
+
+                        <td 
+                        class="p-4 max-w-xs truncate overflow-hidden text-ellipsis whitespace-nowrap">{{url.originalUrl}}</td>
+
+                        <td 
+                        class="p-4">{{url.expiryDate}}</td>
+
+                        <td 
+                        class="p-4">{{url.maxClicked}}</td>
+
+                        <td 
+                        class="p-4">{{url.numberOfClicked}}</td>
+
+                        <td 
+                        class="p-4 text-center space-x-2">
                             <button 
-                            id="{{url.id}}"
+                            [attr.id]="url.id"
                             class="bg-blue-600 text-white px-3 py-1 rounded-md hover:bg-blue-700">Edit</button>
                             <button 
-                            id="{{url.id}}"
+                            (click)="deleteUrlById(url.id)"
+                            [attr.id]="url.id"
                             class="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700">Delete</button>
                         </td>
                     </tr>

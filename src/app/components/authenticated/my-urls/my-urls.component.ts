@@ -13,7 +13,23 @@ export class MyUrlsComponent {
 
   urls = signal<MyUrls[]>([]);
 
-  ngOnInit(): void {
+
+  public deleteUrlById(id : number) : void{
+
+    this.myUrlService.deleteUrlById(id)
+    .subscribe({
+      next : (response : any) =>{
+        console.log(response);
+        this.getMyUrls();
+      },
+      error : (err : any) =>{
+        console.error(err);
+      }
+    });
+
+  }
+
+  public getMyUrls() : void{
     this.myUrlService.getMyUrls()
     .subscribe({
       next : (response) =>{
@@ -25,6 +41,11 @@ export class MyUrlsComponent {
         console.warn(err);
       },
     });
+  }
+
+
+  ngOnInit(): void {
+    this.getMyUrls();
   }
 
 }
