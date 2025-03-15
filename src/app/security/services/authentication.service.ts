@@ -34,7 +34,7 @@ export class AuthenticationService {
     this.router.navigate(['/']);
   }
 
-  public logout() : any{
+  public logout() : Observable<any>{
 
     const token = localStorage.getItem('jwtToken');
 
@@ -44,7 +44,6 @@ export class AuthenticationService {
 
     return this.httpClient.post<any>(`${this.localHost}/api/authenticated/logout`,panis)
     .pipe(first());
-
   }
  
   public logIn(body : LoginRequestDTO) : Observable<LogInResponse>{
