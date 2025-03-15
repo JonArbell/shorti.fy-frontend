@@ -3,6 +3,9 @@
 Shorti.fy is a web application that allows users to convert long URLs into short, shareable links. It offers additional features like custom short URLs, expiration dates, click tracking, and QR code generation.
 
 
+---
+
+
 ## 🚀 Features  
 
 ### 🔑 Authentication  
