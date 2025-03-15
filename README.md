@@ -9,8 +9,9 @@ Shorti.fy is a web application that allows users to convert long URLs into short
 ## 🚀 Features  
 
 ### 🔑 Authentication  
-- **Sign In & Sign Up:** Secure authentication for users.  
-- **Forgot Password:** Reset password functionality for account recovery.  
+- **Sign In & Sign Up:** Secure authentication for users.
+- **Google OAuth2 Login:** Users can sign in with their Google account for a seamless experience.
+- **Forgot Password:** Reset password functionality for account recovery.
 
 ### 🔗 URL Shortening  
 - **Convert Long URLs to Short URLs:**  
