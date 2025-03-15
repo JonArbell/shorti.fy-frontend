@@ -28,6 +28,21 @@ export class MyUrlsComponent {
 
   }
 
+  public getUrl(id : number) : void{
+    this.myUrlService.getUrlById(id)
+    .subscribe({
+      next : (response) =>{
+
+        console.log(response);
+
+      },
+      error : (err) => {
+        console.warn(err);
+      }
+    });
+  }
+
+
   public getMyUrls() : void{
     this.myUrlService.getMyUrls()
     .subscribe({
@@ -38,7 +53,7 @@ export class MyUrlsComponent {
       },
       error : (err : any) => {
         console.warn(err);
-      },
+      }
     });
   }
 

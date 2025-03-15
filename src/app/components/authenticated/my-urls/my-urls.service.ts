@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { first, Observable, shareReplay } from 'rxjs';
-import { MyUrlsResponse } from '../../../models/my-urls.dto';
+import { MyUrlsResponse, Url } from '../../../models/my-urls.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +19,12 @@ export class MyUrlsService {
   }
 
   public deleteUrlById(id : number) : Observable<any>{
-    return this.http.delete<any>(`${this.localHost}/api/authenticated/url/delete/${id}`)
+    return this.http.delete<any>(`${this.localHost}/api/authenticated/urls/delete/${id}`)
     .pipe(first());
+  }
+
+  public getUrlById(id : number) : Observable<Url>{
+    return this.http.get<Url>(`${this.localHost}/api/authenticated/urls/${id}`);
   }
   
 }

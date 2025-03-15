@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { ShortenUrlService } from './shorten-url.service';
+import { UrlHomeService } from './url-home.service';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit{
     // localStorage.removeItem('jwtToken');
   }
 
-  shortenUrlService = inject(ShortenUrlService);
+  urlHomeService = inject(UrlHomeService);
 
   longUrl : string = "";
 
@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit{
 
     console.log(`Long url : ${this.longUrl}`);
 
-    this.shortenUrlService.shortenUrl(this.longUrl)
+    this.urlHomeService.shortenUrl(this.longUrl)
     .subscribe({
       next : (response : any) =>{
 

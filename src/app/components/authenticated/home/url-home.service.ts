@@ -6,7 +6,7 @@ import { MyUrlsResponse } from '../../../models/my-urls.dto';
 @Injectable({
   providedIn: 'root'
 })
-export class ShortenUrlService {
+export class UrlHomeService {
 
   constructor(
     private http : HttpClient
