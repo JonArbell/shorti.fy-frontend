@@ -57,27 +57,29 @@ class="flex rounded-lg bg-white shadow-xl 2xl:w-[25vw] 3xl:w-[20vw] xxs:w-[90vw]
         >Forgot password?</a>
 
 
-        <small>or</small>
-
-
-        <a
-        class="flex font-semibold text-gray-600 items-center xxs:gap-3 xs:gap-5 sm:gap-8 md:gap-9 3xl:gap-7 text-center p-2 rounded-xl border border-blue-500 shadow-sm cursor-pointer xxs:text-xs 3xl:text-sm w-[70%]" 
-        routerLink="/forgot-password"
-        >
-            <img 
-            class="h-7 w-7"
-            src="google-icon.png">
-            <span>Login with Google</span>
-        </a>
-
-
         <hr 
         class="w-full border-0 bg-gray-400 h-px">
 
-        <a 
-        class="cursor-pointer p-4 text-center py-3 rounded-lg outline-0 bg-green-600 font-semibold xl:text-lg xxs:text-xs w-[70%] text-gray-50"
-        routerLink="/sign-up"
-        >Create new account</a>
+        <section class="flex flex-col items-center gap-2 w-full">
+            <a
+            class="flex font-semibold text-gray-600 items-center xxs:gap-3 xs:gap-5 sm:gap-8 md:gap-9 3xl:gap-7 text-center p-2 rounded-xl border border-blue-500 shadow-sm cursor-pointer xxs:text-xs 3xl:text-sm w-[70%]" 
+            routerLink="/forgot-password"
+            >
+                <img 
+                class="h-7 w-7"
+                src="google-icon.png">
+                <span>Login with Google</span>
+            </a>
+
+
+            <p class="text-gray-600">or</p>
+
+
+            <a 
+            class="cursor-pointer p-4 text-center py-3 rounded-lg outline-0 bg-green-600 font-semibold xl:text-lg xxs:text-xs w-[70%] text-gray-50"
+            routerLink="/sign-up"
+            >Create new account</a>
+        </section>
 
     </form>
 

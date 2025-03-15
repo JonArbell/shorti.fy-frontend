@@ -11,17 +11,18 @@ export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: 
     catchError((error: HttpErrorResponse) => {
 
       if (error.status === 401){
-        authService.logout()
-        .subscribe({
-          next : (response : any) =>{
+        authService.setLogOut();
+        // authService.logout()
+        // .subscribe({
+        //   next : (response : any) =>{
 
-            console.log(`Response : ${JSON.stringify(response)}`);
-            authService.setLogOut();
-          },
-          error : (err : any) =>{
-            console.error(`Response : ${JSON.stringify(err)}`);
-          }
-        });
+        //     console.log(`Response : ${JSON.stringify(response)}`);
+        //     authService.setLogOut();
+        //   },
+        //   error : (err : any) =>{
+        //     console.error(`Response : ${JSON.stringify(err)}`);
+        //   }
+        // });
       } 
       else if (error.status === 0){
         authService.setLogOut();
