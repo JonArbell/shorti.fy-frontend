@@ -1,7 +1,7 @@
 # Shorti.fy - URL Shortener with Custom Links & Expiration
 
 
-### 👨‍💻 Creator & Developer: Jon Arbell De Ocampo
+**👨‍💻 Creator & Developer:** Jon Arbell De Ocampo
 
 Shorti.fy is a web application that allows users to convert long URLs into short, shareable links. It offers additional features like custom short URLs, expiration dates, click tracking, and QR code generation.
 
