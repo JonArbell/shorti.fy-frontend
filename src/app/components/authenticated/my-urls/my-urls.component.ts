@@ -13,7 +13,6 @@ export class MyUrlsComponent {
 
   urls = signal<MyUrls[]>([]);
 
-
   public deleteUrlById(id : number) : void{
 
     this.myUrlService.deleteUrlById(id)
@@ -42,7 +41,6 @@ export class MyUrlsComponent {
       },
     });
   }
-
 
   ngOnInit(): void {
     this.getMyUrls();

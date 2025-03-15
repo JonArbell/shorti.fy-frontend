@@ -1,5 +1,8 @@
 # Shorti.fy - URL Shortener with Custom Links & Expiration
 
+
+### 👨‍💻 Creator & Developer: Jon Arbell De Ocampo
+
 Shorti.fy is a web application that allows users to convert long URLs into short, shareable links. It offers additional features like custom short URLs, expiration dates, click tracking, and QR code generation.
 
 
@@ -12,11 +15,18 @@ Shorti.fy is a web application that allows users to convert long URLs into short
 ## 🔗 URL Shortening
 - **Convert Long URLs to Short URLs:**
   - Enter a long URL (e.g., https://www.verylongwebsite.com/articles/how-to-build-a-url-shortener-in-java).
-  - The system generates a short link (e.g., shorti-fy.netlify.app/Xyz123).
+  - The system generates a short link (e.g., s-fy.onrender.com/Xz4).
 
 - **Expiration Dates:**
   - Users can set expiration dates for short links.
   - Expired links become inactive.
+
+
+
+## ✏️ URL Management
+- Edit Shortened URLs: Users can update the original long URL.
+- Delete URLs: Users can remove their shortened links from the system.
+
 
 
 ## 📊 Click Tracking & Analytics
@@ -24,32 +34,38 @@ Shorti.fy is a web application that allows users to convert long URLs into short
 - **Other tracking:** Capture details like partially masked IP, device, and location.
 
 ## 🖥️ Pages
+
 ### 🔓 Public Pages
 - Sign In
 - Sign Up
 - Forgot Password
+
 ### 🔒 Authenticated Pages
-- Home: Overview of the application.
-- Dashboard: Manage and analyze shortened URLs.
-- My URLs: View all created short links and their details.
+- **Home:** The main page for shortening URLs. Users can enter a long URL and generate a short link.
+- **Dashboard:** Displays analytics, including graphs and statistics on link usage.
+- **My URLs:** Manage all created short links—view full details, edit, or delete URLs.
 
 
 ## 🛠 Tech Stack
-### ✅ Frontend: Angular + Tailwind CSS
+### ✅ **Frontend:** Angular + Tailwind CSS
 
-- Interactive UI for managing URLs and user accounts.
-
-
-### ✅ Backend: Spring Boot
-
-- Handles URL shortening, user authentication, and analytics.
+- Interactive UI for shortening, managing, and tracking URLs.
+- User authentication, password management, and account settings.
+- Responsive design for a seamless experience across devices.
 
 
-### ✅ Database: PostgreSQL
+### ✅ **Backend:** Spring Boot
+
+- Secure authentication, URL shortening, and link expiration.
+- User management, including password changes and account recovery.
+- Click tracking and analytics for detailed insights.
+
+
+### ✅ **Database:** PostgreSQL
 
 - Stores URL mappings, expiration times, and user data.
 
 
-### ✅ Caching: Redis
+### ✅ **Caching:** Redis
 
 - Speeds up URL retrieval for fast redirections.
