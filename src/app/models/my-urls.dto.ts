@@ -14,6 +14,12 @@ export interface MyUrlsResponse extends Url{
     expiryDate: string,
 }
 
+export interface MyUrlsRequest extends MyUrlsResponse{
+    originalUrl : string
+}
+
+
+
 export interface MyUrls extends MyUrlsResponse{
 
 }

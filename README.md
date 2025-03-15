@@ -5,14 +5,15 @@
 
 Shorti.fy is a web application that allows users to convert long URLs into short, shareable links. It offers additional features like custom short URLs, expiration dates, click tracking, and QR code generation.
 
+<br><br>
 
 ## 🚀 Features
-## 🔑 Authentication
+### 🔑 Authentication
 - **Sign In & Sign Up:** Secure authentication for users.
 - **Forgot Password:** Reset password functionality for account recovery.
 
 
-## 🔗 URL Shortening
+### 🔗 URL Shortening
 - **Convert Long URLs to Short URLs:**
   - Enter a long URL (e.g., https://www.verylongwebsite.com/articles/how-to-build-a-url-shortener-in-java).
   - The system generates a short link (e.g., s-fy.onrender.com/Xz4).
@@ -23,15 +24,19 @@ Shorti.fy is a web application that allows users to convert long URLs into short
 
 
 
-## ✏️ URL Management
+### ✏️ URL Management
 - Edit Shortened URLs: Users can update the original long URL.
 - Delete URLs: Users can remove their shortened links from the system.
 
 
-
-## 📊 Click Tracking & Analytics
+### 📊 Click Tracking & Analytics
 - **Track link clicks:** View how many times a short link has been accessed.
 - **Other tracking:** Capture details like partially masked IP, device, and location.
+
+
+<br><br>
+
+
 
 ## 🖥️ Pages
 
@@ -44,6 +49,10 @@ Shorti.fy is a web application that allows users to convert long URLs into short
 - **Home:** The main page for shortening URLs. Users can enter a long URL and generate a short link.
 - **Dashboard:** Displays analytics, including graphs and statistics on link usage.
 - **My URLs:** Manage all created short links—view full details, edit, or delete URLs.
+
+
+<br><br>
+
 
 
 ## 🛠 Tech Stack
