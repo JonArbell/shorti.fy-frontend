@@ -34,11 +34,10 @@
                 'bg-gray-300' : isClicked,
                 'bg-gray-100' : !isClicked
             }"
-            (click)="changeStyle()" 
+            (click)="copyLink()" 
             class="cursor-pointer px-4 py-2 rounded-lg shadow-sm text-gray-700"
             >
-                Shortened URL: <a href="https://shortify.com/shortened-url" target="_blank"
-                    class="text-blue-600 font-medium hover:underline">https://shortify.com/shortened-url</a>
+                Shortened URL : <span class="text-blue-600">{{result()}}</span>
             </button>
         </section>
     </section>

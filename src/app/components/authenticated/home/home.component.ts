@@ -17,6 +17,8 @@ export class HomeComponent implements OnInit{
 
   longUrl : string = "";
 
+  result = signal("result here");
+
   shortenUrl () : void{
 
     console.log(`Long url : ${this.longUrl}`);
@@ -24,9 +26,7 @@ export class HomeComponent implements OnInit{
     this.urlHomeService.shortenUrl(this.longUrl)
     .subscribe({
       next : (response : any) =>{
-
-        console.log(JSON.stringify(response));
-
+        this.result.set(response.shortUrl);
       },
       error : (err : any) =>{
         console.error(JSON.stringify(err));
@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit{
 
   private timeOutId : any;
 
-  public changeStyle() : void{
+  public copyLink() : void{
 
     if(this.timeOutId)
       clearTimeout(this.timeOutId);
@@ -48,7 +48,13 @@ export class HomeComponent implements OnInit{
     this.isClicked = true;
 
     this.timeOutId = setTimeout(()=>{
+      
       this.isClicked = false;
+
+      if(this.result() === 'result here')
+        return;
+
+      this.result.set('result here');
     },2000);
 
   }

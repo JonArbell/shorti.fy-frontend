@@ -8,9 +8,10 @@
                 <tr class="bg-gradient-to-r from-blue-500 to-blue-700 text-white text-left">
                     <th class="p-4">Shortened URL</th>
                     <th class="p-4">Original URL</th>
-                    <th class="p-4">Expiration</th>
+                    <th class="p-4">Expiration Date</th>
+                    <th class="p-4">Expired</th>
                     <th class="p-4">Max Clicks</th>
-                    <th class="p-4">Current Clicks</th>
+                    <th class="p-4">Number of Clicks</th>
                     <th class="p-4 text-center">Actions</th>
                 </tr>
             </thead>
@@ -33,6 +34,9 @@
 
                         <td 
                         class="p-4">{{url.expiryDate}}</td>
+
+                        <td 
+                        class="p-4">{{url.expired ? 'Yes' : 'No'}}</td>
 
                         <td 
                         class="p-4">{{url.maxClicked}}</td>

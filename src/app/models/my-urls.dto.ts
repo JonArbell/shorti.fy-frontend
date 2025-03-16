@@ -4,7 +4,7 @@ export interface Url{
     originalUrl : string,
     shortUrl : string,
     numberOfClicked : number,
-    isExpired : boolean,
+    expired : boolean,
 
 }
 

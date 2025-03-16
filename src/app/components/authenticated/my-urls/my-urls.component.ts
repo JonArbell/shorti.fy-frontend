@@ -46,7 +46,9 @@ export class MyUrlsComponent {
   public getMyUrls() : void{
     this.myUrlService.getMyUrls()
     .subscribe({
-      next : (response) =>{
+      next : (response ) =>{
+        
+        console.log(response);
 
         this.urls.set(response);
 
