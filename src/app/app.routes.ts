@@ -25,7 +25,7 @@ export const routes: Routes = [
         path : 'sign-up',
         component : SignupComponent,
         canActivate : [CanActivateAuthenticationGuard],
-        data: { title: 'Sign Up for Shorty.fy' }
+        data: { title: 'Shorti.fy - Create Your Account & Start Shortening URLs' }
     },
 
     
