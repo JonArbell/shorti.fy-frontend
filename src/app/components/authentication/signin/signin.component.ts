@@ -1,8 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { AuthenticationService } from '../../../security/services/authentication.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { first } from 'rxjs';
 import { LoginRequestDTO, LogInResponse } from '../../../models/login.dto';
 
 @Component({
@@ -29,16 +28,7 @@ export class SigninComponent implements OnInit{
 
     this.authService
       .logIn(loginDTO)
-      .subscribe({
-        next : (response) =>{
-
-          this.authService.setLogIn(response.jwtToken);
-          
-        },
-        error : (error : any) =>{
-          console.error(error);
-        }
-      });
+      .subscribe();
 
   }
 

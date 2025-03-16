@@ -9,6 +9,7 @@ import { ForgotPasswordComponent } from './components/authentication/forgot-pass
 import { CanActivateAuthenticationGuard } from './security/guard/canActivate/canActivateAuthentication';
 
 export const routes: Routes = [
+    
     {
         path : '',
         component : SigninComponent,

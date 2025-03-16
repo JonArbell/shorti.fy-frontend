@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
-import { first, Observable, shareReplay } from 'rxjs';
+import { catchError, first, Observable, tap, throwError } from 'rxjs';
 import { LoginRequestDTO, LogInResponse } from '../../models/login.dto';
 import { Router } from '@angular/router';
 
@@ -20,12 +20,6 @@ export class AuthenticationService {
 
   public getIsLoggedIn() : boolean{
     return this.isLoggedIn();
-  }
-
-  public setLogIn(token : string) : void{
-    localStorage.setItem('jwtToken',token);
-    this.isLoggedIn.set(true);
-    this.router.navigate(['/home']);
   }
 
   public setLogOut() : void{
@@ -49,7 +43,24 @@ export class AuthenticationService {
   public logIn(body : LoginRequestDTO) : Observable<LogInResponse>{
     return this.httpClient
     .post<LogInResponse>(`${this.localHost}/api/authentication/login`,body)
-    .pipe(first());
+    .pipe(
+      first(),
+      tap((response) =>{
+
+        if(!response.jwtToken){
+          console.error('Login failed: No token received.');
+          return;
+        }
+          
+        localStorage.setItem('jwtToken',response.jwtToken);
+        this.isLoggedIn.set(true);
+        this.router.navigate(['/home']);
+      }),
+      catchError((error) => {
+        console.error('Login request failed:', error);
+        return throwError(() => error);
+      })
+    );
   }
 
 }
