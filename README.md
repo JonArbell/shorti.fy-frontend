@@ -1,4 +1,4 @@
-# Shorti.fy - URL Shortener with Custom Links & Expiration
+# Shorti.fy - URL Shortener with & Expiration
 
 Shorti.fy is a web application that allows users to convert long URLs into short, shareable links. It offers additional features like custom short URLs, expiration dates, click tracking, and QR code generation.
 
@@ -77,6 +77,15 @@ Shorti.fy is a web application that allows users to convert long URLs into short
 ### ✅ **Caching:** Redis
 
 - Speeds up URL retrieval for fast redirections.
+
+
+---
+
+
+##🔗 Repository
+**Backend Repository:** [GitHub - Shorti.fy Backend Repository](https://github.com/JonArbell/shortify-backend)
+
+
 
 ---
 
