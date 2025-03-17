@@ -49,5 +49,10 @@ export class CreateNewPasswordComponent {
 
   }
 
+  public backToLoginWithPassword() : void{
+    this.forgotPasswordService.setEmail('');
+    this.forgotPasswordService.setGeneratedCode(false);
+    this.forgotPasswordService.setAuthorizedCode('');
+  }
 
 }

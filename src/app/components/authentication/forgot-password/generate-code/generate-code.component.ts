@@ -13,8 +13,10 @@ export class GenerateCodeComponent {
       private forgotPasswordService : ForgotPasswordService
   ){}
 
-  public backToginWithPassword() : void{
-    
+  public backToLoginWithPassword() : void{
+    this.forgotPasswordService.setEmail('');
+    this.forgotPasswordService.setGeneratedCode(false);
+    this.forgotPasswordService.setAuthorizedCode('');
   }
 
   public getEmail() : string{

@@ -22,11 +22,6 @@ export class ForgotPasswordComponent {
     return this.forgotPasswordService.getEmail();
   }
 
-  public backToginWithPassword() : void{
-    this.forgotPasswordService.setEmail('');
-    this.forgotPasswordService.setAuthorizedCode('');
-  }
-
   public hasGeneratedCode() : boolean{
     return this.forgotPasswordService.getHasGeneratedCode();
   }

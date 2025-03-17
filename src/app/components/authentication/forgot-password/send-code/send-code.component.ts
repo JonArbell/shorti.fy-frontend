@@ -39,4 +39,12 @@ export class SendCodeComponent {
       }
     });
   }
+
+
+  public backToLoginWithPassword() : void{
+    this.forgotPasswordService.setEmail('');
+    this.forgotPasswordService.setGeneratedCode(false);
+    this.forgotPasswordService.setAuthorizedCode('');
+  }
+
 }

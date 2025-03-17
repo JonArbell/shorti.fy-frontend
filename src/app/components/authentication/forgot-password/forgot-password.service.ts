@@ -83,5 +83,8 @@ export class ForgotPasswordService {
     return this.hasGeneratedCode();
   }
 
+  public setGeneratedCode(hasGeneratedCode : boolean) : void{
+    this.hasGeneratedCode.set(hasGeneratedCode);
+  }
 
 }
