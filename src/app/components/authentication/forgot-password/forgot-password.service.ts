@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { catchError, Observable, tap } from 'rxjs';
 import { FindEmailResponse } from '../../../models/email.dto';
+import { NewPasswordRequest } from '../../../models/forgot-password.dto';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -9,13 +11,14 @@ import { FindEmailResponse } from '../../../models/email.dto';
 export class ForgotPasswordService {
 
   constructor(
-    private http : HttpClient
+    private http : HttpClient,
+    private router : Router
   ) { }
 
-  private localHost : string = 'http://localhost:8080';
+  private localHost : string = 'http://localhost:8080/api';
 
   public findEmail(email : string) : Observable<FindEmailResponse>{
-    return this.http.get<FindEmailResponse>(`${this.localHost}/api/find-email/${email}`)
+    return this.http.get<FindEmailResponse>(`${this.localHost}/find-email/${email}`)
     .pipe(
       tap((response) => {
         this.setEmail(response.email);
@@ -28,7 +31,7 @@ export class ForgotPasswordService {
   }
 
   public generateCode(email : string) : Observable<any> {
-    return this.http.post<any>(`${this.localHost}/api/generate-code`,{email : email})
+    return this.http.post<any>(`${this.localHost}/generate-code`,{email : email})
     .pipe(
       tap((response) => {
         this.hasGeneratedCode.set(response.message === 'success');
@@ -40,8 +43,18 @@ export class ForgotPasswordService {
     );
   }
 
+  public submitNewPassword(newPasswordRequest : NewPasswordRequest) : Observable<any> {
+    return this.http.put<any>(`${this.localHost}/forgot-password?code=${this.getAuthorizedCode()}`,newPasswordRequest)
+    .pipe(
+      tap((response) =>{
+        if(response.isPasswordChanged)
+          this.router.navigate(['/']);
+      })
+    );
+  }
+
   public sendCode(code : string, email : string ) : Observable<any>{
-    return this.http.post<any>(`${this.localHost}/api/forgot-password/${email}`,{code : code});
+    return this.http.post<any>(`${this.localHost}/forgot-password/${email}`,{code : code});
   }
 
   private authorizedCode = signal('');
