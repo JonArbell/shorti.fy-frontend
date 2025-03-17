@@ -1,53 +1,38 @@
-import { Component, inject, signal } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { FindEmailService } from './find-email.service';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { catchError, tap, throwError } from 'rxjs';
-import { FindEmailResponse } from '../../../models/email.dto';
+import { ForgotPasswordService } from './forgot-password.service';
+import { FindEmailComponent } from './find-email/find-email.component';
+import { GenerateCodeComponent } from './generate-code/generate-code.component';
+import { SendCodeComponent } from './send-code/send-code.component';
+import { CreateNewPasswordComponent } from './create-new-password/create-new-password.component';
 
 @Component({
   selector: 'app-forgot-password',
-  imports: [RouterLink, FormsModule],
+  imports: [FormsModule, FindEmailComponent, GenerateCodeComponent, SendCodeComponent, CreateNewPasswordComponent],
   templateUrl: './forgot-password.component.html'
 })
 export class ForgotPasswordComponent {
 
   constructor(
-    private findEmailService : FindEmailService
+    private forgotPasswordService : ForgotPasswordService
   ){}
   
-  email : string = "";
 
-  getEmail = signal("");
+  public getEmail() : string {
+    return this.forgotPasswordService.getEmail();
+  }
 
   public backToginWithPassword() : void{
-    this.getEmail.set("");
+    this.forgotPasswordService.setEmail('');
+    this.forgotPasswordService.setAuthorizedCode('');
   }
 
-  public findEmail() : void{
-    this.findEmailService.findEmail(this.email)
-    .subscribe({
-      next : (response : any) =>{
-
-        this.getEmail.set(response.email);
-
-      },
-      error : (err : any) =>{
-        console.error(err);
-      }
-    });
+  public hasGeneratedCode() : boolean{
+    return this.forgotPasswordService.getHasGeneratedCode();
   }
 
-  public generateCode() : void{
-    this.findEmailService.generateCode(this.getEmail())
-    .subscribe({
-      next : (response) =>{
-        console.log(response);
-      },
-      error : (err) =>{
-        console.log(err);
-      }
-    });
+  public isAuthorized() : boolean{
+    return !!this.forgotPasswordService.getAuthorizedCode();
   }
 
 }
