@@ -7,10 +7,11 @@ import { FooterComponent } from './components/footer/footer.component';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { filter, map } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [AuthenticatedBasePageComponent, AuthenticationBasePageComponent, HeaderComponent, FooterComponent],
+  imports: [AuthenticatedBasePageComponent, AuthenticationBasePageComponent, HeaderComponent, FooterComponent, CommonModule ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

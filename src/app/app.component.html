@@ -4,10 +4,15 @@
     <app-header></app-header>
   </section>
 
-  <section class="w-full flex items-center justify-center">
+  <section 
+  [ngClass]="{
+    'w-full flex items-center justify-center' : !isLoggedIn()
+  }">
     @if (isLoggedIn()) {
+      
       <app-authenticated-base-page></app-authenticated-base-page>
     }@else{
+
       <app-authentication-base-page></app-authentication-base-page>
     }
   </section>

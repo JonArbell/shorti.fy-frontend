@@ -39,7 +39,15 @@ export class ForgotPasswordComponent {
   }
 
   public generateCode() : void{
-    
+    this.findEmailService.generateCode(this.getEmail())
+    .subscribe({
+      next : (response) =>{
+        console.log(response);
+      },
+      error : (err) =>{
+        console.log(err);
+      }
+    });
   }
 
 }

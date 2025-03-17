@@ -21,7 +21,7 @@ export class FindEmailService {
   }
 
   public generateCode(email : string) : Observable<any> {
-    return this.http.post<any>(``,{email : email})
+    return this.http.post<any>(`${this.localHost}/api/generate-code`,{email : email})
     .pipe(
       tap((response) =>{
 
