@@ -1,13 +1,15 @@
-<section class="bg-gray-100 flex-col flex min-h-screen">
+<section class="bg-gray-100 flex-col flex h-screen">
 
-  <section class="border-b-2 shadow-md relative z-50 border-gray-300">
+  <section class="border-b-2 shadow-md relative z-30 border-gray-300 h-[5vh] min-h-[43px]">
     <app-header></app-header>
   </section>
 
   <section 
   [ngClass]="{
     'w-full flex items-center justify-center' : !isLoggedIn()
-  }">
+  }"
+  class="xl:h-[80vh] xl:min-h-[470px] xxs:h-[95vh] xxs:min-h-[720px]"
+  >
     @if (isLoggedIn()) {
       
       <app-authenticated-base-page></app-authenticated-base-page>

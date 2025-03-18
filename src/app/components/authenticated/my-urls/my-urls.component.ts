@@ -1,10 +1,13 @@
 import { Component, inject, signal } from '@angular/core';
 import { MyUrlsService } from './my-urls.service';
 import { MyUrls, MyUrlsResponse } from '../../../models/my-urls.dto';
+import { UrlViewDetailsComponent } from './url-view-details/url-view-details.component';
+import { CommonModule } from '@angular/common';
+import { catchError, tap } from 'rxjs';
 
 @Component({
   selector: 'app-my-urls',
-  imports: [],
+  imports: [UrlViewDetailsComponent, CommonModule],
   templateUrl: './my-urls.component.html'
 })
 export class MyUrlsComponent {
@@ -28,6 +31,10 @@ export class MyUrlsComponent {
 
   }
 
+  public isUrlView() : boolean{
+    return this.myUrlService.getIsUrlView();
+  };
+
   public getUrl(id : number) : void{
     this.myUrlService.getUrlById(id)
     .subscribe({
@@ -41,7 +48,6 @@ export class MyUrlsComponent {
       }
     });
   }
-
 
   public getMyUrls() : void{
     this.myUrlService.getMyUrls()

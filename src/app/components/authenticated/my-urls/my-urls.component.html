@@ -1,4 +1,4 @@
-<section class="p-7 bg-gray-100 h-full flex flex-col gap-7">
+<section class="p-7 bg-gray-100 h-full flex flex-col gap-7 relative">
 
     <h1 class="font-extrabold text-4xl text-gray-800">My URLs</h1>
 
@@ -60,5 +60,27 @@
             </tbody>
         </table>
     </section>
+
+
+    <section
+    [ngClass]="{
+        'block': isUrlView(),
+        'hidden' : !isUrlView()
+    }"
+    class="fixed inset-0 h-full w-full z-40 bg-opacity-50 backdrop-blur-md"
+    >
+
+    </section>
+
+
+    <section 
+    [ngClass]="{
+        'flex': isUrlView(),
+        'hidden' : !isUrlView()
+    }"
+    class="z-50 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <app-url-view-details></app-url-view-details>
+    </section>
+
 </section>
 

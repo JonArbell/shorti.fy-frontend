@@ -1,14 +1,13 @@
-<section class="w-full">
+<section class="w-full flex flex-col h-full"> <!-- Ensure full height here -->
     
-    <section class="grid grid-cols-[15%_85%] h-[80vh] w-full">
+    <section class="grid grid-cols-[15%_85%] flex-grow w-full h-full">
         <section class="border-r-2 h-full border-gray-300">
             <app-side-nav></app-side-nav>
         </section>
 
-        <main class=" bg-gray-100 overflow-y-auto h-full relative">
+        <main class="bg-gray-100 overflow-y-auto flex-grow relative h-full">
             <router-outlet></router-outlet>
         </main>
     </section>
 
-    
 </section>
