@@ -6,9 +6,10 @@
 
   <section 
   [ngClass]="{
-    'w-full xxs:h-[95vh] xxs:min-h-[665px] xl:h-[80vh] flex items-center xxs:justify-evenly xl:justify-center xl:min-h-[510px]' : !isLoggedIn()
+    'xxs:min-h-[665px] flex items-center xxs:justify-evenly xl:justify-center xl:min-h-[510px]' : !isLoggedIn(),
+    'xl:min-h-[565px]' : isLoggedIn()
   }"
-  class=""
+  class="w-full xl:h-[80vh] xxs:h-[95vh]"
   >
     @if (isLoggedIn()) {
       
