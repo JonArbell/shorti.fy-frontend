@@ -7,9 +7,10 @@ import { SigninComponent } from './components/authentication/signin/signin.compo
 import { SignupComponent } from './components/authentication/signup/signup.component';
 import { ForgotPasswordComponent } from './components/authentication/forgot-password/forgot-password.component';
 import { CanActivateAuthenticationGuard } from './security/guard/canActivate/canActivateAuthentication';
+import { LogoutComponent } from './components/authenticated/logout/logout.component';
 
 export const routes: Routes = [
-    
+
     {
         path : '',
         component : SigninComponent,
@@ -28,7 +29,6 @@ export const routes: Routes = [
         data: { title: 'Shorti.fy - Create Your Account & Start Shortening URLs' }
     },
 
-    
     {
         path : 'home',
         component : HomeComponent,
@@ -40,6 +40,12 @@ export const routes: Routes = [
         component : DashboardComponent,
         canActivate : [CanActivateAuthenticatedGuard],
         data: { title: 'Dashboard' }
+    },
+    {
+        path : 'logout',
+        component : LogoutComponent,
+        canActivate : [CanActivateAuthenticatedGuard],
+        data: { title: 'Confirm Logout' }
     },
     {
         path : 'my-urls',

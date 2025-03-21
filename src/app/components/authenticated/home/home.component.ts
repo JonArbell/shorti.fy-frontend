@@ -9,8 +9,13 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit{
+
   ngOnInit(): void {
     // localStorage.removeItem('jwtToken');
+
+    if(!localStorage.getItem('jwtToken'))
+      window.location.href = '/';
+
   }
 
   urlHomeService = inject(UrlHomeService);
