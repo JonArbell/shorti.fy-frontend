@@ -1,10 +1,41 @@
-<section class="w-full flex items-center justify-center flex-col rounded-lg bg-white shadow-md p-10">
+<section>
 
-    <p (click)="exit()">X</p>
+    <section 
+    class="fixed h-screen w-screen top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 bg-opacity-50 backdrop-blur-lg">
+    </section>
+
+    <section
+    class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 bg-white p-10 rounded-lg shadow-lg flex flex-col justify-center items-center h-[55%]">
     
-    <h2>{{getUrlView().shortUrl}}</h2>
-    <p>{{getUrlView().originalUrl}}</p>
-    <p>{{getUrlView().id}}</p>
-    <p>{{getUrlView().numberOfClicked}}</p>
+        <section class="flex flex-col gap-4 justify-center w-full">
+            <p 
+            class="hover:text-red-700 right-0 font-semibold cursor-pointer absolute top-0 m-4"
+            (click)="exit()">x</p>
+
+            <h1 class="font-bold text-3xl self-start">Full Details</h1>
+
+            <h2>Shortened url : {{url().shortUrl}}</h2>
+
+            <p>Original url : {{url().originalUrl}}</p>
+
+            <p>Number of clicked : {{url().numberOfClicked}}</p>
+
+            <p>Max click : {{'5'}}</p>
+
+            <p>Expiration date : {{'Tomorrow'}}</p>
+
+            <p>Expired : {{url().expired}}</p>
+
+            <section>
+                <h3>Visitors :</h3>
+                <ul class="px-4">
+                    
+                    <li>Lopit</li>
+                    <li>Angas</li>
+                </ul>
+            </section>
+
+        </section>
+    </section>
 
 </section>

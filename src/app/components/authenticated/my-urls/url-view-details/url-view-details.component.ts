@@ -1,6 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { Url } from '../../../../models/my-urls.dto';
 import { MyUrlsService } from '../my-urls.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-url-view-details',
@@ -10,23 +11,36 @@ import { MyUrlsService } from '../my-urls.service';
 export class UrlViewDetailsComponent implements OnInit{
 
   constructor(
-    private urlService : MyUrlsService
+    private urlService : MyUrlsService,
+    private activatedRoute : ActivatedRoute,
+    private router : Router
   ){}
 
-  public getUrlView() : Url{
-    return this.urlService.getUrlView();
-  }
+  url = signal<Url>({} as Url);
 
   public exit() : void{
-    this.urlService.setUrlView({} as Url); 
     this.urlService.setIsUrlView(false);
-
-    console.log(this.urlService.getUrlView());
-
+    this.url.set({} as Url);
+    this.router.navigate(['my-urls']);
   }
 
   ngOnInit(): void {
-    
+
+    this.activatedRoute.queryParamMap.subscribe(params => {
+
+      const id = params.get('id');
+
+      this.urlService.getUrlById(Number(id)).subscribe({
+        next : (response) =>{
+          this.url.set(response);
+        },
+        error : (error) =>{
+          console.error(error);
+        }
+      });
+
+    });
+
   }
 
 }

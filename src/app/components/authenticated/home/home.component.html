@@ -28,18 +28,21 @@
         >
             <h3 
             class="text-xl font-semibold text-gray-800"
-            >Result</h3>
+            >Result</h3>    
+            
+            <div class="flex items-center w-full justify-center gap-4">
+                <p class="w-[25%] text-center">Shortened URL :</p>
+                <button 
+                [ngClass]="{
+                    'bg-gray-300' : isClicked,
+                    'bg-gray-100' : !isClicked
+                }"
+                (click)="copyLink($event)" 
+                class="w-[45%] cursor-pointer px-4 py-2 rounded-lg shadow-sm text-blue-700"
+                >{{result()}}</button>
+            </div>
 
-            <button 
-            [ngClass]="{
-                'bg-gray-300' : isClicked,
-                'bg-gray-100' : !isClicked
-            }"
-            (click)="copyLink()" 
-            class="cursor-pointer px-4 py-2 rounded-lg shadow-sm text-gray-700"
-            >
-                Shortened URL : <span class="text-blue-600">{{result()}}</span>
-            </button>
+            
         </section>
     </section>
     

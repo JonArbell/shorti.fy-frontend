@@ -1,13 +1,13 @@
 import { Component, inject, signal } from '@angular/core';
 import { MyUrlsService } from './my-urls.service';
-import { MyUrls, MyUrlsResponse } from '../../../models/my-urls.dto';
-import { UrlViewDetailsComponent } from './url-view-details/url-view-details.component';
+import { MyUrls } from '../../../models/my-urls.dto';
 import { CommonModule } from '@angular/common';
-import { catchError, tap } from 'rxjs';
+import { RouterModule, RouterOutlet } from '@angular/router';
+
 
 @Component({
   selector: 'app-my-urls',
-  imports: [UrlViewDetailsComponent, CommonModule],
+  imports: [CommonModule, RouterOutlet, RouterModule ],
   templateUrl: './my-urls.component.html'
 })
 export class MyUrlsComponent {
@@ -34,20 +34,6 @@ export class MyUrlsComponent {
   public isUrlView() : boolean{
     return this.myUrlService.getIsUrlView();
   };
-
-  public getUrl(id : number) : void{
-    this.myUrlService.getUrlById(id)
-    .subscribe({
-      next : (response) =>{
-
-        console.log(response);
-
-      },
-      error : (err) => {
-        console.warn(err);
-      }
-    });
-  }
 
   public getMyUrls() : void{
     this.myUrlService.getMyUrls()

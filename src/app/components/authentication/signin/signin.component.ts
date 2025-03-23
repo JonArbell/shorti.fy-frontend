@@ -28,7 +28,14 @@ export class SigninComponent implements OnInit{
 
     this.authService
       .logIn(loginDTO)
-      .subscribe();
+      .subscribe({
+        next : (response) =>{
+          console.log(response);
+        },
+        error : (err) =>{
+          console.error(err);
+        }
+      });
 
   }
 

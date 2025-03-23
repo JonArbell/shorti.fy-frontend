@@ -5,7 +5,7 @@
     <section class="bg-white shadow-lg rounded-xl overflow-hidden">
         <table class="w-full border-collapse">
             <thead>
-                <tr class="bg-gradient-to-r from-blue-500 to-blue-700 text-white text-left">
+                <tr class="bg-gradient-to-r from-blue-500 to-blue-700 text-white text-center">
                     <th class="p-4">Shortened URL</th>
                     <th class="p-4">Original URL</th>
                     <th class="p-4">Expiration Date</th>
@@ -18,11 +18,11 @@
             <tbody class="divide-y divide-gray-200">
 
                 @for(url of urls(); track url){
+
                     <tr 
-                    (click)="getUrl(url.id)"
                     class="hover:bg-gray-100 transition cursor-pointer">
                         <td 
-                        class="p-4 text-blue-600">
+                        class="p-4 text-blue-600 text-center">
                             <a 
                                 target="_blank"
                                 [attr.href]="url.shortUrl">{{url.shortUrl}}
@@ -30,29 +30,62 @@
                         </td>
 
                         <td 
-                        class="p-4 max-w-xs truncate overflow-hidden text-ellipsis whitespace-nowrap">{{url.originalUrl}}</td>
+                        class="text-center max-w-xs truncate overflow-hidden text-ellipsis whitespace-nowrap">
+                            <a
+                            class="p-4"
+                            [routerLink]="['/my-urls/view-details']" 
+                            [queryParams]="{ id: url.id }">
+                                {{url.originalUrl}}
+                            </a>
 
-                        <td 
-                        class="p-4">{{url.expiryDate}}</td>
+                        </td>
 
-                        <td 
-                        class="p-4">{{url.expired ? 'Yes' : 'No'}}</td>
+                        <td class="text-center">
+                            <a
+                            class="p-4"
+                            [routerLink]="['/my-urls/view-details']" 
+                            [queryParams]="{ id: url.id }">
+                            {{url.expiryDate}}
+                            </a>
 
-                        <td 
-                        class="p-4">{{url.maxClicked}}</td>
+                        </td>
 
-                        <td 
-                        class="p-4">{{url.numberOfClicked}}</td>
+                        <td class="text-center">
+                            <a
+                            class="p-4"
+                            [routerLink]="['/my-urls/view-details']" 
+                            [queryParams]="{ id: url.id }">
+                                {{url.expired ? 'Yes' : 'No'}}
+                            </a>
+                        </td>
+
+                        <td class="text-center">
+                            <a
+                            class="p-4"
+                            [routerLink]="['/my-urls/view-details']" 
+                            [queryParams]="{ id: url.id }">
+                                {{url.maxClicked}}
+                            </a>
+                        </td>
+
+                        <td class="text-center">
+                            <a
+                            class="p-4"
+                            [routerLink]="['/my-urls/view-details']" 
+                            [queryParams]="{ id: url.id }">
+                                {{url.numberOfClicked}}
+                            </a>
+                        </td>
 
                         <td 
                         class="p-4 text-center space-x-2">
                             <button 
                             [attr.id]="url.id"
-                            class="bg-blue-600 text-white px-3 py-1 rounded-md hover:bg-blue-700">Edit</button>
+                            class="bg-blue-600 text-white w-[45%] text-center px-3 py-1 rounded-md hover:bg-blue-700">Edit</button>
                             <button 
                             (click)="deleteUrlById(url.id)"
                             [attr.id]="url.id"
-                            class="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700">Delete</button>
+                            class="bg-red-600 text-white w-[45%] text-center px-3 py-1 rounded-md hover:bg-red-700">Delete</button>
                         </td>
                     </tr>
                 }
@@ -62,22 +95,8 @@
     </section>
 
 
-    <section
-    [ngClass]="{
-        'block': isUrlView(),
-        'hidden' : !isUrlView()
-    }"
-    class="fixed inset-0 h-full w-full z-40 bg-opacity-50 backdrop-blur-md"
-    ></section>
-
-
-    <section 
-    [ngClass]="{
-        'flex': isUrlView(),
-        'hidden' : !isUrlView()
-    }"
-    class="z-50 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-        <app-url-view-details></app-url-view-details>
+    <section>
+        <router-outlet></router-outlet>
     </section>
 
 </section>

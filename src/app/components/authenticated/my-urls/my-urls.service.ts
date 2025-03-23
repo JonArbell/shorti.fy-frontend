@@ -27,25 +27,14 @@ export class MyUrlsService {
     return this.http.get<Url>(`${this.localHost}/api/authenticated/urls/${id}`)
     .pipe(
       tap((response) =>{
-        this.urlView.set(response);
         this.isUrlView.set(true);
+
       }),
       catchError((error) =>{
-        this.urlView.set({} as Url);
         this.isUrlView.set(false);
         throw new Error(error);
       })
     );
-  }
-
-  private urlView = signal<Url>({} as Url);
-
-  public getUrlView() : Url{
-    return this.urlView()!;
-  }
-
-  public setUrlView(url : Url) : void{
-    this.urlView.set(url);
   }
 
   private isUrlView = signal(false);

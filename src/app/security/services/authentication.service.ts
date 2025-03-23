@@ -37,7 +37,9 @@ export class AuthenticationService {
     console.log(`Panis : ${panis}`);
 
     return this.httpClient.post<any>(`${this.localHost}/api/authenticated/logout`,panis)
-    .pipe(first());
+    .pipe(
+      first()
+    );
   }
  
   public logIn(body : LoginRequestDTO) : Observable<LogInResponse>{
@@ -47,17 +49,11 @@ export class AuthenticationService {
       first(),
       tap((response) =>{
 
-        if(!response.jwtToken){
-          console.error('Login failed: No token received.');
-          return;
-        }
-          
         localStorage.setItem('jwtToken',response.jwtToken);
         this.isLoggedIn.set(true);
         this.router.navigate(['/home']);
       }),
       catchError((error) => {
-        console.error('Login request failed:', error);
         return throwError(() => error);
       })
     );

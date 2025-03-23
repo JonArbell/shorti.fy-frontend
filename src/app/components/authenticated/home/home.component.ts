@@ -11,7 +11,6 @@ import { FormsModule } from '@angular/forms';
 export class HomeComponent implements OnInit{
 
   ngOnInit(): void {
-    // localStorage.removeItem('jwtToken');
 
     if(!localStorage.getItem('jwtToken'))
       window.location.href = '/';
@@ -22,7 +21,7 @@ export class HomeComponent implements OnInit{
 
   longUrl : string = "";
 
-  result = signal("result here");
+  result = signal("No result yet");
 
   shortenUrl () : void{
 
@@ -45,22 +44,17 @@ export class HomeComponent implements OnInit{
 
   private timeOutId : any;
 
-  public copyLink() : void{
+  public copyLink(event : Event) : void{
 
-    if(this.timeOutId)
-      clearTimeout(this.timeOutId);
-    
-    this.isClicked = true;
+    const text = (event.target as HTMLButtonElement).innerText;
 
-    this.timeOutId = setTimeout(()=>{
-      
-      this.isClicked = false;
+    if(this.result() === 'No result yet')
+      return;
 
-      if(this.result() === 'result here')
-        return;
+    navigator.clipboard.writeText(text).then(() =>{
+      this.isClicked = true;
+    });
 
-      this.result.set('result here');
-    },2000);
 
   }
 

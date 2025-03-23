@@ -8,6 +8,7 @@ import { SignupComponent } from './components/authentication/signup/signup.compo
 import { ForgotPasswordComponent } from './components/authentication/forgot-password/forgot-password.component';
 import { CanActivateAuthenticationGuard } from './security/guard/canActivate/canActivateAuthentication';
 import { LogoutComponent } from './components/authenticated/logout/logout.component';
+import { UrlViewDetailsComponent } from './components/authenticated/my-urls/url-view-details/url-view-details.component';
 
 export const routes: Routes = [
 
@@ -51,7 +52,14 @@ export const routes: Routes = [
         path : 'my-urls',
         component : MyUrlsComponent,
         canActivate : [CanActivateAuthenticatedGuard],
-        data: { title: 'My URLs' }
+        data: { title: 'My URLs' },
+        children : [
+            {
+                path : 'view-details',
+                component : UrlViewDetailsComponent,
+                data: { title: 'Full details' }
+            }
+        ]
     }
 
 ];
