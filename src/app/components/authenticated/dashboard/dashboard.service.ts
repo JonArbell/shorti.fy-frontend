@@ -10,9 +10,7 @@ export class DashboardService {
 
   constructor(
     private http : HttpClient
-  ){
-
-  }
+  ){}
 
   private localHost : string = 'http://localhost:8080';
 
