@@ -1,4 +1,4 @@
-import { Url } from "./my-urls.dto";
+import { MyUrlResponse } from "./my-urls.dto";
 
 export interface LoginRequestDTO {
     email: string;
@@ -13,6 +13,6 @@ export interface LogInResponse{
     lastName : string,
     email : string,
     username: string,
-    urlList : Url[]
+    urlList : MyUrlResponse[]
   
 }

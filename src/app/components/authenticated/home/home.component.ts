@@ -27,15 +27,16 @@ export class HomeComponent implements OnInit{
 
     console.log(`Long url : ${this.longUrl}`);
 
-    this.urlHomeService.shortenUrl(this.longUrl)
-    .subscribe({
-      next : (response : any) =>{
-        this.result.set(response.shortUrl);
-      },
-      error : (err : any) =>{
-        console.error(JSON.stringify(err));
-      }
-    });
+    if(this.longUrl !== '' || this.longUrl !== null)
+      this.urlHomeService.shortenUrl(this.longUrl)
+      .subscribe({
+        next : (response : any) =>{
+          this.result.set(response.shortUrl);
+        },
+        error : (err : any) =>{
+          console.error(JSON.stringify(err));
+        }
+      });
     
   }
 

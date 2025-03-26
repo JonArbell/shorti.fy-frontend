@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable, signal } from '@angular/core';
-import { catchError, first, Observable, shareReplay, tap } from 'rxjs';
-import { MyUrlsResponse, Url } from '../../../models/my-urls.dto';
+import { Injectable, signal } from '@angular/core';
+import { catchError, first, map, Observable, shareReplay, tap } from 'rxjs';
+import { MyUrlResponse } from '../../../models/my-urls.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +14,8 @@ export class MyUrlsService {
 
   private localHost : string = 'http://localhost:8080';
 
-  public getMyUrls() : Observable<MyUrlsResponse[]>{
-    return this.http.get<MyUrlsResponse[]>(`${this.localHost}/api/authenticated/my-urls`);
+  public getMyUrls() : Observable<MyUrlResponse[]>{
+    return this.http.get<MyUrlResponse[]>(`${this.localHost}/api/authenticated/my-urls`);
   }
 
   public deleteUrlById(id : number) : Observable<any>{
@@ -23,8 +23,8 @@ export class MyUrlsService {
     .pipe(first());
   }
 
-  public getUrlById(id : number) : Observable<Url>{
-    return this.http.get<Url>(`${this.localHost}/api/authenticated/urls/${id}`)
+  public getUrlById(id : number) : Observable<MyUrlResponse>{
+    return this.http.get<MyUrlResponse>(`${this.localHost}/api/authenticated/urls/${id}`)
     .pipe(
       tap((response) =>{
         this.isUrlView.set(true);

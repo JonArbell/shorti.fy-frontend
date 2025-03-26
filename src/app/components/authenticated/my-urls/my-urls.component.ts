@@ -1,8 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
 import { MyUrlsService } from './my-urls.service';
-import { MyUrls } from '../../../models/my-urls.dto';
 import { CommonModule } from '@angular/common';
 import { RouterModule, RouterOutlet } from '@angular/router';
+import { MyUrlResponse } from '../../../models/my-urls.dto';
 
 
 @Component({
@@ -14,7 +14,7 @@ export class MyUrlsComponent {
 
   myUrlService = inject(MyUrlsService);
 
-  urls = signal<MyUrls[]>([]);
+  urls = signal<MyUrlResponse[]>([]);
 
   public deleteUrlById(id : number) : void{
 
@@ -39,7 +39,7 @@ export class MyUrlsComponent {
     this.myUrlService.getMyUrls()
     .subscribe({
       next : (response ) =>{
-        
+
         console.log(response);
 
         this.urls.set(response);

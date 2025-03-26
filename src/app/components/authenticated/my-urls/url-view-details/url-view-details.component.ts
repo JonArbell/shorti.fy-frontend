@@ -1,7 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
-import { Url } from '../../../../models/my-urls.dto';
 import { MyUrlsService } from '../my-urls.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MyUrlResponse } from '../../../../models/my-urls.dto';
 
 @Component({
   selector: 'app-url-view-details',
@@ -16,11 +16,11 @@ export class UrlViewDetailsComponent implements OnInit{
     private router : Router
   ){}
 
-  url = signal<Url>({} as Url);
+  url = signal<MyUrlResponse>({} as MyUrlResponse);
 
   public exit() : void{
     this.urlService.setIsUrlView(false);
-    this.url.set({} as Url);
+    this.url.set({} as MyUrlResponse);
     this.router.navigate(['my-urls']);
   }
 

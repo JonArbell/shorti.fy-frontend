@@ -30,8 +30,16 @@
                 <h3>Visitors :</h3>
                 <ul class="px-4">
                     
-                    <li>Lopit</li>
-                    <li>Angas</li>
+                    @for(visitor of url().visitors; track visitor){
+                        <li>
+                            <p>{{visitor.id}}</p>
+                            <p>{{visitor.ipAddress}}</p>
+                            <p>{{visitor.location}}</p>
+                            <p>{{visitor.device}}</p>
+                            <p>{{visitor.numberOfVisit}}</p>
+                        </li>
+                    }
+                    
                 </ul>
             </section>
 
