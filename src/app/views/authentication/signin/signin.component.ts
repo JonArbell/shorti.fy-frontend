@@ -23,7 +23,7 @@ export class SigninComponent {
   ) {
     this.form = this.formBuilder.group({
       email: [
-        'deocampo.arbelldonor@gmail.com',
+        'arbell_lopit@gmail.com',
         [Validators.required, Validators.email],
       ],
       password: ['angaslopit', [Validators.required, Validators.minLength(6)]],
@@ -38,7 +38,7 @@ export class SigninComponent {
     console.log(`Email : ${email?.value}\nPass : ${password?.value}`);
 
     if (
-      email?.value === 'deocampo.arbelldonor@gmail.com' &&
+      email?.value === 'arbell_lopit@gmail.com' &&
       password?.value === 'angaslopit'
     ) {
       this.authService.isAuthenticated.set(true);
