@@ -38,13 +38,12 @@
 
     <!-- Logout -->
     <div class="p-4 mt-auto">
-      <a
-        routerLink="logout"
-        routerLinkActive="bg-red-500 font-semibold"
+      <button
+        (click)="logout()"
         class="block w-full px-4 py-2 rounded-md text-red-300 hover:bg-red-700 transition"
       >
         Logout
-      </a>
+      </button>
     </div>
   </nav>
 </aside>
