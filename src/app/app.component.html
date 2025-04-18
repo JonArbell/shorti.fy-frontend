@@ -1,0 +1,9 @@
+<section>
+  <div>
+    @if (isAuthenticated()) {
+      <app-authenticated-base></app-authenticated-base>
+    } @else {
+      <app-authentication-base></app-authentication-base>
+    }
+  </div>
+</section>

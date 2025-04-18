@@ -1,0 +1,50 @@
+<aside class="bg-gray-800 text-white h-full w-full md:w-52 xl:w-64">
+  <nav class="flex flex-col h-full">
+    <!-- Navigation links -->
+    <ul class="flex-1 pt-6 space-y-1 px-4">
+      <!-- Home -->
+      <li>
+        <a
+          routerLink="home"
+          routerLinkActive="bg-blue-500 font-semibold"
+          class="block w-full px-4 py-2 rounded-md hover:bg-blue-700 transition"
+        >
+          Home
+        </a>
+      </li>
+
+      <!-- Dashboard -->
+      <li>
+        <a
+          routerLink="dashboard"
+          routerLinkActive="bg-blue-500 font-semibold"
+          class="block w-full px-4 py-2 rounded-md hover:bg-blue-700 transition"
+        >
+          Dashboard
+        </a>
+      </li>
+
+      <!-- My URLs -->
+      <li>
+        <a
+          routerLink="my-urls"
+          routerLinkActive="bg-blue-500 font-semibold"
+          class="block w-full px-4 py-2 rounded-md hover:bg-blue-700 transition"
+        >
+          My URLs
+        </a>
+      </li>
+    </ul>
+
+    <!-- Logout -->
+    <div class="p-4 mt-auto">
+      <a
+        routerLink="logout"
+        routerLinkActive="bg-red-500 font-semibold"
+        class="block w-full px-4 py-2 rounded-md text-red-300 hover:bg-red-700 transition"
+      >
+        Logout
+      </a>
+    </div>
+  </nav>
+</aside>
