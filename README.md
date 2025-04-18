@@ -1,2 +1,0 @@
-# Shorti.fy - Frontend
-
