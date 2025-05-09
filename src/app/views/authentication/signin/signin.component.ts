@@ -7,6 +7,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-signin',
@@ -35,14 +36,42 @@ export class SigninComponent {
 
     const password = this.form.get('password');
 
-    console.log(`Email : ${email?.value}\nPass : ${password?.value}`);
-
-    if (
-      email?.value === 'arbell_lopit@gmail.com' &&
-      password?.value === 'angaslopit'
-    ) {
-      this.authService.isAuthenticated.set(true);
-      this.router.navigate(['/dashboard']);
+    if(email?.invalid && password?.invalid){
+      Swal.fire({
+        icon : 'error',
+        title : 'Oops',
+        text : 'Please enter valid email and password'
+      });
     }
+
+    const form = {
+      "email" : email?.value,
+      "password" : password?.value
+    }
+
+    this.authService.login(form)
+    .subscribe({
+      next : (response : any) =>{
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Login Successful',
+          text: `Welcome, ${response.username}!`, // Customize with user's name if available
+          showConfirmButton: false,
+          timer: 1500 
+        });
+        
+        this.authService.setAut(response.token);
+        this.router.navigate(['/dashboard']);
+      },
+      error : (err : any) =>{
+        Swal.fire({
+          icon : 'error',
+          title : 'Oops',
+          text : err.message
+        })
+      }
+    });
+
   }
 }

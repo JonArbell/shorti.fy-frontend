@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import Swal from 'sweetalert2';
 import { Login } from '../../dto/login.dto';
 import { environment } from '../../environments/environment';
@@ -15,13 +15,7 @@ export class AuthService {
     private router : Router
   ) {}
 
-  isAuthenticated = signal<boolean>(!!localStorage.getItem('token'));
-
-  setAut(token : string) : void{
-    console.log(token)
-    localStorage.setItem('token',token);
-    this.isAuthenticated.set(true)
-  }
+  isAuthenticated = signal<boolean>(localStorage.getItem('token') !== null);
 
   logout() : void{
     Swal.fire({
@@ -34,9 +28,9 @@ export class AuthService {
       confirmButtonText: 'Yes, log me out!'
     }).then((result) => {
       if (result.isConfirmed) {
-        localStorage.clear(); 
+        localStorage.clear();
 
-        this.isAuthenticated.set(false)
+        this.isAuthenticated.set(false);
         this.router.navigate(['/']);
         Swal.fire(
           'Logged Out!',
