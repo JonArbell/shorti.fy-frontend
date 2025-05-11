@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import Swal from 'sweetalert2';
 import { Login } from '../../dto/login.dto';
 import { environment } from '../../environments/environment';
@@ -9,6 +9,7 @@ import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
+
 export class AuthService {
   constructor(
     private http: HttpClient,
@@ -17,10 +18,20 @@ export class AuthService {
 
   isAuthenticated = signal<boolean>(!!localStorage.getItem('token'));
 
-  setAut(token : string) : void{
-    console.log(token)
-    localStorage.setItem('token',token);
-    this.isAuthenticated.set(true)
+  setAut(token : string, role : string) : void{
+    // console.log(token)
+    localStorage.setItem('token', token);
+
+    if(role === 'USER'){
+      this.isAuthenticated.set(true);
+      this.router.navigate(['/dashboard']);
+    }
+  }
+
+  removeAuth(){
+    localStorage.clear();
+    this.isAuthenticated.set(false);
+    this.router.navigate(['/']);
   }
 
   logout() : void{
@@ -34,10 +45,7 @@ export class AuthService {
       confirmButtonText: 'Yes, log me out!'
     }).then((result) => {
       if (result.isConfirmed) {
-        localStorage.clear(); 
-
-        this.isAuthenticated.set(false)
-        this.router.navigate(['/']);
+        this.removeAuth();
         Swal.fire(
           'Logged Out!',
           'You have been successfully logged out.',

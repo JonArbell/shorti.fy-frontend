@@ -1,4 +1,4 @@
-<section class="px-4 py-8 sm:px-6 lg:px-12 bg-white space-y-8">
+<section class="px-4 py-8 pt-12 sm:px-6 lg:px-12 bg-white space-y-8">
   <!-- Title -->
   <div class="flex justify-between items-center">
     <h2 class="text-2xl sm:text-3xl font-bold text-gray-800">Dashboard</h2>
@@ -12,7 +12,7 @@
       class="bg-blue-100 text-blue-800 rounded-xl p-5 shadow hover:shadow-md transition duration-200"
     >
       <h4 class="text-sm font-medium">Total URL Links</h4>
-      <p class="text-3xl font-bold mt-2">0</p>
+      <p class="text-3xl font-bold mt-2">{{dashboardData().totalUrlLinks}}</p>
     </div>
 
     <!-- Active URLs -->
@@ -20,7 +20,7 @@
       class="bg-green-100 text-green-800 rounded-xl p-5 shadow hover:shadow-md transition duration-200"
     >
       <h4 class="text-sm font-medium">Active URLs</h4>
-      <p class="text-3xl font-bold mt-2">0</p>
+      <p class="text-3xl font-bold mt-2">{{dashboardData().activeUrls}}</p>
     </div>
 
     <!-- Most Clicked URL -->
@@ -28,7 +28,7 @@
       class="bg-yellow-100 text-yellow-800 rounded-xl p-5 shadow hover:shadow-md transition duration-200"
     >
       <h4 class="text-sm font-medium">Most Clicked URL</h4>
-      <p class="text-sm mt-2 font-semibold truncate">None</p>
+      <p class="text-sm mt-2 font-semibold truncate">{{dashboardData().mostClickedUrl}}</p>
     </div>
 
     <!-- Expired URLs -->
@@ -36,12 +36,17 @@
       class="bg-red-100 text-red-800 rounded-xl p-5 shadow hover:shadow-md transition duration-200"
     >
       <h4 class="text-sm font-medium">Expired URLs</h4>
-      <p class="text-3xl font-bold mt-2">0</p>
+      <p class="text-3xl font-bold mt-2">{{dashboardData().expiredUrls}}</p>
     </div>
   </div>
 
+
   <!-- Table Section -->
   <div class="overflow-x-auto shadow rounded-xl">
+    <div class="p-4">
+      <h3>Recent Visitors</h3>
+    </div>
+
     <table class="min-w-full text-sm text-left text-gray-700 bg-white">
       <thead class="bg-blue-600 text-white text-xs uppercase">
         <tr>

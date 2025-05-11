@@ -8,6 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-signin',
@@ -19,7 +20,6 @@ export class SigninComponent {
 
   constructor(
     private authService: AuthService,
-    private router: Router,
     private formBuilder: FormBuilder
   ) {
     this.form = this.formBuilder.group({
@@ -42,6 +42,7 @@ export class SigninComponent {
         title : 'Oops',
         text : 'Please enter valid email and password'
       });
+      return;
     }
 
     const form = {
@@ -53,22 +54,31 @@ export class SigninComponent {
     .subscribe({
       next : (response : any) =>{
 
+        const token = response.token;
+
+        const username : any = jwtDecode(token).sub;
+
+        const role : any = jwtDecode(token);
+
         Swal.fire({
           icon: 'success',
           title: 'Login Successful',
-          text: `Welcome, ${response.username}!`, // Customize with user's name if available
+          text: `Welcome, ${username}!`,
           showConfirmButton: false,
-          timer: 1500 
+          timer: 2000 
         });
         
-        this.authService.setAut(response.token);
-        this.router.navigate(['/dashboard']);
+        this.authService.setAut(token, role.scope);
+
       },
       error : (err : any) =>{
+
+        console.log(err.message)
+
         Swal.fire({
           icon : 'error',
           title : 'Oops',
-          text : err.message
+          text : err.error.UsernameNotFoundException??'Something went wrong!'
         })
       }
     });
