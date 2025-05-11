@@ -67,7 +67,7 @@ export class SigninComponent {
           showConfirmButton: false,
           timer: 2000 
         });
-        
+        console.log(token)
         this.authService.setAut(token, role.scope);
 
       },

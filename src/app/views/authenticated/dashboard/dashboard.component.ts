@@ -14,6 +14,8 @@ export class DashboardComponent implements OnInit {
     private dashboardService : DashboardService
   ){}
 
+  isLoading = signal<boolean>(true);
+
   dashboardData = signal<Dashboard>({
     activeUrls : 0,
     expiredUrls : 0,
@@ -34,28 +36,22 @@ export class DashboardComponent implements OnInit {
         };
 
        this.dashboardData.set(dashboard); 
+
+       this.isLoading.set(false)
       }
     });
   }
 
-  data: UrlData[] = [
-    {
-      ip: '192.168.1.1',
-      originalUrl: 'https://example.com/this-is-a-long-url',
-      shortUrl: 'shorti.fy/abc123',
-      clicks: 17,
-      status: 'Active',
-    },
-    {
+  getRecentVisits() : void{
+    this.dashboardService.getRecentVisits()
+    .subscribe({
+      next : (response : UrlData[]) =>{
+        this.data.set(response);
+      }
+    })
+  }
 
-      ip: '172.0.0.2',
-      originalUrl: 'https://longdomain.com/test-page?id=xyz',
-      shortUrl: 'shorti.fy/xyz789',
-      clicks: 0,
-      status: 'Expired',
-    },
-    // ...more mock data
-  ];
+  private data = signal<UrlData[]>([]);
 
   pageSize = 10;
   currentPage = 0;
@@ -64,13 +60,14 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDashboard();
+    this.getRecentVisits();
     this.updatePagedData();
   }
 
   updatePagedData(): void {
     const start = this.currentPage * this.pageSize;
     const end = start + this.pageSize;
-    this.pagedData = this.data.slice(start, end);
+    this.pagedData = this.data().slice(start, end);
   }
 
   onPageChange(page: number): void {
@@ -102,6 +99,7 @@ interface Dashboard {
 }
 
 interface UrlData{
+  id : number,
   ip: string,
   originalUrl: string,
   shortUrl: string,
