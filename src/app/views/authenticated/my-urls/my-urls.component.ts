@@ -1,28 +1,39 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MyUrlsService } from './my-urls.service';
 
 @Component({
   selector: 'app-my-urls',
   imports: [CommonModule, FormsModule],
   templateUrl: './my-urls.component.html',
 })
-export class MyUrlsComponent {
+export class MyUrlsComponent implements OnInit{
 
-  urls: MyUrl[] = [
-    { id: 1, shortUrl: 'goo.gl', originalUrl: 'https://google.com', maxClicks: 150 },
-    { id: 2, shortUrl: 'fb.com', originalUrl: 'https://facebook.com', maxClicks: 300 },
-    { id: 3, shortUrl: 'twtr.com', originalUrl: 'https://twitter.com', maxClicks: 50 },
-    { id: 4, shortUrl: 'insta.com', originalUrl: 'https://instagram.com', maxClicks: 400 },
-    { id: 5, shortUrl: 'lnkd.in', originalUrl: 'https://linkedin.com', maxClicks: 75 },
-    { id: 6, shortUrl: 'yt.be', originalUrl: 'https://youtube.com', maxClicks: 120 },
-    { id: 7, shortUrl: 'github.io', originalUrl: 'https://github.com', maxClicks: 90 },
-    { id: 8, shortUrl: 'reddit.com', originalUrl: 'https://reddit.com', maxClicks: 60 },
-    { id: 9, shortUrl: 'pin.it', originalUrl: 'https://pinterest.com', maxClicks: 200 },
-    { id: 10, shortUrl: 'snap.ly', originalUrl: 'https://snapchat.com', maxClicks: 110 },
-    { id: 11, shortUrl: 'spoti.fi', originalUrl: 'https://spotify.com', maxClicks: 80 },
-    { id: 12, shortUrl: 'netf.li', originalUrl: 'https://netflix.com', maxClicks: 220 }
-  ];
+  constructor(
+    private myUrlService : MyUrlsService
+  ){
+
+  }
+
+  ngOnInit(): void {
+    this.getUrls();
+    
+  }
+
+  getUrls() : void{
+    this.myUrlService.getUrls()
+    .subscribe({
+      next : (response : MyUrl[])=>{
+        this.urls = response;
+        this.isLoading.set(false);
+      }
+    });
+  }
+
+  isLoading = signal<boolean>(true);
+
+  urls: MyUrl[] = [];
 
   page = 1;
   pageSize = 9;

@@ -1,4 +1,12 @@
 <section class="container mx-auto p-4 pt-12">
+
+  @if(isLoading()){
+    <div class="fixed inset-0 flex h-screen w-screen flex-col items-center justify-center bg-white/50 backdrop-blur-sm z-50">
+    <div class="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+    <p class="mt-4 text-gray-700 font-medium text-lg">Loading your urls. Please wait...</p>
+  </div>
+  }@else{
+    
   <!-- Title Section -->
   <h1 class="text-2xl font-semibold text-center text-blue-800 mb-6">My URLs</h1>
 
@@ -30,24 +38,27 @@
 
   </div>
 
-  <!-- Pagination -->
-<div class="flex justify-center mt-6">
-  <!-- Prev Button -->
-  <button (click)="prevPage()"
-          [disabled]="page === 1"
-          class="px-4 py-2 bg-blue-500 text-white rounded-l-lg disabled:opacity-50 hover:bg-blue-600">
-    Prev
-  </button>
+    <!-- Pagination -->
+  <div class="flex justify-center mt-6">
+    <!-- Prev Button -->
+    <button (click)="prevPage()"
+            [disabled]="page === 1"
+            class="px-4 py-2 bg-blue-500 text-white rounded-l-lg disabled:opacity-50 hover:bg-blue-600">
+      Prev
+    </button>
 
-  <!-- Page Number -->
-  <span class="px-4 py-2 text-gray-700">Page {{ page }}</span>
+    <!-- Page Number -->
+    <span class="px-4 py-2 text-gray-700">Page {{ page }}</span>
 
-  <!-- Next Button -->
-  <button (click)="nextPage()"
-          [disabled]="page === totalPages"
-          class="px-4 py-2 bg-blue-500 text-white rounded-r-lg disabled:opacity-50 hover:bg-blue-600">
-    Next
-  </button>
-</div>
+    <!-- Next Button -->
+    <button (click)="nextPage()"
+            [disabled]="page === totalPages"
+            class="px-4 py-2 bg-blue-500 text-white rounded-r-lg disabled:opacity-50 hover:bg-blue-600">
+      Next
+    </button>
+  </div>
+  }
+
+
 
 </section>
