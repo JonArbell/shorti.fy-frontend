@@ -6,6 +6,8 @@ import { HomeComponent } from './views/authenticated/home/home.component';
 import { MyUrlsComponent } from './views/authenticated/my-urls/my-urls.component';
 import { canActivateAuthGuard } from './guard/can-activate-auth.guard';
 import { guestGuard } from './guard/guest.guard';
+import { ExpiredUrlComponent } from './views/expired-url/expired-url/expired-url.component';
+import { requiredParamGuard } from './guard/required-param.guard';
 
 export const routes: Routes = [
   {
@@ -33,4 +35,9 @@ export const routes: Routes = [
     component: MyUrlsComponent,
     canActivate : [canActivateAuthGuard]
   },
+  {
+    path : 'expired-url',
+    component : ExpiredUrlComponent,
+    canActivate : [requiredParamGuard]
+  }
 ];

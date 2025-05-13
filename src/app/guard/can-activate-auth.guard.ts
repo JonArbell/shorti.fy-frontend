@@ -15,8 +15,6 @@ export const canActivateAuthGuard: CanActivateFn = (route, state) => {
 
       const decoded: any = jwtDecode(token);
 
-      // console.log(decoded)
-
       if (decoded.scope === 'USER') {
         return true;
       }
@@ -24,7 +22,7 @@ export const canActivateAuthGuard: CanActivateFn = (route, state) => {
       Swal.fire({
         icon: 'error',
         title: 'Access Denied',
-        text: 'You\'re not allowed.',
+        text: 'You\'re not allowed to access this page.',
         confirmButtonText: 'Go Back'
       }).then(() => {
         authService.removeAuth(); 
