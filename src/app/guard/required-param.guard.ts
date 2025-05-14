@@ -3,17 +3,17 @@ import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { environment } from '../environments/environment';
 import { catchError, map, of } from 'rxjs';
+
 export const requiredParamGuard: CanActivateFn = (route, state) => {
 
   const urlParam = route.queryParamMap.get('url');
 
-  console.log(urlParam);
+  const router = inject(Router);
 
   if (!urlParam) {
     console.log('Walang param');
-    const router = inject(Router);
     router.navigate(['/']);
-    return of(false);
+    return false;
   }
 
   const http = inject(HttpClient);

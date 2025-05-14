@@ -1,64 +1,95 @@
-<section class="container mx-auto p-4 pt-12">
-
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8">
   @if(isLoading()){
-    <div class="fixed inset-0 flex h-screen w-screen flex-col items-center justify-center bg-white/50 backdrop-blur-sm z-50">
-    <div class="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-    <p class="mt-4 text-gray-700 font-medium text-lg">Loading your urls. Please wait...</p>
+  <div
+    class="fixed inset-0 z-50 flex items-center justify-center bg-white/60 backdrop-blur-sm"
+  >
+    <div class="flex flex-col items-center">
+      <div
+        class="w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"
+      ></div>
+      <p class="mt-4 text-gray-700 font-medium text-base sm:text-lg">
+        Loading your URLs. Please wait...
+      </p>
+    </div>
   </div>
-  }@else{
-    
-  <!-- Title Section -->
-  <h1 class="text-2xl font-semibold text-center text-blue-800 mb-6">My URLs</h1>
+  } @else {
 
-  <!-- URL Boxes -->
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    @for(url of paginatedUrls; track url.id){
-      <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200 transition duration-200 hover:shadow-2xl hover:border-blue-500">
-        <!-- Short URL as Title -->
-        <h2 class="text-xl font-semibold text-blue-600">{{ url.shortUrl }}</h2>
+  <!-- Page Title -->
+  <h1 class="text-2xl sm:text-3xl font-bold text-center text-blue-800 mb-8">
+    My Shortened URLs
+  </h1>
 
-        <!-- Original URL as Subtitle -->
-        <p class="text-gray-600 text-sm">{{ url.originalUrl }}</p>
+  <!-- URL Cards Grid -->
+  <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 px-4 justify-center">
+    @if(paginatedUrls.length > 0) { @for(url of paginatedUrls; track url.id) {
+    <div
+      class="card bg-white border border-blue-100 shadow-md hover:shadow-lg transition-all duration-300 w-full max-w-sm mx-auto"
+    >
+      <div class="card-body">
+        <!-- Short URL -->
+        <h2
+          class="card-title text-blue-700 break-all flex justify-center items-center"
+        >
+          <button (click)="viewFullInfo(url.id)" class="underline">
+            {{ url.shortUrl }}
+          </button>
+        </h2>
 
-        <!-- Max Clicks Info -->
-        <div class="mt-4 text-sm text-gray-500">
-          <p><strong>Max Clicks:</strong> {{ url.maxClicks }}</p>
-        </div>
+        <!-- Original URL -->
+        <p class="text-gray-600 text-sm break-words">
+          {{ url.originalUrl }}
+        </p>
 
-        <!-- Action Buttons -->
-        <div class="mt-6 flex justify-between items-center">
-          <button (click)="viewFullInfo(url.id)" class="text-blue-500 hover:underline text-sm">View Full Info</button>
-          <div>
-            <button (click)="updateUrl(url.id)" class="text-yellow-500 hover:underline text-sm mr-4">Update</button>
-            <button (click)="deleteUrl(url.id)" class="text-red-500 hover:underline text-sm">Delete</button>
-          </div>
+        <!-- Actions -->
+        <div class="card-actions justify-center mt-4 w-full">
+          <button
+            (click)="updateUrl(url.id)"
+            class="btn btn-sm bg-green-500 text-white hover:bg-green-700 transition w-1/3"
+          >
+            Update
+          </button>
+          <button
+            (click)="showDeleteModal(url.id)"
+            class="btn btn-sm bg-red-500 text-white hover:bg-red-600 transition w-1/3"
+          >
+            Delete
+          </button>
         </div>
       </div>
+    </div>
+    } } @else {
+    <div
+      class="col-span-full flex flex-col items-center justify-center text-center py-20"
+    >
+      <p class="text-gray-500 max-w-md">
+        You haven’t shortened any URLs yet. Once you do, they’ll show up here!
+      </p>
+    </div>
     }
-
   </div>
 
-    <!-- Pagination -->
-  <div class="flex justify-center mt-6">
-    <!-- Prev Button -->
-    <button (click)="prevPage()"
-            [disabled]="page === 1"
-            class="px-4 py-2 bg-blue-500 text-white rounded-l-lg disabled:opacity-50 hover:bg-blue-600">
+  <!-- Pagination Controls -->
+  <div class="flex flex-wrap justify-center items-center gap-4 mt-10">
+    <button
+      (click)="prevPage()"
+      [disabled]="page === 1"
+      class="px-4 py-2 bg-blue-500 text-white rounded-lg disabled:opacity-50 hover:bg-blue-600 transition"
+    >
       Prev
     </button>
 
-    <!-- Page Number -->
-    <span class="px-4 py-2 text-gray-700">Page {{ page }}</span>
+    <span class="text-base font-medium text-gray-700"
+      >Page {{ page }} of {{ totalPages }}</span
+    >
 
-    <!-- Next Button -->
-    <button (click)="nextPage()"
-            [disabled]="page === totalPages"
-            class="px-4 py-2 bg-blue-500 text-white rounded-r-lg disabled:opacity-50 hover:bg-blue-600">
+    <button
+      (click)="nextPage()"
+      [disabled]="page === totalPages"
+      class="px-4 py-2 bg-blue-500 text-white rounded-lg disabled:opacity-50 hover:bg-blue-600 transition"
+    >
       Next
     </button>
   </div>
+
   }
-
-
-
 </section>

@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 
 export const canActivateAuthGuard: CanActivateFn = (route, state) => {
   const token = localStorage.getItem('token');
- 
+
   const authService = inject(AuthService);
 
   if (token) {
@@ -25,7 +25,7 @@ export const canActivateAuthGuard: CanActivateFn = (route, state) => {
         text: 'You\'re not allowed to access this page.',
         confirmButtonText: 'Go Back'
       }).then(() => {
-        authService.removeAuth(); 
+        authService.removeAuth();
       });
 
       return false;
@@ -37,7 +37,7 @@ export const canActivateAuthGuard: CanActivateFn = (route, state) => {
         text: 'Your session is invalid or has expired. Please log in again.',
         confirmButtonText: 'Go to Login'
       }).then(() => {
-        authService.removeAuth(); 
+        authService.removeAuth();
       });
       return false;
     }

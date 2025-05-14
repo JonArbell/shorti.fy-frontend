@@ -7,14 +7,14 @@ import { ExpiredUrlService } from '../../../services/expired-url/expired-url.ser
   templateUrl: './expired-url.component.html'
 })
 export class ExpiredUrlComponent implements OnInit, OnDestroy {
-  
+
   expiredUrlService = inject(ExpiredUrlService);
 
-  ngOnInit(): void {
-    this.expiredUrlService.isRouteInExpiredUrl.set(true);
-  }
+    ngOnInit(): void {
+      this.expiredUrlService.isRouteInExpiredUrl.set(true);
+    }
 
-  ngOnDestroy(): void {
-    this.expiredUrlService.isRouteInExpiredUrl.set(false);
-  }
+    ngOnDestroy(): void {
+      this.expiredUrlService.isRouteInExpiredUrl.set(false);
+    }
 }

@@ -8,9 +8,6 @@ export const guestGuard: CanActivateFn = (route, state) => {
   const router = inject(Router)
 
   try{
-    if (state.url.includes('validate-url')) {
-      return false;
-    }
 
     const token = localStorage.getItem('token');
 

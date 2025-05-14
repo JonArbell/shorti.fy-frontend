@@ -2,32 +2,26 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MyUrlsService } from './my-urls.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-my-urls',
   imports: [CommonModule, FormsModule],
   templateUrl: './my-urls.component.html',
 })
-export class MyUrlsComponent implements OnInit{
-
-  constructor(
-    private myUrlService : MyUrlsService
-  ){
-
-  }
+export class MyUrlsComponent implements OnInit {
+  constructor(private myUrlService: MyUrlsService) {}
 
   ngOnInit(): void {
     this.getUrls();
-    
   }
 
-  getUrls() : void{
-    this.myUrlService.getUrls()
-    .subscribe({
-      next : (response : MyUrl[])=>{
+  getUrls(): void {
+    this.myUrlService.getUrls().subscribe({
+      next: (response: MyUrl[]) => {
         this.urls = response;
         this.isLoading.set(false);
-      }
+      },
     });
   }
 
@@ -49,6 +43,48 @@ export class MyUrlsComponent implements OnInit{
     return this.urls.slice(start, start + this.pageSize);
   }
 
+  showDeleteModal(id: number): void {
+    Swal.fire({
+      icon: 'question',
+      title: 'Are you sure?',
+      text: 'This action cannot be undone.',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Call your delete method here
+        this.deleteUrl(id);
+      }
+    });
+  }
+
+  deleteUrl(id: number): void {
+    this.myUrlService.deleteUrl(id).subscribe({
+      next: () => {
+        Swal.fire({
+          icon: 'success',
+          title: 'URL Deleted',
+          text: 'The URL has been successfully removed from your list.',
+          timer: 2000,
+          showConfirmButton: false,
+        });
+
+        this.getUrls();
+      },
+      error: (error) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Deletion Failed',
+          text: 'Something went wrong while trying to delete the URL. Please try again.',
+        });
+        console.error('Delete error:', error);
+      },
+    });
+  }
+
   // Go to next page
   nextPage() {
     if (this.page < this.totalPages) {
@@ -64,9 +100,6 @@ export class MyUrlsComponent implements OnInit{
   }
 
   // Action handlers
-  deleteUrl(id: number) {
-    alert(`Deleted URL with ID: ${id}`);
-  }
 
   updateUrl(id: number) {
     alert(`Updated URL with ID: ${id}`);
@@ -77,9 +110,9 @@ export class MyUrlsComponent implements OnInit{
   }
 }
 
-interface MyUrl{
-  id : number
-  shortUrl : string
-  originalUrl : string
-  maxClicks : number
+interface MyUrl {
+  id: number;
+  shortUrl: string;
+  originalUrl: string;
+  maxClicks: number;
 }
