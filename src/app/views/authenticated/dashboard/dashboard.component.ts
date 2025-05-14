@@ -35,7 +35,7 @@ export class DashboardComponent implements OnInit {
           totalUrlLinks : response.totalUrlLinks
         };
 
-       this.dashboardData.set(dashboard); 
+       this.dashboardData.set(dashboard);
 
        this.isLoading.set(false)
       }
@@ -46,49 +46,20 @@ export class DashboardComponent implements OnInit {
     this.dashboardService.getRecentVisits()
     .subscribe({
       next : (response : UrlData[]) =>{
-        this.data.set(response);
+        this.pagedData.set(response);
+        this.isLoading.set(false);
       }
     })
   }
 
-  private data = signal<UrlData[]>([]);
-
-  pageSize = 10;
-  currentPage = 0;
-
-  pagedData: UrlData[] = [];
+  pagedData = signal<UrlData[]>([]);
 
   ngOnInit(): void {
     this.getDashboard();
     this.getRecentVisits();
-    this.updatePagedData();
+
   }
 
-  updatePagedData(): void {
-    const start = this.currentPage * this.pageSize;
-    const end = start + this.pageSize;
-    this.pagedData = this.data().slice(start, end);
-  }
-
-  onPageChange(page: number): void {
-    this.currentPage = page;
-    this.updatePagedData();
-  }
-  totalItems = 0;
-
-  prevPage(): void {
-    if (this.currentPage > 0) {
-      this.currentPage--;
-      this.updatePagedData();
-    }
-  }
-
-  nextPage(): void {
-    if ((this.currentPage + 1) * this.pageSize < this.totalItems) {
-      this.currentPage++;
-      this.updatePagedData();
-    }
-  }
 }
 
 interface Dashboard {
@@ -100,9 +71,9 @@ interface Dashboard {
 
 interface UrlData{
   id : number,
-  ip: string,
+  ipAddress: string,
   originalUrl: string,
-  shortUrl: string,
-  clicks: number,
-  status: string,
+  shortenedUrl: string,
+  numberOfClicks: number,
+  active: boolean,
 }
