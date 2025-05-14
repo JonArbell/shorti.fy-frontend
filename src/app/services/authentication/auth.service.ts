@@ -9,32 +9,28 @@ import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-
 export class AuthService {
-  constructor(
-    private http: HttpClient,
-    private router : Router
-  ) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   isAuthenticated = signal<boolean>(!!localStorage.getItem('token'));
 
-  setAut(token : string, role : string) : void{
+  setAut(token: string, role: string): void {
     // console.log(token)
     localStorage.setItem('token', token);
 
-    if(role === 'USER'){
+    if (role === 'USER') {
       this.isAuthenticated.set(true);
       this.router.navigate(['/dashboard']);
     }
   }
 
-  removeAuth(){
+  removeAuth() {
     localStorage.clear();
     this.isAuthenticated.set(false);
     this.router.navigate(['/']);
   }
 
-  logout() : void{
+  logout(): void {
     Swal.fire({
       title: 'Are you sure?',
       text: 'You will be logged out!',
@@ -42,7 +38,7 @@ export class AuthService {
       showCancelButton: true,
       confirmButtonColor: '#3085d6', // Blue
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, log me out!'
+      confirmButtonText: 'Yes, log me out!',
     }).then((result) => {
       if (result.isConfirmed) {
         this.removeAuth();
@@ -55,10 +51,7 @@ export class AuthService {
     });
   }
 
-  login(form : Login) : Observable<any>{
-
-    return this.http.post(`${environment.AUTHENTICATION_BASE_URL}/login`,form);
-
+  login(form: Login): Observable<any> {
+    return this.http.post(`/login`, form);
   }
-
 }
