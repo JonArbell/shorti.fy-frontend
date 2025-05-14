@@ -3,6 +3,7 @@ import { Component, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MyUrlsService } from './my-urls.service';
 import Swal from 'sweetalert2';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-my-urls',
@@ -25,6 +26,8 @@ export class MyUrlsComponent implements OnInit {
     });
   }
 
+  redirectDomain = environment.REDIRECT_BASE_URL;
+
   isLoading = signal<boolean>(true);
 
   urls: MyUrl[] = [];
@@ -45,7 +48,7 @@ export class MyUrlsComponent implements OnInit {
 
   showDeleteModal(id: number): void {
     Swal.fire({
-      icon: 'question',
+      icon: 'warning',
       title: 'Are you sure?',
       text: 'This action cannot be undone.',
       showCancelButton: true,

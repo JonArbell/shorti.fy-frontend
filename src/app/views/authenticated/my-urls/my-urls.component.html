@@ -19,29 +19,30 @@
     My Shortened URLs
   </h1>
 
-  <!-- URL Cards Grid -->
-  <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 px-4 justify-center">
-    @if(paginatedUrls.length > 0) { @for(url of paginatedUrls; track url.id) {
-    <div
-      class="card bg-white border border-blue-100 shadow-md hover:shadow-lg transition-all duration-300 w-full max-w-sm mx-auto"
-    >
-      <div class="card-body">
-        <!-- Short URL -->
-        <h2
-          class="card-title text-blue-700 break-all flex justify-center items-center"
-        >
-          <button (click)="viewFullInfo(url.id)" class="underline">
-            {{ url.shortUrl }}
-          </button>
-        </h2>
+  <div class="flex flex-wrap justify-center gap-6 px-4">
+    @for(url of paginatedUrls; track url.id) {
+    <div class="w-full max-w-sm">
+      <div
+        class="card w-full h-[170px] bg-white border border-blue-100 shadow-md hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
+      >
+        <div class="card-body">
+          <!-- Short URL -->
+          <h2
+            class="card-title text-blue-700 break-all flex items-center justify-center"
+          >
+            <a [href]="`${redirectDomain}/${url.shortUrl}`" class="underline">
+              {{ url.shortUrl }}
+            </a>
+          </h2>
 
-        <!-- Original URL -->
-        <p class="text-gray-600 text-sm break-words">
-          {{ url.originalUrl }}
-        </p>
+          <!-- Original URL (truncated) -->
+          <p class="text-gray-600 text-sm truncate text-center mt-2">
+            {{ url.originalUrl }}
+          </p>
+        </div>
 
         <!-- Actions -->
-        <div class="card-actions justify-center mt-4 w-full">
+        <div class="card-actions justify-center pb-4">
           <button
             (click)="updateUrl(url.id)"
             class="btn btn-sm bg-green-500 text-white hover:bg-green-700 transition w-1/3"
@@ -56,14 +57,6 @@
           </button>
         </div>
       </div>
-    </div>
-    } } @else {
-    <div
-      class="col-span-full flex flex-col items-center justify-center text-center py-20"
-    >
-      <p class="text-gray-500 max-w-md">
-        You haven’t shortened any URLs yet. Once you do, they’ll show up here!
-      </p>
     </div>
     }
   </div>

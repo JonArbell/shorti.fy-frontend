@@ -62,11 +62,9 @@ export class HomeComponent {
     
   }
 
-  public isClicked = false;
+  isClicked = signal<boolean>(false);
 
-  private timeOutId: any;
-
-  public copyLink(event: Event): void {
+  copyLink(event: Event): void {
     const text = (event.target as HTMLButtonElement).innerText;
 
     if (this.result() === 'No result yet') return;
@@ -74,7 +72,7 @@ export class HomeComponent {
     const baseUrl = environment.AUTHENTICATED_BASE_URL;
 
     navigator.clipboard.writeText(`${baseUrl.slice(0,baseUrl.indexOf('/api'))}/${text}`).then(() => {
-      this.isClicked = true;
+      this.isClicked.set(true);
     });
   }
 }

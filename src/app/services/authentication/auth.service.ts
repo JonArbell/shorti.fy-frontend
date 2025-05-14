@@ -34,7 +34,7 @@ export class AuthService {
     Swal.fire({
       title: 'Are you sure?',
       text: 'You will be logged out!',
-      icon: 'warning',
+      icon: 'question',
       showCancelButton: true,
       confirmButtonColor: '#3085d6', // Blue
       cancelButtonColor: '#d33',
@@ -52,6 +52,6 @@ export class AuthService {
   }
 
   login(form: Login): Observable<any> {
-    return this.http.post(`/login`, form);
+    return this.http.post(`${environment.AUTHENTICATION_BASE_URL}/login`, form);
   }
 }
