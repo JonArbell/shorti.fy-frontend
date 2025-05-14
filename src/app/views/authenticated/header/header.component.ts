@@ -1,5 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 import { AuthService } from '../../../services/authentication/auth.service';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -10,16 +11,14 @@ export class HeaderComponent {
   lastScrollTop = 0; // To store the last scroll position
   isMobileView: boolean = false;
 
-  constructor(
-    private authService : AuthService
-  ) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {
     // Check if the device is mobile (sm or smaller)
     this.isMobileView = window.innerWidth <= 640; // sm breakpoint is 640px
   }
 
-  logout() : void{
+  logout(): void {
     this.authService.logout();
   }
 

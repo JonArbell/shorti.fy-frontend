@@ -1,4 +1,6 @@
-<section class="min-h-screen md:h-screen md:overflow-y-hidden flex flex-col bg-blue-50 text-gray-800">
+<section
+  class="min-h-screen md:h-screen md:overflow-y-hidden flex flex-col bg-blue-50 text-gray-800"
+>
   <!-- Header -->
   <div>
     <app-header></app-header>
@@ -46,13 +48,14 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="flex-1 h-full md:h-[85vh] overflow-y-auto p-6 pb-24 md:pb-6">
+    <main
+      class="flex-1 h-full md:h-[70vh] overflow-y-auto p-6 pb-24 md:pb-6 relative"
+    >
       <router-outlet></router-outlet>
     </main>
   </div>
 
   <!-- Footer -->
-
   <div class="hidden md:block">
     <app-footer></app-footer>
   </div>
