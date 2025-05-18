@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { MyUrlsService } from './my-urls.service';
 import Swal from 'sweetalert2';
 import { environment } from '../../../environments/environment';
+import { MatDialog } from '@angular/material/dialog';
+import { UpdateUrlFormComponent } from '../layout/update-url-form/update-url-form.component';
 
 @Component({
   selector: 'app-my-urls',
@@ -11,7 +13,59 @@ import { environment } from '../../../environments/environment';
   templateUrl: './my-urls.component.html',
 })
 export class MyUrlsComponent implements OnInit {
-  constructor(private myUrlService: MyUrlsService) {}
+  constructor(private myUrlService: MyUrlsService, private dialog: MatDialog) {}
+  openUpdateUrlDialog(id: number) {
+    const dialogRef = this.dialog.open(UpdateUrlFormComponent, {
+      width: '400px',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        // Confirm before sending request
+        Swal.fire({
+          title: 'Are you sure?',
+          text: 'Do you want to update the URL?',
+          icon: 'question',
+          showCancelButton: true,
+          confirmButtonColor: '#3b82f6', // Tailwind blue-500
+          cancelButtonColor: '#d1d5db', // Tailwind gray-300
+          confirmButtonText: 'Yes, update it!',
+        }).then((confirmation) => {
+          if (confirmation.isConfirmed) {
+            this.isLoading.set(true);
+
+            this.myUrlService
+              .updateUrl({ id: id, updatedUrl: result })
+              .subscribe({
+                next: () => {
+                  Swal.fire({
+                    icon: 'success',
+                    title: 'URL Updated!',
+                    text: 'The URL has been successfully updated.',
+                    confirmButtonColor: '#3b82f6',
+                  });
+
+                  this.getUrls();
+                  this.isLoading.set(false);
+                },
+                error: (err) => {
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Update Failed',
+                    text:
+                      err?.error?.message ||
+                      'Something went wrong while updating the URL.',
+                    confirmButtonColor: '#ef4444',
+                  });
+
+                  this.isLoading.set(false);
+                },
+              });
+          }
+        });
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.getUrls();
@@ -100,12 +154,6 @@ export class MyUrlsComponent implements OnInit {
     if (this.page > 1) {
       this.page--;
     }
-  }
-
-  // Action handlers
-
-  updateUrl(id: number) {
-    alert(`Updated URL with ID: ${id}`);
   }
 
   viewFullInfo(id: number) {

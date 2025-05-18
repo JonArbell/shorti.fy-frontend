@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { UpdateUrlRequestDto } from '../../../dto/url.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +17,13 @@ export class MyUrlsService {
   deleteUrl(id: number): Observable<any> {
     return this.http.delete(
       `${environment.AUTHENTICATED_BASE_URL}/delete-url/${id}`
+    );
+  }
+
+  updateUrl(update: UpdateUrlRequestDto): Observable<any> {
+    return this.http.put(
+      `${environment.AUTHENTICATED_BASE_URL}/update-url/${update.id}`,
+      { updatedUrl: update.updatedUrl }
     );
   }
 }
