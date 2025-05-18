@@ -1,0 +1,34 @@
+<section class="p-6 w-full max-w-md bg-white rounded-xl shadow-lg animate-swal">
+  <!-- Title -->
+  <h2 class="text-xl font-semibold text-gray-800 mb-4">Update Long URL</h2>
+
+  <!-- Form -->
+  <div class="flex flex-col gap-4">
+    <label for="url" class="text-sm font-medium text-gray-700">URL</label>
+    <input
+      id="url"
+      type="text"
+      class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+      placeholder="https://example.com/your-link"
+      [(ngModel)]="url"
+    />
+  </div>
+
+  <!-- Actions -->
+  <div class="flex justify-end gap-3 mt-6">
+    <button
+      class="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100 transition"
+      (click)="cancel()"
+    >
+      Cancel
+    </button>
+
+    <button
+      class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition disabled:opacity-50"
+      (click)="save()"
+      [disabled]="!url || !url().trim()"
+    >
+      Save
+    </button>
+  </div>
+</section>
