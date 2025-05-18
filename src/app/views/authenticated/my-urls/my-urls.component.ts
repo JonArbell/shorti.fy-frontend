@@ -21,7 +21,6 @@ export class MyUrlsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        // Confirm before sending request
         Swal.fire({
           title: 'Are you sure?',
           text: 'Do you want to update the URL?',
@@ -32,38 +31,44 @@ export class MyUrlsComponent implements OnInit {
           confirmButtonText: 'Yes, update it!',
         }).then((confirmation) => {
           if (confirmation.isConfirmed) {
-            this.isLoading.set(true);
-
-            this.myUrlService
-              .updateUrl({ id: id, updatedUrl: result })
-              .subscribe({
-                next: () => {
-                  Swal.fire({
-                    icon: 'success',
-                    title: 'URL Updated!',
-                    text: 'The URL has been successfully updated.',
-                    confirmButtonColor: '#3b82f6',
-                  });
-
-                  this.getUrls();
-                  this.isLoading.set(false);
-                },
-                error: (err) => {
-                  Swal.fire({
-                    icon: 'error',
-                    title: 'Update Failed',
-                    text:
-                      err?.error?.message ||
-                      'Something went wrong while updating the URL.',
-                    confirmButtonColor: '#ef4444',
-                  });
-
-                  this.isLoading.set(false);
-                },
-              });
+            this.updateUrl(id, result);
           }
         });
       }
+    });
+  }
+
+  updateUrl(id: number, result: string): void {
+    this.isLoading.set(true);
+
+    this.myUrlService.updateUrl({ id: id, updatedUrl: result }).subscribe({
+      next: () => {
+        Swal.fire({
+          icon: 'success',
+          title: '✅ URL Updated Successfully',
+          text: 'Your shortened URL has been refreshed with the new one.',
+          confirmButtonText: 'Awesome!',
+          confirmButtonColor: '#3b82f6', // Tailwind blue-500
+          backdrop: true,
+        });
+
+        this.getUrls();
+        this.isLoading.set(false);
+      },
+      error: (err) => {
+        Swal.fire({
+          icon: 'error',
+          title: '❌ Update Failed',
+          text:
+            err?.error?.message ||
+            'Something went wrong while updating the URL. Please try again.',
+          confirmButtonText: 'Try Again',
+          confirmButtonColor: '#ef4444', // Tailwind red-500
+          backdrop: true,
+        });
+
+        this.isLoading.set(false);
+      },
     });
   }
 
@@ -72,10 +77,33 @@ export class MyUrlsComponent implements OnInit {
   }
 
   getUrls(): void {
+    this.isLoading.set(true);
+
     this.myUrlService.getUrls().subscribe({
       next: (response: MyUrl[]) => {
         this.urls = response;
         this.isLoading.set(false);
+      },
+      error: (err) => {
+        this.isLoading.set(false);
+
+        Swal.fire({
+          icon: 'error',
+          title: '🚫 Failed to Load URLs',
+          text:
+            err?.error?.message ||
+            'Something went wrong while fetching your URLs.',
+          confirmButtonText: 'Retry',
+          confirmButtonColor: '#3b82f6', // Tailwind blue-500
+          showCancelButton: true,
+          cancelButtonText: 'Cancel',
+          cancelButtonColor: '#9ca3af', // Tailwind gray-400
+          backdrop: true,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.getUrls(); // Retry
+          }
+        });
       },
     });
   }
@@ -119,25 +147,35 @@ export class MyUrlsComponent implements OnInit {
   }
 
   deleteUrl(id: number): void {
+    this.isLoading.set(true);
+
     this.myUrlService.deleteUrl(id).subscribe({
       next: () => {
         Swal.fire({
           icon: 'success',
-          title: 'URL Deleted',
-          text: 'The URL has been successfully removed from your list.',
-          timer: 2000,
-          showConfirmButton: false,
+          title: 'URL Removed 🗑️',
+          text: 'Successfully deleted the URL from your list.',
+          confirmButtonText: 'Okay',
+          confirmButtonColor: '#3b82f6', // Tailwind blue-500
+          timer: 3000,
         });
 
         this.getUrls();
+        this.isLoading.set(false);
       },
       error: (error) => {
         Swal.fire({
           icon: 'error',
-          title: 'Deletion Failed',
-          text: 'Something went wrong while trying to delete the URL. Please try again.',
+          title: 'Whoops 😬',
+          text:
+            error?.error?.message ||
+            'Failed to delete the URL. Please try again.',
+          confirmButtonText: 'Close',
+          confirmButtonColor: '#ef4444', // Tailwind red-500
         });
+
         console.error('Delete error:', error);
+        this.isLoading.set(false);
       },
     });
   }

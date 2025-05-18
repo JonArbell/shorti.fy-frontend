@@ -36,52 +36,48 @@ export class SigninComponent {
 
     const password = this.form.get('password');
 
-    if(email?.invalid && password?.invalid){
+    if (email?.invalid && password?.invalid) {
       Swal.fire({
-        icon : 'error',
-        title : 'Oops',
-        text : 'Please enter valid email and password'
+        icon: 'error',
+        title: 'Oops',
+        text: 'Please enter valid email and password',
       });
       return;
     }
 
     const form = {
-      "email" : email?.value,
-      "password" : password?.value
-    }
+      email: email?.value,
+      password: password?.value,
+    };
 
-    this.authService.login(form)
-    .subscribe({
-      next : (response : any) =>{
-
+    this.authService.login(form).subscribe({
+      next: (response: any) => {
         const token = response.token;
 
-        const username : any = jwtDecode(token).sub;
+        const username: any = jwtDecode(token).sub;
 
-        const role : any = jwtDecode(token);
+        const role: any = jwtDecode(token);
 
         Swal.fire({
           icon: 'success',
-          title: 'Login Successful',
-          text: `Welcome, ${username}!`,
-          showConfirmButton: false,
-          timer: 2000 
+          title: 'Login Successful 🎉',
+          html: `<strong>Welcome back, ${username}!</strong><br>Your session has started.`,
+          confirmButtonText: 'Okay!',
+          confirmButtonColor: '#3b82f6', // Tailwind blue-500
         });
-        console.log(token)
+        console.log(token);
         this.authService.setAut(token, role.scope);
-
       },
-      error : (err : any) =>{
-
-        console.log(err.message)
-
+      error: (err: any) => {
         Swal.fire({
-          icon : 'error',
-          title : 'Oops',
-          text : err.error.UsernameNotFoundException??'Something went wrong!'
-        })
-      }
+          icon: 'error',
+          title: 'Oops! 😢',
+          text:
+            err?.error?.message || 'Something went wrong. Please try again.',
+          confirmButtonText: 'Okay',
+          confirmButtonColor: '#ef4444',
+        });
+      },
     });
-
   }
 }

@@ -12,54 +12,60 @@ import { environment } from '../../../environments/environment';
   templateUrl: './home.component.html',
 })
 export class HomeComponent {
-  constructor(
-    private homeService : HomeService
-  ){}
+  constructor(private homeService: HomeService) {}
 
-  longUrl: string = '';
+  longUrl = signal<string>('');
 
   isLoading = signal<boolean>(false);
 
   result = signal('No result yet');
 
   shortenUrl(): void {
-    
-    if(this.longUrl.length === 0) return;
+    if (this.longUrl().length === 0) return;
 
-    const form : ShortenUrlRequest = {
-      originalUrl : this.longUrl
-    }
+    const form: ShortenUrlRequest = {
+      originalUrl: this.longUrl(),
+    };
 
-    this.isLoading.set(true)
+    this.isLoading.set(true);
 
-    this.homeService.shortenUrl(form)
-    .subscribe({
-      next : (response : any) =>{
+    this.homeService.shortenUrl(form).subscribe({
+      next: (response: any) => {
         Swal.fire({
           icon: 'success',
-          title: 'Shortened URL!',
-          text: 'Successfully shortened the url!',
-          timer: 2000,
-          showConfirmButton: false
+          title: 'URL Shortened 🎉',
+          html: `Your link is ready: <br><strong>${response.shortUrl}</strong>`,
+          confirmButtonText: 'Copy & Close',
+          confirmButtonColor: '#3b82f6',
+        }).then(() => {
+          navigator.clipboard.writeText(
+            `${this.domain()}.${response.shortUrl}`
+          );
         });
-        this.isLoading.set(false)
-        this.result.set(response.shortUrl)
-      },
-      error : (err : any) =>{
 
-        if('Invalid URL format' === err.error.error){
-          Swal.fire({
+        this.isLoading.set(false);
+
+        this.result.set(response.shortUrl);
+
+        this.longUrl.set('');
+      },
+      error: (err: any) => {
+        Swal.fire({
           icon: 'error',
           title: 'Invalid URL Format',
-          text: 'Please enter a valid URL starting with http:// or https://',
+          text: err.error.message,
           confirmButtonText: 'Got it!',
         });
-        }
 
-        this.isLoading.set(false)
-      }
+        this.isLoading.set(false);
+      },
     });
-    
+  }
+
+  domain(): string {
+    const baseUrl = environment.AUTHENTICATED_BASE_URL;
+
+    return `${baseUrl.slice(0, baseUrl.indexOf('/api'))}`;
   }
 
   isClicked = signal<boolean>(false);
@@ -69,9 +75,7 @@ export class HomeComponent {
 
     if (this.result() === 'No result yet') return;
 
-    const baseUrl = environment.AUTHENTICATED_BASE_URL;
-
-    navigator.clipboard.writeText(`${baseUrl.slice(0,baseUrl.indexOf('/api'))}/${text}`).then(() => {
+    navigator.clipboard.writeText(`${this.domain()}/${text}`).then(() => {
       this.isClicked.set(true);
     });
   }
