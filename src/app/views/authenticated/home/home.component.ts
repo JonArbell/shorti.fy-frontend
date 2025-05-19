@@ -39,7 +39,7 @@ export class HomeComponent {
           confirmButtonColor: '#3b82f6',
         }).then(() => {
           navigator.clipboard.writeText(
-            `${this.domain()}.${response.shortUrl}`
+            `${this.domain()}/${response.shortUrl}`
           );
         });
 
