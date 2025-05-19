@@ -16,7 +16,7 @@
 
   }@else{
 
-  <div class="w-full max-w-3xl space-y-6 sm:space-y-8">
+  <div class="w-full max-w-3xl space-y-6 sm:space-y-8 mx-auto">
     <!-- Brand + URL Shorten Card -->
     <div
       class="bg-white rounded-2xl shadow-lg p-4 sm:p-6 md:p-10 space-y-4 sm:space-y-6"
@@ -27,7 +27,7 @@
         Shorti.fy
       </h1>
 
-      <form (ngSubmit)="shortenUrl()" class="space-y-3 sm:space-y-4">
+      <form (ngSubmit)="shortenUrl()" class="space-y-4">
         <h2
           class="text-lg sm:text-xl md:text-2xl font-bold text-gray-700 text-center"
         >
@@ -39,36 +39,68 @@
         >
           <input
             name="longUrl"
-            [(ngModel)]="longUrl"
+            [(ngModel)]="requestDto().originalUrl"
             type="text"
             placeholder="Enter a long valid URL"
-            class="flex-1 border border-gray-300 rounded-xl px-3 py-2 sm:px-4 sm:py-3 text-sm sm:text-base outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all shadow-sm w-full"
+            class="flex-1 border border-gray-300 rounded-xl px-4 py-3 text-sm sm:text-base outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all shadow-sm w-full"
           />
 
           <button
             type="submit"
-            class="bg-blue-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-semibold hover:bg-blue-700 transition-all w-full sm:w-auto text-sm sm:text-base"
+            class="bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-700 transition-all w-full sm:w-auto text-sm sm:text-base"
           >
             Shorten
           </button>
         </div>
 
+        <!-- Advanced Options Toggle -->
         <button
-          class="w-full bg-green-700 text-white px-4 py-2 sm:px-5 sm:py-3 rounded-xl font-semibold hover:bg-green-800 transition-all text-sm sm:text-base"
+          class="w-full bg-green-700 text-white px-5 py-3 rounded-xl font-semibold hover:bg-green-800 transition-all text-sm sm:text-base"
           type="button"
+          (click)="clickAdvancedOption()"
         >
-          Advanced Options
+          {{
+            isAdvancedOptionsClicked()
+              ? "Hide Advanced Options"
+              : "Advanced Options"
+          }}
         </button>
+
+        <!-- Advanced Options Fields -->
+        <div *ngIf="isAdvancedOptionsClicked()" class="space-y-4">
+          <div>
+            <label class="block text-gray-700 font-medium mb-1"
+              >Password (optional)</label
+            >
+            <input
+              [(ngModel)]="requestDto().password"
+              name="password"
+              type="password"
+              placeholder="Set a password for the link"
+              class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm sm:text-base outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all shadow-sm"
+            />
+          </div>
+
+          <div>
+            <label class="block text-gray-700 font-medium mb-1"
+              >Expiration Date (optional)</label
+            >
+            <input
+              [(ngModel)]="requestDto().expirationDate"
+              name="expirationDate"
+              type="date"
+              class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm sm:text-base outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all shadow-sm"
+            />
+          </div>
+        </div>
       </form>
     </div>
 
     <!-- Result Section -->
     <div
-      class="bg-white rounded-2xl shadow p-4 sm:p-6 md:p-8 space-y-3 sm:space-y-4 text-center"
+      class="bg-white rounded-2xl shadow p-4 sm:p-6 md:p-8 space-y-4 text-center"
     >
-      <h3 class="text-base sm:text-lg md:text-xl font-semibold text-gray-800">
-        Result
-      </h3>
+      <h3 class="text-lg md:text-xl font-semibold text-gray-800">Result</h3>
 
       <div
         class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4"
@@ -77,9 +109,9 @@
 
         <button
           [ngClass]="{
-              'bg-gray-300': isClicked,
-              'bg-gray-100': !isClicked,
-            }"
+            'bg-gray-300': isClicked,
+            'bg-gray-100': !isClicked
+          }"
           (click)="copyLink($event)"
           class="px-4 py-2 rounded-lg shadow-sm text-blue-700 font-semibold w-full sm:w-auto truncate max-w-[75%] text-sm sm:text-base"
         >
@@ -88,5 +120,6 @@
       </div>
     </div>
   </div>
+
   }
 </section>

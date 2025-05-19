@@ -13,31 +13,31 @@ export const routes: Routes = [
   {
     path: '',
     component: SigninComponent,
-    canActivate : [guestGuard]
+    canActivate: [guestGuard],
   },
   {
     path: 'forgot-password',
     component: ForgotPasswordComponent,
-    canActivate : [guestGuard]
+    canActivate: [guestGuard],
   },
   {
     path: 'dashboard',
     component: DashboardComponent,
-    canActivate : [canActivateAuthGuard]
+    canActivate: [canActivateAuthGuard],
   },
   {
     path: 'home',
     component: HomeComponent,
-    canActivate : [canActivateAuthGuard]
+    canActivate: [canActivateAuthGuard],
   },
   {
     path: 'my-urls',
     component: MyUrlsComponent,
-    canActivate : [canActivateAuthGuard]
+    canActivate: [canActivateAuthGuard],
   },
   {
-    path : 'expired-url',
-    component : ExpiredUrlComponent,
-    canActivate : [requiredParamGuard]
-  }
+    path: 'expired-url',
+    component: ExpiredUrlComponent,
+    canActivate: [requiredParamGuard],
+  },
 ];

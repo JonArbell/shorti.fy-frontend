@@ -6,6 +6,9 @@ import Swal from 'sweetalert2';
 import { environment } from '../../../environments/environment';
 import { MatDialog } from '@angular/material/dialog';
 import { UpdateUrlFormComponent } from '../layout/update-url-form/update-url-form.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { finalize } from 'rxjs';
+import { ShortenUrlRequest, UpdateUrlRequestDto } from '../../../dto/url.dto';
 
 @Component({
   selector: 'app-my-urls',
@@ -13,13 +16,25 @@ import { UpdateUrlFormComponent } from '../layout/update-url-form/update-url-for
   templateUrl: './my-urls.component.html',
 })
 export class MyUrlsComponent implements OnInit {
-  constructor(private myUrlService: MyUrlsService, private dialog: MatDialog) {}
+  constructor(
+    private myUrlService: MyUrlsService,
+    private dialog: MatDialog,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {}
   openUpdateUrlDialog(id: number) {
     const dialogRef = this.dialog.open(UpdateUrlFormComponent, {
       width: '400px',
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      queryParams: { updateUrlId: id },
+      queryParamsHandling: 'merge',
+      replaceUrl: true,
+    });
+
+    dialogRef.afterClosed().subscribe((result: UpdateUrlRequestDto) => {
       if (result) {
         Swal.fire({
           title: 'Are you sure?',
@@ -31,45 +46,62 @@ export class MyUrlsComponent implements OnInit {
           confirmButtonText: 'Yes, update it!',
         }).then((confirmation) => {
           if (confirmation.isConfirmed) {
-            this.updateUrl(id, result);
+            this.updateUrl(result);
           }
         });
+      } else {
+        this.removeQueryParam();
       }
     });
   }
 
-  updateUrl(id: number, result: string): void {
+  removeQueryParam(): void {
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      queryParams: {},
+      replaceUrl: true,
+    });
+  }
+
+  updateUrl(result: UpdateUrlRequestDto): void {
     this.isLoading.set(true);
 
-    this.myUrlService.updateUrl({ id: id, updatedUrl: result }).subscribe({
-      next: () => {
-        Swal.fire({
-          icon: 'success',
-          title: '✅ URL Updated Successfully',
-          text: 'Your shortened URL has been refreshed with the new one.',
-          confirmButtonText: 'Awesome!',
-          confirmButtonColor: '#3b82f6', // Tailwind blue-500
-          backdrop: true,
-        });
+    console.log(result);
 
-        this.getUrls();
-        this.isLoading.set(false);
-      },
-      error: (err) => {
-        Swal.fire({
-          icon: 'error',
-          title: '❌ Update Failed',
-          text:
-            err?.error?.message ||
-            'Something went wrong while updating the URL. Please try again.',
-          confirmButtonText: 'Try Again',
-          confirmButtonColor: '#ef4444', // Tailwind red-500
-          backdrop: true,
-        });
+    this.myUrlService
+      .updateUrl(result)
+      .pipe(
+        finalize(() => {
+          this.isLoading.set(false);
+          this.removeQueryParam();
+        })
+      )
+      .subscribe({
+        next: () => {
+          Swal.fire({
+            icon: 'success',
+            title: '✅ URL Updated Successfully',
+            text: 'Your shortened URL has been refreshed with the new one.',
+            confirmButtonText: 'Awesome!',
+            confirmButtonColor: '#3b82f6', // Tailwind blue-500
+            backdrop: true,
+          });
 
-        this.isLoading.set(false);
-      },
-    });
+          this.getUrls();
+        },
+        error: (err) => {
+          Swal.fire({
+            icon: 'error',
+            title: '❌ Update Failed',
+            text:
+              err?.error?.message ||
+              'Something went wrong while updating the URL. Please try again.',
+            confirmButtonText: 'Try Again',
+            confirmButtonColor: '#ef4444', // Tailwind red-500
+            backdrop: true,
+          });
+        },
+      });
   }
 
   ngOnInit(): void {

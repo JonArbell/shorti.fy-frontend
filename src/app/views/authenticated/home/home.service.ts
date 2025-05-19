@@ -5,19 +5,15 @@ import { environment } from '../../../environments/environment';
 import { ShortenUrlRequest } from '../../../dto/url.dto';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HomeService {
+  constructor(private http: HttpClient) {}
 
-  constructor(
-    private http : HttpClient
-  ) { }
-
-  shortenUrl(form: ShortenUrlRequest) : Observable<any>{
-    return this.http.post(`${environment.AUTHENTICATED_BASE_URL}/shorten-url`,form);
+  shortenUrl(form: ShortenUrlRequest): Observable<any> {
+    return this.http.post(
+      `${environment.AUTHENTICATED_BASE_URL}/shorten-url`,
+      form
+    );
   }
-
-
-
 }
-

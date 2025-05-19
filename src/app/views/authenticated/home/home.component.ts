@@ -14,22 +14,28 @@ import { environment } from '../../../environments/environment';
 export class HomeComponent {
   constructor(private homeService: HomeService) {}
 
-  longUrl = signal<string>('');
+  requestDto = signal<ShortenUrlRequest>({
+    originalUrl: '',
+    password: '',
+    expirationDate: new Date(),
+  });
+
+  isAdvancedOptionsClicked = signal<boolean>(false);
+
+  clickAdvancedOption(): void {
+    this.isAdvancedOptionsClicked.set(!this.isAdvancedOptionsClicked());
+  }
 
   isLoading = signal<boolean>(false);
 
   result = signal('No result yet');
 
   shortenUrl(): void {
-    if (this.longUrl().length === 0) return;
-
-    const form: ShortenUrlRequest = {
-      originalUrl: this.longUrl(),
-    };
+    if (this.requestDto().originalUrl.length === 0) return;
 
     this.isLoading.set(true);
 
-    this.homeService.shortenUrl(form).subscribe({
+    this.homeService.shortenUrl(this.requestDto()).subscribe({
       next: (response: any) => {
         Swal.fire({
           icon: 'success',
@@ -49,7 +55,11 @@ export class HomeComponent {
 
         this.result.set(response.shortUrl);
 
-        this.longUrl.set('');
+        this.requestDto.set({
+          originalUrl: '',
+          password: '',
+          expirationDate: new Date(),
+        });
       },
       error: (err: any) => {
         Swal.fire({
@@ -63,6 +73,8 @@ export class HomeComponent {
       },
     });
   }
+
+  showAdvancedOptions = signal<boolean>(false);
 
   domain(): string {
     const baseUrl = environment.AUTHENTICATED_BASE_URL;
@@ -81,4 +93,10 @@ export class HomeComponent {
       this.isClicked.set(true);
     });
   }
+}
+
+interface ShortenUrlRequestDto {
+  longUrl: string;
+  password: string;
+  expirationDate: Date;
 }
