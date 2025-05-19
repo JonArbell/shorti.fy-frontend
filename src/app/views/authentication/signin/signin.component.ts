@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../services/authentication/auth.service';
 import {
@@ -15,7 +15,7 @@ import { jwtDecode } from 'jwt-decode';
   imports: [RouterLink, ReactiveFormsModule],
   templateUrl: './signin.component.html',
 })
-export class SigninComponent {
+export class SigninComponent implements OnInit {
   form: FormGroup;
 
   constructor(
@@ -29,6 +29,9 @@ export class SigninComponent {
       ],
       password: ['angaslopit', [Validators.required, Validators.minLength(6)]],
     });
+  }
+  ngOnInit(): void {
+    console.log('Test');
   }
 
   signIn(): void {

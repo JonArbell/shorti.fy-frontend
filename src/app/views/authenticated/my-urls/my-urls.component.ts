@@ -87,23 +87,25 @@ export class MyUrlsComponent implements OnInit {
       error: (err) => {
         this.isLoading.set(false);
 
-        Swal.fire({
-          icon: 'error',
-          title: '🚫 Failed to Load URLs',
-          text:
-            err?.error?.message ||
-            'Something went wrong while fetching your URLs.',
-          confirmButtonText: 'Retry',
-          confirmButtonColor: '#3b82f6', // Tailwind blue-500
-          showCancelButton: true,
-          cancelButtonText: 'Cancel',
-          cancelButtonColor: '#9ca3af', // Tailwind gray-400
-          backdrop: true,
-        }).then((result) => {
-          if (result.isConfirmed) {
-            this.getUrls(); // Retry
-          }
-        });
+        if (err.status !== 401) {
+          Swal.fire({
+            icon: 'error',
+            title: '🚫 Failed to Load URLs',
+            text:
+              err?.error?.message ||
+              'Something went wrong while fetching your URLs.',
+            confirmButtonText: 'Retry',
+            confirmButtonColor: '#3b82f6', // Tailwind blue-500
+            showCancelButton: true,
+            cancelButtonText: 'Cancel',
+            cancelButtonColor: '#9ca3af', // Tailwind gray-400
+            backdrop: true,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.getUrls(); // Retry
+            }
+          });
+        }
       },
     });
   }

@@ -10,9 +10,7 @@ export const canActivateAuthGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
 
   if (token) {
-
     try {
-
       const decoded: any = jwtDecode(token);
 
       if (decoded.scope === 'USER') {
@@ -22,23 +20,20 @@ export const canActivateAuthGuard: CanActivateFn = (route, state) => {
       Swal.fire({
         icon: 'error',
         title: 'Access Denied',
-        text: 'You\'re not allowed to access this page.',
-        confirmButtonText: 'Go Back'
-      }).then(() => {
-        authService.removeAuth();
+        text: "You're not allowed to access this page.",
+        confirmButtonText: 'Go Back',
       });
 
+      authService.removeAuth();
       return false;
-
     } catch (e) {
       Swal.fire({
         icon: 'error',
         title: 'Session Error',
         text: 'Your session is invalid or has expired. Please log in again.',
-        confirmButtonText: 'Go to Login'
-      }).then(() => {
-        authService.removeAuth();
+        confirmButtonText: 'Go to Login',
       });
+      authService.removeAuth();
       return false;
     }
   }
@@ -47,11 +42,8 @@ export const canActivateAuthGuard: CanActivateFn = (route, state) => {
     icon: 'warning',
     title: 'Not Logged In',
     text: 'Please log in to continue.',
-  }).then(() => {
-    authService.removeAuth();
-
   });
 
+  authService.removeAuth();
   return false;
 };
-

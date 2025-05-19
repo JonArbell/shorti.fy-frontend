@@ -7,8 +7,6 @@ import { AuthService } from '../services/authentication/auth.service';
 export const guestGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
 
-  const authService = inject(AuthService);
-
   try {
     const token = localStorage.getItem('token');
 
