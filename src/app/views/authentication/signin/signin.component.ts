@@ -68,7 +68,6 @@ export class SigninComponent implements OnInit {
           confirmButtonText: 'Okay!',
           confirmButtonColor: '#3b82f6', // Tailwind blue-500
         });
-        console.log(token);
         this.authService.setAut(token, role.scope);
       },
       error: (err: any) => {

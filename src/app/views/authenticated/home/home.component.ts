@@ -37,10 +37,12 @@ export class HomeComponent {
           html: `Your link is ready: <br><strong>${response.shortUrl}</strong>`,
           confirmButtonText: 'Copy & Close',
           confirmButtonColor: '#3b82f6',
-        }).then(() => {
-          navigator.clipboard.writeText(
-            `${this.domain()}/${response.shortUrl}`
-          );
+        }).then((result) => {
+          if (result.isConfirmed) {
+            navigator.clipboard.writeText(
+              `${this.domain()}/${response.shortUrl}`
+            );
+          }
         });
 
         this.isLoading.set(false);
