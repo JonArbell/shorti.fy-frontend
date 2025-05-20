@@ -68,6 +68,8 @@ export class MyUrlsComponent implements OnInit {
 
     console.log(result);
 
+    if (result.maxClick === null) result.maxClick = 0;
+
     this.myUrlService
       .updateUrl(result)
       .pipe(
@@ -127,25 +129,28 @@ export class MyUrlsComponent implements OnInit {
         this.isLoading.set(false);
 
         if (err.status !== 401) {
-          Swal.fire({
-            icon: 'error',
-            title: '🚫 Failed to Load URLs',
-            text:
-              err?.error?.message ||
-              'Something went wrong while fetching your URLs.',
-            confirmButtonText: 'Retry',
-            confirmButtonColor: '#3b82f6', // Tailwind blue-500
-            showCancelButton: true,
-            cancelButtonText: 'Cancel',
-            cancelButtonColor: '#9ca3af', // Tailwind gray-400
-            backdrop: true,
-          }).then((result) => {
-            if (result.isConfirmed) {
-              this.getUrls(); // Retry
-            }
-          });
+          this.errorLoading(err);
         }
       },
+    });
+  }
+
+  errorLoading(err: any): void {
+    Swal.fire({
+      icon: 'error',
+      title: '🚫 Failed to Load URLs',
+      text:
+        err?.error?.message || 'Something went wrong while fetching your URLs.',
+      confirmButtonText: 'Retry',
+      confirmButtonColor: '#3b82f6', // Tailwind blue-500
+      showCancelButton: true,
+      cancelButtonText: 'Cancel',
+      cancelButtonColor: '#9ca3af', // Tailwind gray-400
+      backdrop: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.getUrls(); // Retry
+      }
     });
   }
 

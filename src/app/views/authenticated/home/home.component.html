@@ -67,6 +67,7 @@
         </button>
 
         <!-- Advanced Options Fields -->
+        <!-- Advanced Options Fields -->
         @if(isAdvancedOptionsClicked()){
         <div class="space-y-4">
           <div>
@@ -90,6 +91,20 @@
               [(ngModel)]="requestDto().expirationDate"
               name="expirationDate"
               type="date"
+              class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm sm:text-base outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all shadow-sm"
+            />
+          </div>
+
+          <div>
+            <label class="block text-gray-700 font-medium mb-1"
+              >Max Clicks (optional)</label
+            >
+            <input
+              [(ngModel)]="requestDto().maxClick"
+              name="maxClicks"
+              type="number"
+              placeholder="Set max clicks (0 means infinite)"
+              min="0"
               class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm sm:text-base outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all shadow-sm"
             />
           </div>

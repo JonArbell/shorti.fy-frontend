@@ -30,6 +30,7 @@ import { take } from 'rxjs';
 })
 export class UpdateUrlFormComponent implements OnInit {
   updateUrlRequest = signal<UpdateUrlRequestDto>({
+    maxClick: null,
     expirationDate: null,
     password: '',
     originalUrl: '',
@@ -65,6 +66,7 @@ export class UpdateUrlFormComponent implements OnInit {
     this.dialogRef.close();
     this.isPasswordShow.set(false);
     this.updateUrlRequest.set({
+      maxClick: null,
       expirationDate: null,
       password: '',
       originalUrl: '',

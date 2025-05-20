@@ -1,4 +1,5 @@
 export interface ShortenUrlRequest {
+  maxClick: number | null;
   originalUrl: string;
   password: string;
   expirationDate: Date | null;

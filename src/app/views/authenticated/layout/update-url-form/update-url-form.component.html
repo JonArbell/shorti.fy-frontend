@@ -108,6 +108,22 @@
           [(ngModel)]="updateUrlRequest().expirationDate"
         />
       </div>
+
+      <!-- Max Clicks -->
+      <div class="flex flex-col gap-1">
+        <label for="maxClicks" class="text-sm font-medium text-gray-700"
+          >Max Clicks</label
+        >
+        <input
+          id="maxClicks"
+          type="number"
+          min="5"
+          max="100"
+          placeholder="Set max clicks (0 means infinite)"
+          class="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          [(ngModel)]="updateUrlRequest().maxClick"
+        />
+      </div>
     </div>
     }
   </div>

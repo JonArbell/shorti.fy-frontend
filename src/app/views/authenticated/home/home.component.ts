@@ -15,6 +15,7 @@ export class HomeComponent {
   constructor(private homeService: HomeService) {}
 
   requestDto = signal<ShortenUrlRequest>({
+    maxClick: null,
     originalUrl: '',
     password: '',
     expirationDate: null,
@@ -34,6 +35,8 @@ export class HomeComponent {
     if (this.requestDto().originalUrl.length === 0) return;
 
     this.isLoading.set(true);
+
+    if (this.requestDto().maxClick === null) this.requestDto().maxClick = 0;
 
     this.homeService.shortenUrl(this.requestDto()).subscribe({
       next: (response: any) => {
@@ -58,6 +61,7 @@ export class HomeComponent {
         this.isAdvancedOptionsClicked.set(false);
 
         this.requestDto.set({
+          maxClick: null,
           originalUrl: '',
           password: '',
           expirationDate: null,
