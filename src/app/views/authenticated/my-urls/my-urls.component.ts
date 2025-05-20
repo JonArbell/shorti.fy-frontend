@@ -9,6 +9,7 @@ import { UpdateUrlFormComponent } from '../layout/update-url-form/update-url-for
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { ShortenUrlRequest, UpdateUrlRequestDto } from '../../../dto/url.dto';
+import { ViewFullInfoComponent } from '../layout/view-full-info/view-full-info.component';
 
 @Component({
   selector: 'app-my-urls',
@@ -51,6 +52,18 @@ export class MyUrlsComponent implements OnInit {
         });
       } else {
         this.removeQueryParam();
+      }
+    });
+  }
+
+  openViewFullInfoUrlDialog(id: number) {
+    const dialogRef = this.dialog.open(ViewFullInfoComponent, {
+      width: '400px',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        alert('Panis');
       }
     });
   }
