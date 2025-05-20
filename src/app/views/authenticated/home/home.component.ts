@@ -17,7 +17,7 @@ export class HomeComponent {
   requestDto = signal<ShortenUrlRequest>({
     originalUrl: '',
     password: '',
-    expirationDate: new Date(),
+    expirationDate: null,
   });
 
   isAdvancedOptionsClicked = signal<boolean>(false);
@@ -37,36 +37,45 @@ export class HomeComponent {
 
     this.homeService.shortenUrl(this.requestDto()).subscribe({
       next: (response: any) => {
+        // Success toast
         Swal.fire({
           icon: 'success',
           title: 'URL Shortened 🎉',
-          html: `Your link is ready: <br><strong>${response.shortUrl}</strong>`,
-          confirmButtonText: 'Copy & Close',
-          confirmButtonColor: '#3b82f6',
-        }).then((result) => {
-          if (result.isConfirmed) {
-            navigator.clipboard.writeText(
-              `${this.domain()}/${response.shortUrl}`
-            );
-          }
+          text: 'Short link copied to clipboard!',
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          background: '#f0fdf4',
+          color: '#15803d',
         });
 
-        this.isLoading.set(false);
+        navigator.clipboard.writeText(`${this.domain()}/${response.shortUrl}`);
 
+        this.isLoading.set(false);
         this.result.set(response.shortUrl);
+        this.isAdvancedOptionsClicked.set(false);
 
         this.requestDto.set({
           originalUrl: '',
           password: '',
-          expirationDate: new Date(),
+          expirationDate: null,
         });
       },
       error: (err: any) => {
+        // Error toast
         Swal.fire({
           icon: 'error',
-          title: 'Invalid URL Format',
-          text: err.error.message,
-          confirmButtonText: 'Got it!',
+          title: 'Oops! Something went wrong 😬',
+          text: err?.error?.message || 'Invalid URL format. Try again.',
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          background: '#fef2f2',
+          color: '#b91c1c',
         });
 
         this.isLoading.set(false);
@@ -93,10 +102,4 @@ export class HomeComponent {
       this.isClicked.set(true);
     });
   }
-}
-
-interface ShortenUrlRequestDto {
-  longUrl: string;
-  password: string;
-  expirationDate: Date;
 }

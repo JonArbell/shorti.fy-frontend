@@ -7,6 +7,8 @@ import { AuthService } from '../services/authentication/auth.service';
 export const guestGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
 
+  const autService = inject(AuthService);
+
   try {
     const token = localStorage.getItem('token');
 
@@ -21,6 +23,8 @@ export const guestGuard: CanActivateFn = (route, state) => {
         router.navigate(['/dashboard']);
         return false;
       }
+
+      autService.removeAuth();
     }
   } catch (e: any) {
     Swal.fire({

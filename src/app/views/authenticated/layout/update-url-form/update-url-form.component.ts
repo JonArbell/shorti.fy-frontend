@@ -51,12 +51,19 @@ export class UpdateUrlFormComponent implements OnInit {
     });
   }
 
+  isPasswordShow = signal<boolean>(false);
+
+  clickShowPassword(): void {
+    this.isPasswordShow.set(!this.isPasswordShow());
+  }
+
   save() {
     this.dialogRef.close(this.updateUrlRequest()); // Send back the entered URL
   }
 
   cancel() {
     this.dialogRef.close();
+    this.isPasswordShow.set(false);
     this.updateUrlRequest.set({
       expirationDate: null,
       password: '',

@@ -32,21 +32,37 @@ export class AuthService {
 
   logout(): void {
     Swal.fire({
-      title: 'Are you sure?',
-      text: 'You will be logged out!',
-      icon: 'question',
+      title: '🔒 Log Out?',
+      text: 'You’re about to log out. Are you sure?',
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6', // Blue
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, log me out!',
+      confirmButtonColor: '#3b82f6', // Tailwind blue-500
+      cancelButtonColor: '#9ca3af', // Tailwind gray-400
+      confirmButtonText: 'Yes, log me out',
+      cancelButtonText: 'Cancel',
+      background: '#f9fafb',
+      color: '#1f2937',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown',
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp',
+      },
     }).then((result) => {
       if (result.isConfirmed) {
         this.removeAuth();
-        Swal.fire(
-          'Logged Out!',
-          'You have been successfully logged out.',
-          'success'
-        );
+        Swal.fire({
+          title: '✅ Logged Out',
+          text: 'You have been successfully logged out.',
+          icon: 'success',
+          confirmButtonColor: '#3b82f6',
+          timer: 2000,
+          showConfirmButton: false,
+          background: '#f9fafb',
+          color: '#1f2937',
+          toast: true,
+          position: 'top-end',
+        });
       }
     });
   }

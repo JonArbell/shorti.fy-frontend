@@ -81,10 +81,13 @@ export class MyUrlsComponent implements OnInit {
           Swal.fire({
             icon: 'success',
             title: '✅ URL Updated Successfully',
-            text: 'Your shortened URL has been refreshed with the new one.',
-            confirmButtonText: 'Awesome!',
-            confirmButtonColor: '#3b82f6', // Tailwind blue-500
-            backdrop: true,
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            background: '#f0fdf4', // light green background
+            color: '#15803d', // green text
           });
 
           this.getUrls();
@@ -96,9 +99,13 @@ export class MyUrlsComponent implements OnInit {
             text:
               err?.error?.message ||
               'Something went wrong while updating the URL. Please try again.',
-            confirmButtonText: 'Try Again',
-            confirmButtonColor: '#ef4444', // Tailwind red-500
-            backdrop: true,
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            background: '#fef2f2', // light red background
+            color: '#b91c1c', // red text
           });
         },
       });
@@ -188,10 +195,13 @@ export class MyUrlsComponent implements OnInit {
         Swal.fire({
           icon: 'success',
           title: 'URL Removed 🗑️',
-          text: 'Successfully deleted the URL from your list.',
-          confirmButtonText: 'Okay',
-          confirmButtonColor: '#3b82f6', // Tailwind blue-500
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
           timer: 3000,
+          timerProgressBar: true,
+          background: '#f0fdf4', // soft green background
+          color: '#15803d', // green text
         });
 
         this.getUrls();
@@ -204,8 +214,13 @@ export class MyUrlsComponent implements OnInit {
           text:
             error?.error?.message ||
             'Failed to delete the URL. Please try again.',
-          confirmButtonText: 'Close',
-          confirmButtonColor: '#ef4444', // Tailwind red-500
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          background: '#fef2f2', // soft red background
+          color: '#b91c1c', // red text
         });
 
         console.error('Delete error:', error);

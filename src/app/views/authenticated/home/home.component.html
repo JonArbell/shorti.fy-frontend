@@ -67,7 +67,8 @@
         </button>
 
         <!-- Advanced Options Fields -->
-        <div *ngIf="isAdvancedOptionsClicked()" class="space-y-4">
+        @if(isAdvancedOptionsClicked()){
+        <div class="space-y-4">
           <div>
             <label class="block text-gray-700 font-medium mb-1"
               >Password (optional)</label
@@ -93,6 +94,7 @@
             />
           </div>
         </div>
+        }
       </form>
     </div>
 

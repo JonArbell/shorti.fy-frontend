@@ -36,7 +36,6 @@ export class SigninComponent implements OnInit {
 
   signIn(): void {
     const email = this.form.get('email');
-
     const password = this.form.get('password');
 
     if (email?.invalid && password?.invalid) {
@@ -44,6 +43,13 @@ export class SigninComponent implements OnInit {
         icon: 'error',
         title: 'Oops',
         text: 'Please enter valid email and password',
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        background: '#fef2f2',
+        color: '#b91c1c',
       });
       return;
     }
@@ -56,18 +62,21 @@ export class SigninComponent implements OnInit {
     this.authService.login(form).subscribe({
       next: (response: any) => {
         const token = response.token;
-
         const username: any = jwtDecode(token).sub;
-
         const role: any = jwtDecode(token);
 
         Swal.fire({
           icon: 'success',
-          title: 'Login Successful 🎉',
-          html: `<strong>Welcome back, ${username}!</strong><br>Your session has started.`,
-          confirmButtonText: 'Okay!',
-          confirmButtonColor: '#3b82f6', // Tailwind blue-500
+          title: `Welcome back, ${username}! 🎉`,
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          background: '#f0fdf4',
+          color: '#15803d',
         });
+
         this.authService.setAut(token, role.scope);
       },
       error: (err: any) => {
@@ -76,8 +85,13 @@ export class SigninComponent implements OnInit {
           title: 'Oops! 😢',
           text:
             err?.error?.message || 'Something went wrong. Please try again.',
-          confirmButtonText: 'Okay',
-          confirmButtonColor: '#ef4444',
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          background: '#fef2f2',
+          color: '#b91c1c',
         });
       },
     });
