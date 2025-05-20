@@ -8,7 +8,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { UpdateUrlFormComponent } from '../layout/update-url-form/update-url-form.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs';
-import { ShortenUrlRequest, UpdateUrlRequestDto } from '../../../dto/url.dto';
+import {
+  ShortenUrlRequest,
+  UpdateUrlRequestDto,
+  UrlResponseDto,
+} from '../../../dto/url.dto';
 import { ViewFullInfoComponent } from '../layout/view-full-info/view-full-info.component';
 
 @Component({
@@ -57,14 +61,28 @@ export class MyUrlsComponent implements OnInit {
   }
 
   openViewFullInfoUrlDialog(id: number) {
-    const dialogRef = this.dialog.open(ViewFullInfoComponent, {
-      width: '400px',
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      queryParams: { viewFullInfo: id },
+      queryParamsHandling: 'merge',
+      replaceUrl: true,
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        alert('Panis');
-      }
+    this.getUrlFullInfo(id);
+  }
+
+  getUrlFullInfo(id: number): void {
+    this.myUrlService.getUrlById(id).subscribe({
+      next: (response: UrlResponseDto) => {
+        const dialog = this.dialog.open(ViewFullInfoComponent, {
+          width: '400px',
+          data: response,
+        });
+
+        dialog.afterClosed().subscribe(() => {
+          this.removeQueryParam();
+        });
+      },
     });
   }
 
@@ -259,10 +277,6 @@ export class MyUrlsComponent implements OnInit {
     if (this.page > 1) {
       this.page--;
     }
-  }
-
-  viewFullInfo(id: number) {
-    alert(`View full info for URL with ID: ${id}`);
   }
 }
 
