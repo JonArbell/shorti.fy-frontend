@@ -1,5 +1,5 @@
 const domain = () => {
-  return 'http://192.168.0.102:8080';
+  return 'http://192.168.110.242:8080';
 };
 
 export const environment = {

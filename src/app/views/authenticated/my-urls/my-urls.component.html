@@ -12,7 +12,7 @@
       <div
         class="w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"
       ></div>
-      <p class="mt-4 text-gray-700 font-medium text-base sm:text-lg">
+      <p class="mt-4 text-gray-700 font-medium text-sm sm:text-base md:text-lg">
         Loading your URLs. Please wait...
       </p>
     </div>
@@ -20,13 +20,16 @@
   } @else {
 
   <!-- Page Title -->
-  <h1 class="text-2xl sm:text-3xl font-bold text-center text-blue-800 mb-8">
+  <h1
+    class="text-xl sm:text-2xl md:text-3xl font-bold text-center text-blue-800 mb-8"
+  >
     My Shortened URLs
   </h1>
 
-  <div class="flex flex-wrap justify-center gap-6 px-4">
+  <!-- Cards -->
+  <div class="flex flex-wrap justify-center gap-4 sm:gap-6 px-2 sm:px-4">
     @if(urls.length === 0){
-    <p class="text-center">
+    <p class="text-center text-sm sm:text-base text-gray-600">
       Looks like you haven't added any URLs yet. Let's get started!
     </p>
     } @else{ @for(url of paginatedUrls; track url.id) {
@@ -34,43 +37,43 @@
       <div
         class="card w-full h-[200px] bg-white border border-blue-100 shadow-md hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
       >
-        <div class="card-body">
+        <div class="card-body px-4 py-3 sm:px-5 sm:py-4">
           <!-- Short URL -->
           <h2
-            class="card-title text-blue-700 break-all flex items-center justify-center"
+            class="card-title text-blue-700 break-words text-sm sm:text-base md:text-lg flex items-center justify-center text-center"
           >
             <a
               [href]="`${redirectDomain}/${url.shortUrl}`"
               target="_blank"
-              class="underline"
+              class="underline break-all"
             >
               {{ url.shortUrl }}
             </a>
           </h2>
 
-          <!-- Original URL (truncated) -->
-          <p class="text-gray-600 text-sm truncate text-center mt-2">
+          <!-- Original URL -->
+          <p class="text-gray-600 text-xs sm:text-sm text-center mt-2 truncate">
             {{ url.originalUrl }}
           </p>
         </div>
 
         <!-- Actions -->
-        <div class="card-actions justify-center pb-4">
+        <div class="card-actions justify-center gap-2 pb-4 px-3">
           <button
             (click)="openUpdateUrlDialog(url.id)"
-            class="btn btn-sm bg-green-500 text-white hover:bg-green-700 transition w-1/3"
+            class="btn btn-xs sm:btn-sm bg-green-500 text-white hover:bg-green-700 transition w-1/3"
           >
             Update
           </button>
           <button
             (click)="showDeleteModal(url.id)"
-            class="btn btn-sm bg-red-500 text-white hover:bg-red-600 transition w-1/3"
+            class="btn btn-xs sm:btn-sm bg-red-500 text-white hover:bg-red-600 transition w-1/3"
           >
             Delete
           </button>
           <button
             (click)="openViewFullInfoUrlDialog(url.id)"
-            class="btn btn-sm bg-blue-500 text-white hover:bg-blue-700 transition w-1/3"
+            class="btn btn-xs sm:btn-sm bg-blue-500 text-white hover:bg-blue-700 transition w-1/3"
           >
             View Info
           </button>
@@ -83,24 +86,24 @@
   <!-- Pagination Controls -->
   <div
     [ngClass]="{ 'mt-auto': urls.length === 0, 'mt-10': urls.length > 0 }"
-    class="flex flex-wrap justify-center items-center gap-4"
+    class="flex flex-wrap justify-center items-center gap-3 sm:gap-4"
   >
     <button
       (click)="prevPage()"
       [disabled]="page === 1"
-      class="px-4 py-2 bg-blue-500 text-white rounded-lg disabled:opacity-50 hover:bg-blue-600 transition"
+      class="px-3 sm:px-4 py-2 text-sm sm:text-base bg-blue-500 text-white rounded-lg disabled:opacity-50 hover:bg-blue-600 transition"
     >
       Prev
     </button>
 
-    <span class="text-base font-medium text-gray-700"
-      >Page {{ page }} of {{ totalPages }}</span
-    >
+    <span class="text-sm sm:text-base font-medium text-gray-700">
+      Page {{ page }} of {{ totalPages }}
+    </span>
 
     <button
       (click)="nextPage()"
       [disabled]="page === totalPages"
-      class="px-4 py-2 bg-blue-500 text-white rounded-lg disabled:opacity-50 hover:bg-blue-600 transition"
+      class="px-3 sm:px-4 py-2 text-sm sm:text-base bg-blue-500 text-white rounded-lg disabled:opacity-50 hover:bg-blue-600 transition"
     >
       Next
     </button>

@@ -75,7 +75,9 @@ export class MyUrlsComponent implements OnInit {
     this.myUrlService.getUrlById(id).subscribe({
       next: (response: UrlResponseDto) => {
         const dialog = this.dialog.open(ViewFullInfoComponent, {
-          width: '400px',
+          maxWidth: '90vw', // responsive max width
+          width: '100%', // take full width up to maxWidth
+          panelClass: 'responsive-dialog', // custom class for fine-tuning
           data: response,
         });
 
