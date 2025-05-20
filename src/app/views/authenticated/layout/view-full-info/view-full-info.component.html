@@ -1,0 +1,129 @@
+<section class="max-h-[80vh] overflow-y-auto p-4">
+  <div
+    class="w-full max-w-4xl mx-auto p-4 sm:p-6 md:p-8 bg-white rounded-2xl shadow-xl space-y-8"
+  >
+    <!-- Title -->
+    <h2 class="text-2xl font-bold text-gray-800 text-center">URL Full Info</h2>
+
+    <!-- URL Info Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div>
+        <p class="text-sm text-gray-500">Original URL</p>
+        <p class="font-medium break-words text-gray-800">
+          https://example.com/very-long-link
+        </p>
+      </div>
+
+      <div>
+        <p class="text-sm text-gray-500">Shortened URL</p>
+        <p class="font-medium text-blue-600">https://short.ly/abc123</p>
+      </div>
+
+      <div>
+        <p class="text-sm text-gray-500">Status</p>
+        <span
+          class="inline-block px-2 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-800"
+          >Active</span
+        >
+      </div>
+
+      <div>
+        <p class="text-sm text-gray-500">Max Clicks</p>
+        <p class="font-medium text-gray-800">10</p>
+      </div>
+
+      <div>
+        <p class="text-sm text-gray-500">Total Clicked</p>
+        <p class="font-medium text-gray-800">5</p>
+      </div>
+
+      <div>
+        <p class="text-sm text-gray-500">Expiration Date</p>
+        <p class="font-medium text-gray-800">2025-05-31</p>
+      </div>
+
+      <!-- Password Field with Toggle -->
+      <div class="col-span-1 sm:col-span-2 relative">
+        <p class="text-sm text-gray-500 mb-1">Password</p>
+        <input
+          [type]="isPasswordShow() ? 'text' : 'password'"
+          value="secret123"
+          readonly
+          class="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-lg text-gray-800 focus:outline-none"
+        />
+        <button
+          type="button"
+          (click)="clickShowPassword()"
+          class="absolute right-3 top-9 text-gray-500 hover:text-gray-700"
+        >
+          @if(isPasswordShow()){
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+            />
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+            />
+          </svg>
+          } @else {
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M13.875 18.825A10.05 10.05 0 0112 19c-4.477 0-8.268-2.943-9.542-7a9.972 9.972 0 012.361-3.568m3.286-2.404A9.972 9.972 0 0112 5c4.477 0 8.268 2.943 9.542 7a9.956 9.956 0 01-1.249 2.592M15 12a3 3 0 11-6 0 3 3 0 016 0zm-9 9l18-18"
+            />
+          </svg>
+          }
+        </button>
+      </div>
+    </div>
+
+    <!-- Visitors Table -->
+    <div class="overflow-x-auto">
+      <h3 class="text-lg font-semibold text-gray-700 mb-2">Visitors</h3>
+      <table class="min-w-full border border-gray-200 text-sm">
+        <thead>
+          <tr class="bg-gray-100 text-gray-700 text-left">
+            <th class="px-4 py-2 border-b">#</th>
+            <th class="px-4 py-2 border-b">IP Address</th>
+            <th class="px-4 py-2 border-b">Device</th>
+            <th class="px-4 py-2 border-b">Visited At</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="hover:bg-gray-50">
+            <td class="px-4 py-2 border-b">1</td>
+            <td class="px-4 py-2 border-b">192.168.0.1</td>
+            <td class="px-4 py-2 border-b">Chrome (Windows)</td>
+            <td class="px-4 py-2 border-b">2025-05-20 12:34</td>
+          </tr>
+          <tr class="hover:bg-gray-50">
+            <td class="px-4 py-2 border-b">2</td>
+            <td class="px-4 py-2 border-b">203.0.113.45</td>
+            <td class="px-4 py-2 border-b">Safari (iPhone)</td>
+            <td class="px-4 py-2 border-b">2025-05-19 09:12</td>
+          </tr>
+          <!-- Add more rows if needed -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
