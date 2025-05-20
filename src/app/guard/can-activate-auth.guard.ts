@@ -26,9 +26,8 @@ export const canActivateAuthGuard: CanActivateFn = (route, state) => {
           text: 'Your session has expired. Please log in again to continue.',
           confirmButtonText: 'Log In',
           allowOutsideClick: false,
-        }).then(() => {
-          // Redirect to login or clear session
-          authService.removeAuth();
+        }).then((result) => {
+          if (result.isConfirmed || result.dismiss) authService.removeAuth();
         });
       } else {
         Swal.fire({
