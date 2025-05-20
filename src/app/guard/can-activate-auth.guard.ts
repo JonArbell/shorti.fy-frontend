@@ -13,7 +13,9 @@ export const canActivateAuthGuard: CanActivateFn = (route, state) => {
     try {
       const decoded: any = jwtDecode(token);
 
-      if (decoded.scope === 'USER') {
+      const isExpired = Date.now() / 1000 > decoded.exp;
+
+      if (decoded.scope === 'USER' && !isExpired) {
         return true;
       }
 

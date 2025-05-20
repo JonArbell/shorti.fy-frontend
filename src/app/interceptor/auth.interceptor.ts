@@ -27,11 +27,10 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
             left top
             no-repeat
           `,
-          allowOutsideClick: false,
+          allowOutsideClick: true,
           allowEscapeKey: false,
-        }).then(() => {
-          authService.removeAuth();
-          // Optionally redirect to login page here
+        }).then((result) => {
+          if (result.isConfirmed || result.dismiss) authService.removeAuth();
         });
       }
 

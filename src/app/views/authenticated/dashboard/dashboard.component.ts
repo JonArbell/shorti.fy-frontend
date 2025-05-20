@@ -3,6 +3,7 @@ import { Component, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DashboardService } from './dashboard.service';
 import Swal from 'sweetalert2';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -51,17 +52,23 @@ export class DashboardComponent implements OnInit {
   }
 
   loadRecentVisits(): void {
-    this.dashboardService.getRecentVisits().subscribe({
-      next: (response: UrlData[]) => {
-        this.pagedData.set(response);
-        this.isLoading.set(false);
-      },
-      error: (err) => {
-        if (err.status !== 401) {
-          this.errorLoading(err);
-        }
-      },
-    });
+    this.dashboardService
+      .getRecentVisits()
+      .pipe(
+        finalize(() => {
+          this.isLoading.set(false);
+        })
+      )
+      .subscribe({
+        next: (response: UrlData[]) => {
+          this.pagedData.set(response);
+        },
+        error: (err) => {
+          if (err.status !== 401) {
+            this.errorLoading(err);
+          }
+        },
+      });
   }
 
   errorLoading(err: any): void {

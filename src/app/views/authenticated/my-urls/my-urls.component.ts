@@ -151,19 +151,23 @@ export class MyUrlsComponent implements OnInit {
   getUrls(): void {
     this.isLoading.set(true);
 
-    this.myUrlService.getUrls().subscribe({
-      next: (response: MyUrl[]) => {
-        this.urls = response;
-        this.isLoading.set(false);
-      },
-      error: (err) => {
-        this.isLoading.set(false);
-
-        if (err.status !== 401) {
-          this.errorLoading(err);
-        }
-      },
-    });
+    this.myUrlService
+      .getUrls()
+      .pipe(
+        finalize(() => {
+          this.isLoading.set(false);
+        })
+      )
+      .subscribe({
+        next: (response: MyUrl[]) => {
+          this.urls = response;
+        },
+        error: (err) => {
+          if (err.status !== 401) {
+            this.errorLoading(err);
+          }
+        },
+      });
   }
 
   errorLoading(err: any): void {
