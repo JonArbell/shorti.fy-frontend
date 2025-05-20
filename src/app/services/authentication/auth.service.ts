@@ -10,9 +10,14 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+  ) {}
 
   isAuthenticated = signal<boolean>(!!localStorage.getItem('token'));
+
+  isLoggingOut = signal<boolean>(false);
 
   setAut(token: string, role: string): void {
     // console.log(token)
@@ -50,19 +55,25 @@ export class AuthService {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        this.removeAuth();
-        Swal.fire({
-          title: '✅ Logged Out',
-          text: 'You have been successfully logged out.',
-          icon: 'success',
-          confirmButtonColor: '#3b82f6',
-          timer: 2000,
-          showConfirmButton: false,
-          background: '#f9fafb',
-          color: '#1f2937',
-          toast: true,
-          position: 'top-end',
-        });
+        this.isLoggingOut.set(true);
+        setTimeout(() => {
+          this.removeAuth();
+          Swal.fire({
+            title: '✅ Logged Out',
+            text: 'You have been successfully logged out.',
+            icon: 'success',
+            confirmButtonColor: '#3b82f6',
+            timer: 2000,
+            showConfirmButton: false,
+            background: '#f9fafb',
+            color: '#1f2937',
+            toast: true,
+            position: 'top-end',
+          });
+          this.isLoggingOut.set(false);
+        }, 1200);
+      } else {
+        this.isLoggingOut.set(false);
       }
     });
   }

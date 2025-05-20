@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import {  RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, signal } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../../services/authentication/auth.service';
 @Component({
   selector: 'app-side-nav',
@@ -7,14 +7,9 @@ import { AuthService } from '../../../services/authentication/auth.service';
   templateUrl: './side-nav.component.html',
 })
 export class SideNavComponent {
+  constructor(private authService: AuthService) {}
 
-  constructor(
-    private authService : AuthService
-  ){}
-
-
-  logout() : void{
+  logout(): void {
     this.authService.logout();
   }
-
 }

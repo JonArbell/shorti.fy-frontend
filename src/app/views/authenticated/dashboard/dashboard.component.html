@@ -1,110 +1,132 @@
 <section class="px-4 py-8 pt-12 sm:px-6 lg:px-12 bg-white space-y-8">
-  @if(isLoading()){
-
-  <div
-    class="fixed inset-0 flex h-screen w-screen flex-col items-center justify-center bg-white/50 backdrop-blur-sm z-50"
-  >
+  @if (isLoading()) {
     <div
-      class="w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"
-    ></div>
-    <p class="mt-4 text-gray-700 font-medium text-sm sm:text-base md:text-lg">
-      Loading your dashboard. Please wait...
-    </p>
-  </div>
-
-  }@else{
-
-  <!-- Title -->
-  <div class="flex justify-between items-center flex-wrap gap-2">
-    <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800">
-      Dashboard
-    </h2>
-    <!-- Add filters or username here if needed -->
-  </div>
-
-  <!-- Stat Cards -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6">
-    <div
-      class="bg-blue-100 text-blue-800 rounded-xl p-4 sm:p-5 shadow hover:shadow-md transition duration-200"
+      class="fixed inset-0 bg-white bg-opacity-70 flex items-center justify-center z-50"
     >
-      <h4 class="text-xs sm:text-sm font-medium">Total URL Links</h4>
-      <p class="text-2xl sm:text-3xl font-bold mt-1 sm:mt-2">
-        {{ dashboardData().totalUrlLinks }}
-      </p>
+      <div class="flex flex-col items-center space-y-4">
+        <svg
+          class="animate-spin h-10 w-10 text-blue-600"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            class="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            stroke-width="4"
+          ></circle>
+          <path
+            class="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+          ></path>
+        </svg>
+        <p class="text-blue-700 font-medium text-sm">
+          Loading your dashboard. Please wait...
+        </p>
+      </div>
+    </div>
+  } @else {
+    <!-- Title -->
+    <div class="flex justify-between items-center flex-wrap gap-2">
+      <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800">
+        Dashboard
+      </h2>
+      <!-- Add filters or username here if needed -->
     </div>
 
-    <div
-      class="bg-green-100 text-green-800 rounded-xl p-4 sm:p-5 shadow hover:shadow-md transition duration-200"
-    >
-      <h4 class="text-xs sm:text-sm font-medium">Active URLs</h4>
-      <p class="text-2xl sm:text-3xl font-bold mt-1 sm:mt-2">
-        {{ dashboardData().activeUrls }}
-      </p>
+    <!-- Stat Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6">
+      <div
+        class="bg-blue-100 text-blue-800 rounded-xl p-4 sm:p-5 shadow hover:shadow-md transition duration-200"
+      >
+        <h4 class="text-xs sm:text-sm font-medium">Total URL Links</h4>
+        <p class="text-2xl sm:text-3xl font-bold mt-1 sm:mt-2">
+          {{ dashboardData().totalUrlLinks }}
+        </p>
+      </div>
+
+      <div
+        class="bg-green-100 text-green-800 rounded-xl p-4 sm:p-5 shadow hover:shadow-md transition duration-200"
+      >
+        <h4 class="text-xs sm:text-sm font-medium">Active URLs</h4>
+        <p class="text-2xl sm:text-3xl font-bold mt-1 sm:mt-2">
+          {{ dashboardData().activeUrls }}
+        </p>
+      </div>
+
+      <div
+        class="bg-yellow-100 text-yellow-800 rounded-xl p-4 sm:p-5 shadow hover:shadow-md transition duration-200"
+      >
+        <h4 class="text-xs sm:text-sm font-medium">Most Clicked URL</h4>
+        <p class="text-xs sm:text-sm mt-1 sm:mt-2 font-semibold truncate">
+          {{ dashboardData().mostClickedUrl }}
+        </p>
+      </div>
+
+      <div
+        class="bg-red-100 text-red-800 rounded-xl p-4 sm:p-5 shadow hover:shadow-md transition duration-200"
+      >
+        <h4 class="text-xs sm:text-sm font-medium">Expired URLs</h4>
+        <p class="text-2xl sm:text-3xl font-bold mt-1 sm:mt-2">
+          {{ dashboardData().expiredUrls }}
+        </p>
+      </div>
     </div>
 
-    <div
-      class="bg-yellow-100 text-yellow-800 rounded-xl p-4 sm:p-5 shadow hover:shadow-md transition duration-200"
-    >
-      <h4 class="text-xs sm:text-sm font-medium">Most Clicked URL</h4>
-      <p class="text-xs sm:text-sm mt-1 sm:mt-2 font-semibold truncate">
-        {{ dashboardData().mostClickedUrl }}
-      </p>
-    </div>
+    <!-- Table Section -->
+    <div class="overflow-x-auto shadow rounded-xl">
+      <div class="p-4">
+        <h3 class="text-base sm:text-lg font-semibold">Recent Visits</h3>
+      </div>
 
-    <div
-      class="bg-red-100 text-red-800 rounded-xl p-4 sm:p-5 shadow hover:shadow-md transition duration-200"
-    >
-      <h4 class="text-xs sm:text-sm font-medium">Expired URLs</h4>
-      <p class="text-2xl sm:text-3xl font-bold mt-1 sm:mt-2">
-        {{ dashboardData().expiredUrls }}
-      </p>
+      <table
+        class="min-w-full text-xs sm:text-sm text-left text-gray-700 bg-white"
+      >
+        <thead class="bg-blue-600 text-white text-[10px] sm:text-xs uppercase">
+          <tr>
+            <th class="px-4 sm:px-6 py-3 whitespace-nowrap">IP Address</th>
+            <th class="px-4 sm:px-6 py-3 whitespace-nowrap">Original URL</th>
+            <th class="px-4 sm:px-6 py-3 whitespace-nowrap">Shortened</th>
+            <th class="px-4 sm:px-6 py-3 whitespace-nowrap">Clicks</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+          @if (pagedData().length === 0) {
+            <tr class="hover:bg-gray-50 transition">
+              <td class="px-4 sm:px-6 py-4 font-medium" colspan="4">
+                No recent visits yet
+              </td>
+            </tr>
+          } @else {
+            @for (row of pagedData(); track row.id) {
+              <tr class="hover:bg-gray-50 transition">
+                <td class="px-4 sm:px-6 py-4 font-medium">
+                  {{ row.ipAddress }}
+                </td>
+                <td
+                  class="px-4 sm:px-6 py-4 truncate max-w-[180px] sm:max-w-[250px]"
+                >
+                  {{ row.originalUrl }}
+                </td>
+                <td
+                  class="px-4 sm:px-6 py-4 text-blue-600 underline cursor-pointer"
+                >
+                  <a [href]="row.shortenedUrl">
+                    {{ row.shortenedUrl }}
+                  </a>
+                </td>
+                <td class="px-4 sm:px-6 py-4">
+                  {{ row.numberOfClicks }}
+                </td>
+              </tr>
+            }
+          }
+        </tbody>
+      </table>
     </div>
-  </div>
-
-  <!-- Table Section -->
-  <div class="overflow-x-auto shadow rounded-xl">
-    <div class="p-4">
-      <h3 class="text-base sm:text-lg font-semibold">Recent Visits</h3>
-    </div>
-
-    <table
-      class="min-w-full text-xs sm:text-sm text-left text-gray-700 bg-white"
-    >
-      <thead class="bg-blue-600 text-white text-[10px] sm:text-xs uppercase">
-        <tr>
-          <th class="px-4 sm:px-6 py-3 whitespace-nowrap">IP Address</th>
-          <th class="px-4 sm:px-6 py-3 whitespace-nowrap">Original URL</th>
-          <th class="px-4 sm:px-6 py-3 whitespace-nowrap">Shortened</th>
-          <th class="px-4 sm:px-6 py-3 whitespace-nowrap">Clicks</th>
-        </tr>
-      </thead>
-      <tbody class="divide-y divide-gray-200">
-        @if(pagedData().length === 0){
-        <tr class="hover:bg-gray-50 transition">
-          <td class="px-4 sm:px-6 py-4 font-medium" colspan="4">
-            No recent visits yet
-          </td>
-        </tr>
-        }@else{ @for(row of pagedData(); track row.id){
-        <tr class="hover:bg-gray-50 transition">
-          <td class="px-4 sm:px-6 py-4 font-medium">
-            {{ row.ipAddress }}
-          </td>
-          <td class="px-4 sm:px-6 py-4 truncate max-w-[180px] sm:max-w-[250px]">
-            {{ row.originalUrl }}
-          </td>
-          <td class="px-4 sm:px-6 py-4 text-blue-600 underline cursor-pointer">
-            <a [href]="row.shortenedUrl">
-              {{ row.shortenedUrl }}
-            </a>
-          </td>
-          <td class="px-4 sm:px-6 py-4">
-            {{ row.numberOfClicks }}
-          </td>
-        </tr>
-        } }
-      </tbody>
-    </table>
-  </div>
   }
 </section>

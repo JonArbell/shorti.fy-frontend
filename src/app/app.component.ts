@@ -16,13 +16,14 @@ import { ExpiredUrlService } from './services/expired-url/expired-url.service';
 })
 export class AppComponent {
   isAuthenticated!: Signal<boolean>;
-
+  isLoggingOut!: Signal<boolean>;
   constructor(
     private authService: AuthService,
-    private expiredUrlService: ExpiredUrlService
+    private expiredUrlService: ExpiredUrlService,
   ) {
     this.isAuthenticated = this.authService.isAuthenticated;
     this.isRouteInExpiredUrl = this.expiredUrlService.isRouteInExpiredUrl;
+    this.isLoggingOut = this.authService.isLoggingOut;
   }
 
   isRouteInExpiredUrl!: Signal<boolean>;

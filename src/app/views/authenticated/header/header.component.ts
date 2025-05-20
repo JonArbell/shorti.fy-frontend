@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, signal } from '@angular/core';
 import { AuthService } from '../../../services/authentication/auth.service';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
