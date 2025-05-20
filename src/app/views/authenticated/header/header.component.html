@@ -1,15 +1,37 @@
 <header
-  id="header"
-  class="bg-white shadow-md py-4 px-6 flex items-center justify-between fixed top-0 w-full sm:relative sm:transform-none transition-all duration-300 z-10"
+  class="bg-white shadow-md px-4 sm:px-6 py-3 flex items-center justify-between fixed top-0 left-0 right-0 w-full z-30 sm:relative transition-all duration-300"
 >
-  <h1 class="text-xl font-bold text-blue-600 italic">Shorti.fy</h1>
-  <!-- Mobile logout button -->
-  <div class="md:hidden flex justify-end items-center px-4 py-2">
+  <!-- Logo & Brand -->
+  <div class="flex items-center space-x-2">
+    <img
+      src="/shortify-logo.png"
+      alt="Logo"
+      class="h-8 w-8 sm:h-10 sm:w-10 object-contain"
+    />
+    <h1 class="text-lg sm:text-xl font-bold text-blue-600 italic tracking-wide">
+      Shorti.fy
+    </h1>
+  </div>
+
+  <!-- Mobile Logout Button -->
+  <div class="md:hidden">
     <button
       (click)="logout()"
-      class="text-red-400 hover:text-red-600 text-sm font-medium transition"
+      class="text-sm font-medium text-red-400 hover:text-red-600 transition"
     >
       Logout
     </button>
   </div>
+
+  <!-- Desktop Logout Button (Optional if needed) -->
+  <!--
+  <div class="hidden md:block">
+    <button
+      (click)="logout()"
+      class="text-sm font-medium text-red-500 hover:text-red-700 transition"
+    >
+      Logout
+    </button>
+  </div>
+  -->
 </header>
