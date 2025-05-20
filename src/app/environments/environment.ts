@@ -1,5 +1,5 @@
 const domain = () => {
-  return 'http://192.168.110.242:8080';
+  return 'https://sfy-26g9.onrender.com';
 };
 
 export const environment = {
