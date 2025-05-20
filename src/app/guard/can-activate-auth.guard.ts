@@ -19,12 +19,26 @@ export const canActivateAuthGuard: CanActivateFn = (route, state) => {
         return true;
       }
 
-      Swal.fire({
-        icon: 'error',
-        title: 'Access Denied',
-        text: "You're not allowed to access this page.",
-        confirmButtonText: 'Go Back',
-      });
+      if (isExpired) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Session Expired',
+          text: 'Your session has expired. Please log in again to continue.',
+          confirmButtonText: 'Log In',
+          allowOutsideClick: false,
+        }).then(() => {
+          // Redirect to login or clear session
+          authService.removeAuth();
+        });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Access Denied',
+          text: "You don't have permission to access this page.",
+          confirmButtonText: 'Go Back',
+          allowOutsideClick: false,
+        });
+      }
 
       authService.removeAuth();
       return false;
