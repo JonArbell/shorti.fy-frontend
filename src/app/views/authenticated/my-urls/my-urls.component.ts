@@ -25,13 +25,15 @@ export class MyUrlsComponent implements OnInit {
     private myUrlService: MyUrlsService,
     private dialog: MatDialog,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
   ) {}
   openUpdateUrlDialog(id: number) {
     const dialogRef = this.dialog.open(UpdateUrlFormComponent, {
       width: '400px',
     });
 
+    this.isUpdatingUrl.set(true);
+    this.isGettingUrlForUpdate.set(true);
     this.router.navigate([], {
       relativeTo: this.activatedRoute,
       queryParams: { updateUrlId: id },
@@ -57,10 +59,16 @@ export class MyUrlsComponent implements OnInit {
       } else {
         this.removeQueryParam();
       }
+
+      this.isUpdatingUrl.set(false);
+      this.isGettingUrlForUpdate.set(false);
     });
   }
 
+  isGettingUrlForUpdate = signal<boolean>(false);
+
   openViewFullInfoUrlDialog(id: number) {
+    this.isGettingUrlFullInfo.set(true);
     this.router.navigate([], {
       relativeTo: this.activatedRoute,
       queryParams: { viewFullInfo: id },
@@ -71,21 +79,32 @@ export class MyUrlsComponent implements OnInit {
     this.getUrlFullInfo(id);
   }
 
-  getUrlFullInfo(id: number): void {
-    this.myUrlService.getUrlById(id).subscribe({
-      next: (response: UrlResponseDto) => {
-        const dialog = this.dialog.open(ViewFullInfoComponent, {
-          maxWidth: '90vw', // responsive max width
-          width: '100%', // take full width up to maxWidth
-          panelClass: 'responsive-dialog', // custom class for fine-tuning
-          data: response,
-        });
+  isGettingUrlFullInfo = signal<boolean>(false);
 
-        dialog.afterClosed().subscribe(() => {
-          this.removeQueryParam();
-        });
-      },
-    });
+  isUpdatingUrl = signal<boolean>(false);
+
+  getUrlFullInfo(id: number): void {
+    this.myUrlService
+      .getUrlById(id)
+      .pipe(
+        finalize(() => {
+          this.isGettingUrlFullInfo.set(false);
+        }),
+      )
+      .subscribe({
+        next: (response: UrlResponseDto) => {
+          const dialog = this.dialog.open(ViewFullInfoComponent, {
+            maxWidth: '90vw', // responsive max width
+            width: '100%', // take full width up to maxWidth
+            panelClass: 'responsive-dialog', // custom class for fine-tuning
+            data: response,
+          });
+
+          dialog.afterClosed().subscribe(() => {
+            this.removeQueryParam();
+          });
+        },
+      });
   }
 
   removeQueryParam(): void {
@@ -97,19 +116,18 @@ export class MyUrlsComponent implements OnInit {
   }
 
   updateUrl(result: UpdateUrlRequestDto): void {
-    this.isLoading.set(true);
-
     console.log(result);
 
     if (result.maxClick === null) result.maxClick = 0;
-
+    this.isUpdatingUrl.set(true);
     this.myUrlService
       .updateUrl(result)
       .pipe(
         finalize(() => {
-          this.isLoading.set(false);
+          this.isUpdatingUrl.set(false);
           this.removeQueryParam();
-        })
+          this.getUrls();
+        }),
       )
       .subscribe({
         next: () => {
@@ -124,8 +142,6 @@ export class MyUrlsComponent implements OnInit {
             background: '#f0fdf4', // light green background
             color: '#15803d', // green text
           });
-
-          this.getUrls();
         },
         error: (err) => {
           Swal.fire({
@@ -158,7 +174,7 @@ export class MyUrlsComponent implements OnInit {
       .pipe(
         finalize(() => {
           this.isLoading.set(false);
-        })
+        }),
       )
       .subscribe({
         next: (response: MyUrl[]) => {
@@ -211,6 +227,8 @@ export class MyUrlsComponent implements OnInit {
     return this.urls.slice(start, start + this.pageSize);
   }
 
+  isDeletingUrl = signal<boolean>(false);
+
   showDeleteModal(id: number): void {
     Swal.fire({
       icon: 'warning',
@@ -223,7 +241,7 @@ export class MyUrlsComponent implements OnInit {
       cancelButtonText: 'Cancel',
     }).then((result) => {
       if (result.isConfirmed) {
-        // Call your delete method here
+        this.isDeletingUrl.set(true);
         this.deleteUrl(id);
       }
     });
@@ -232,43 +250,48 @@ export class MyUrlsComponent implements OnInit {
   deleteUrl(id: number): void {
     this.isLoading.set(true);
 
-    this.myUrlService.deleteUrl(id).subscribe({
-      next: () => {
-        Swal.fire({
-          icon: 'success',
-          title: 'URL Removed 🗑️',
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          background: '#f0fdf4', // soft green background
-          color: '#15803d', // green text
-        });
+    this.myUrlService
+      .deleteUrl(id)
+      .pipe(
+        finalize(() => {
+          this.isDeletingUrl.set(false);
+          this.getUrls();
+        }),
+      )
+      .subscribe({
+        next: () => {
+          Swal.fire({
+            icon: 'success',
+            title: 'URL Removed 🗑️',
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            background: '#f0fdf4', // soft green background
+            color: '#15803d', // green text
+          });
+        },
+        error: (error) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Whoops 😬',
+            text:
+              error?.error?.message ||
+              'Failed to delete the URL. Please try again.',
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            background: '#fef2f2', // soft red background
+            color: '#b91c1c', // red text
+          });
 
-        this.getUrls();
-        this.isLoading.set(false);
-      },
-      error: (error) => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Whoops 😬',
-          text:
-            error?.error?.message ||
-            'Failed to delete the URL. Please try again.',
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          background: '#fef2f2', // soft red background
-          color: '#b91c1c', // red text
-        });
-
-        console.error('Delete error:', error);
-        this.isLoading.set(false);
-      },
-    });
+          console.error('Delete error:', error);
+          this.isLoading.set(false);
+        },
+      });
   }
 
   // Go to next page

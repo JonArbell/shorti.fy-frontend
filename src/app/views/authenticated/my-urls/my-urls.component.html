@@ -4,7 +4,102 @@
   }"
   class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8 flex flex-col"
 >
-  @if (isLoading()) {
+  @if (isGettingUrlFullInfo()) {
+    <div
+      class="fixed inset-0 bg-white bg-opacity-70 flex items-center justify-center z-50"
+    >
+      <div class="flex flex-col items-center space-y-4">
+        <svg
+          class="animate-spin h-10 w-10 text-blue-600"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            class="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            stroke-width="4"
+          ></circle>
+          <path
+            class="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+          ></path>
+        </svg>
+        <p class="text-blue-700 font-medium text-sm">
+          Getting Url Full Info. Please wait...
+        </p>
+      </div>
+    </div>
+  } @else if (isUpdatingUrl()) {
+    <div
+      class="fixed inset-0 bg-white bg-opacity-70 flex items-center justify-center z-50"
+    >
+      <div class="flex flex-col items-center space-y-4">
+        <svg
+          class="animate-spin h-10 w-10 text-blue-600"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            class="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            stroke-width="4"
+          ></circle>
+          <path
+            class="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+          ></path>
+        </svg>
+        <p class="text-blue-700 font-medium text-sm">
+          {{
+            isGettingUrlForUpdate()
+              ? "Loading this Url. Please wait..."
+              : "Updating this Url. Please wait..."
+          }}
+        </p>
+      </div>
+    </div>
+  } @else if (isDeletingUrl()) {
+    <div
+      class="fixed inset-0 bg-white bg-opacity-70 flex items-center justify-center z-50"
+    >
+      <div class="flex flex-col items-center space-y-4">
+        <svg
+          class="animate-spin h-10 w-10 text-blue-600"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            class="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            stroke-width="4"
+          ></circle>
+          <path
+            class="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+          ></path>
+        </svg>
+        <p class="text-blue-700 font-medium text-sm">
+          Deleting this Url. Please wait...
+        </p>
+      </div>
+    </div>
+
+  } @else if (isLoading()) {
     <div
       class="fixed inset-0 bg-white bg-opacity-70 flex items-center justify-center z-50"
     >
