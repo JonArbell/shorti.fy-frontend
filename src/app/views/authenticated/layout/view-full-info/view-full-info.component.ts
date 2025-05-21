@@ -20,7 +20,7 @@ import { environment } from '../../../../environments/environment';
 export class ViewFullInfoComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<ViewFullInfoComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: UrlResponseDto
+    @Inject(MAT_DIALOG_DATA) public data: UrlResponseDto,
   ) {}
   ngOnInit(): void {
     this.urlFullInfo.set(this.data);
