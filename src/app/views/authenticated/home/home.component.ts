@@ -5,6 +5,7 @@ import { HomeService } from './home.service';
 import { ShortenUrlRequest } from '../../../dto/url.dto';
 import Swal from 'sweetalert2';
 import { environment } from '../../../environments/environment';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -38,53 +39,61 @@ export class HomeComponent {
 
     if (this.requestDto().maxClick === null) this.requestDto().maxClick = 0;
 
-    this.homeService.shortenUrl(this.requestDto()).subscribe({
-      next: (response: any) => {
-        // Success toast
-        Swal.fire({
-          icon: 'success',
-          title: 'URL Shortened 🎉',
-          text: 'Short link copied to clipboard!',
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          background: '#f0fdf4',
-          color: '#15803d',
-        });
+    this.homeService
+      .shortenUrl(this.requestDto())
+      .pipe(
+        finalize(() => {
+          this.requestDto.set({
+            maxClick: null,
+            originalUrl: '',
+            password: '',
+            expirationDate: null,
+          });
 
-        navigator.clipboard.writeText(`${this.domain()}/${response.shortUrl}`);
+          this.isLoading.set(false);
+          this.isAdvancedOptionsClicked.set(false);
+        }),
+      )
+      .subscribe({
+        next: (response: any) => {
+          // Success toast
+          Swal.fire({
+            icon: 'success',
+            title: 'URL Shortened 🎉',
+            text: 'Short link copied to clipboard!',
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            background: '#f0fdf4',
+            color: '#15803d',
+          });
 
-        this.isLoading.set(false);
-        this.result.set(response.shortUrl);
-        this.isAdvancedOptionsClicked.set(false);
+          navigator.clipboard.writeText(
+            `${this.domain()}/${response.shortUrl}`,
+          );
 
-        this.requestDto.set({
-          maxClick: null,
-          originalUrl: '',
-          password: '',
-          expirationDate: null,
-        });
-      },
-      error: (err: any) => {
-        // Error toast
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops! Something went wrong 😬',
-          text: err?.error?.message || 'Invalid URL format. Try again.',
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          background: '#fef2f2',
-          color: '#b91c1c',
-        });
+          this.result.set(response.shortUrl);
+        },
+        error: (err: any) => {
+          // Error toast
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops! Something went wrong 😬',
+            text: err?.error?.message || 'Invalid URL format. Try again.',
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            background: '#fef2f2',
+            color: '#b91c1c',
+          });
 
-        this.isLoading.set(false);
-      },
-    });
+          this.isLoading.set(false);
+        },
+      });
   }
 
   showAdvancedOptions = signal<boolean>(false);
