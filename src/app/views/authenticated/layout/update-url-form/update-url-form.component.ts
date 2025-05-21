@@ -15,6 +15,7 @@ import {
 import { MyUrlsService } from '../../my-urls/my-urls.service';
 import { ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-update-url-form',
@@ -24,6 +25,7 @@ import { take } from 'rxjs';
     MatInputModule,
     MatButtonModule,
     FormsModule,
+    CommonModule,
   ],
   templateUrl: './update-url-form.component.html',
   styleUrls: ['update-url-form-component.css'],
@@ -40,7 +42,7 @@ export class UpdateUrlFormComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<UpdateUrlFormComponent>,
     private myUrlService: MyUrlsService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
